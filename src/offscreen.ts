@@ -1,5 +1,7 @@
 import { createWorker, OEM, PSM, type Worker as TesseractWorker } from 'tesseract.js';
 import { errorMessage, isEnvelope, type Pair, type Progress, SAMPLE_TEXT } from './protocol';
+import { imageStore } from './image-store';
+import { assertDimensions, inspectRaster } from './image-policy';
 
 let ocr: TesseractWorker | null = null;
 let translationWorker: globalThis.Worker | null = null;
@@ -60,10 +62,23 @@ async function readSample(jobId: string, language: 'eng' | 'ind') {
     return { text: data.text.trim(), confidence: data.confidence / 100, lines: lines.map(line => ({ text: line.text.trim(), confidence: line.confidence / 100, box: { x: line.bbox.x0, y: line.bbox.y0, width: line.bbox.x1 - line.bbox.x0, height: line.bbox.y1 - line.bbox.y0 } })), imageWidth: canvas.width, imageHeight: canvas.height, language, elapsedMs: Math.round(performance.now() - started) };
   } finally { await ocr?.terminate(); ocr = null; }
 }
+async function inspectImage(jobId: string) {
+  let bitmap: ImageBitmap | null = null;
+  try {
+    const blob = await imageStore.get(jobId);
+    if (!blob) throw new Error('The staged image expired. Click Translate again.');
+    const bytes = new Uint8Array(await blob.arrayBuffer());
+    const raster = inspectRaster(bytes, blob.type);
+    bitmap = await createImageBitmap(blob);
+    assertDimensions(bitmap.width, bitmap.height);
+    const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', bytes));
+    return { width: bitmap.width, height: bitmap.height, byteLength: blob.size, mimeType: raster.mimeType, animated: raster.animated, sha256: Array.from(digest, byte => byte.toString(16).padStart(2, '0')).join(''), context: 'offscreen' };
+  } finally { bitmap?.close(); await imageStore.delete(jobId); }
+}
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (!isEnvelope(message, 'offscreen') || sender.id !== chrome.runtime.id || sender.tab) return;
   const jobId = String(message.jobId);
-  const task = message.type === 'RUN_OCR' ? readSample(jobId, message.language === 'ind' ? 'ind' : 'eng') : message.type === 'RUN_TRANSLATION' ? workerRequest('TRANSLATE', jobId, String(message.text), message.pair as Pair) : message.type === 'CHECK_GPU' ? workerRequest('CHECK_GPU', jobId) : message.type === 'UNLOAD' ? (translationWorker ? workerRequest('UNLOAD', jobId) : Promise.resolve({ released: true })) : null;
+  const task = message.type === 'INSPECT_IMAGE' ? inspectImage(jobId) : message.type === 'RUN_OCR' ? readSample(jobId, message.language === 'ind' ? 'ind' : 'eng') : message.type === 'RUN_TRANSLATION' ? workerRequest('TRANSLATE', jobId, String(message.text), message.pair as Pair) : message.type === 'CHECK_GPU' ? workerRequest('CHECK_GPU', jobId) : message.type === 'UNLOAD' ? (translationWorker ? workerRequest('UNLOAD', jobId) : Promise.resolve({ released: true })) : null;
   if (!task) return;
   task.then(result => sendResponse({ ok: true, result })).catch(error => sendResponse({ ok: false, error: errorMessage(error) }));
   return true;

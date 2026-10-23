@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .test-profile*/
+.test-extension*/
 .browser/
 test-results/
 *.log

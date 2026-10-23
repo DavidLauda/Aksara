@@ -1,6 +1,7 @@
 import { checkGpu } from './gpu';
 import { errorMessage, isEnvelope, PAIRS, type Pair, type Host, type Job, type Operation, type Progress } from './protocol';
 import * as translationModule from './translation';
+import { ImageAcquisition } from './image-acquisition';
 
 let active: Job | null = null;
 let latest: Job | null = null;
@@ -22,6 +23,13 @@ async function offscreen(type: string, job: Job, fields: Record<string, unknown>
   if (!response?.ok) throw new Error(response?.error || 'The OCR/inference context did not respond.');
   return response.result;
 }
+const images = new ImageAcquisition(() => Boolean(active) || needsReload, async id => {
+  await ensureOffscreen();
+  const response = await chrome.runtime.sendMessage({ schemaVersion: 1, target: 'offscreen', type: 'INSPECT_IMAGE', jobId: id });
+  if (!response?.ok) throw new Error(response?.error || 'The local image decoder did not respond.');
+  return response.result;
+}, () => recovered);
+chrome.runtime.onConnect.addListener(port => images.connect(port));
 function notify(job: Job) {
   void chrome.runtime.sendMessage({ schemaVersion: 1, target: 'diagnostics', type: 'JOB_UPDATED', job }).catch(() => {});
 }
@@ -107,7 +115,7 @@ async function handleUi(message: Record<string, unknown>, sendResponse: (respons
   if (message.type === 'GET_JOB') { sendResponse({ ok: true, job: latest }); return; }
   if (message.type !== 'START_JOB' || !operations.has(message.operation as Operation)) { sendResponse({ ok: false, error: 'INVALID_REQUEST' }); return; }
   if (needsReload) { sendResponse({ ok: false, error: 'RELOAD_REQUIRED: Reload the extension after the timed out inference job.' }); return; }
-  if (active) { sendResponse({ ok: false, error: 'BUSY: A diagnostic job is already running.' }); return; }
+  if (active || images.busy) { sendResponse({ ok: false, error: 'BUSY: An Aksara job is already running.' }); return; }
   const pair = message.operation === 'TRANSLATE_SAMPLE' && (message.pair === 'id-en' || message.pair === 'en-fr') ? message.pair as Pair : 'en-id';
   const job: Job = { id: crypto.randomUUID(), operation: message.operation as Operation, host: message.host === 'offscreen-worker' ? 'offscreen-worker' : 'service-worker', pair, state: 'running', progress: { stage: 'starting', fraction: null }, startedAt: Date.now() };
   active = latest = job;

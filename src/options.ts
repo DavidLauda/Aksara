@@ -35,7 +35,7 @@ chrome.runtime.onMessage.addListener((message, sender) => {
   if (sender.id === chrome.runtime.id && isEnvelope(message, 'diagnostics') && message.type === 'JOB_UPDATED') show(message.job as Job);
 });
 document.querySelector('#export')!.addEventListener('click', () => {
-  const url = URL.createObjectURL(new Blob([JSON.stringify({ version: '0.1.0', generatedAt: new Date().toISOString(), jobs: reports.length ? reports : [current] }, null, 2)], { type: 'application/json' }));
+  const url = URL.createObjectURL(new Blob([JSON.stringify({ version: chrome.runtime.getManifest().version, generatedAt: new Date().toISOString(), jobs: reports.length ? reports : [current] }, null, 2)], { type: 'application/json' }));
   const link = document.createElement('a'); link.href = url; link.download = 'aksara-diagnostics.json'; link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
