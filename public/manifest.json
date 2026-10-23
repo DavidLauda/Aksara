@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Aksara",
+  "version": "0.1.0",
+  "description": "Translate image text privately on your device. Phase 1 feasibility build.",
+  "minimum_chrome_version": "124",
+  "permissions": ["storage", "offscreen", "unlimitedStorage", "activeTab", "scripting"],
+  "host_permissions": ["https://huggingface.co/*", "https://*.huggingface.co/*", "https://*.hf.co/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_popup": "popup.html", "default_title": "Aksara" },
+  "options_page": "options.html",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; worker-src 'self'; connect-src 'self' https://huggingface.co https://*.huggingface.co https://*.hf.co;"
+  }
+}

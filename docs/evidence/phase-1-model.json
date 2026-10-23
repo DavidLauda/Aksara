@@ -1,0 +1,479 @@
+{
+  "generatedAt": "2026-10-17T14:22:41.050Z",
+  "modelTest": true,
+  "browser": "156.0.8078.4",
+  "hardware": {
+    "platform": "win32",
+    "cpu": "AMD Ryzen 5 5600H with Radeon Graphics         ",
+    "totalMemoryBytes": 16477155328
+  },
+  "memory": {
+    "peakProcessPrivateBytes": 7626289152,
+    "peakProcessWorkingSetBytes": 9535348736,
+    "note": "Aggregate isolated-browser process measurements; excludes dedicated GPU VRAM and may count shared resident pages more than once."
+  },
+  "jobs": [
+    {
+      "id": "55bc64b5-2a81-4f46-855c-3b8bba5e98cf",
+      "operation": "CHECK_GPU",
+      "host": "service-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792246961394,
+      "result": {
+        "serviceWorker": {
+          "available": true,
+          "computeResult": 42,
+          "adapter": {
+            "vendor": "amd",
+            "architecture": "gcn-5",
+            "description": ""
+          },
+          "shaderF16": true,
+          "limits": {
+            "maxBufferSize": 2147483648,
+            "maxStorageBufferBindingSize": 2147483644
+          },
+          "storage": {
+            "quota": 5617417724,
+            "usage": 2183871996,
+            "usageDetails": {
+              "caches": 2183308032,
+              "serviceWorkerRegistrations": 563964
+            }
+          },
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+        },
+        "offscreenWorker": {
+          "available": true,
+          "computeResult": 42,
+          "adapter": {
+            "vendor": "amd",
+            "architecture": "gcn-5",
+            "description": ""
+          },
+          "shaderF16": true,
+          "limits": {
+            "maxBufferSize": 2147483648,
+            "maxStorageBufferBindingSize": 2147483644
+          },
+          "storage": {
+            "quota": 5617413628,
+            "usage": 2183871996,
+            "usageDetails": {
+              "caches": 2183308032,
+              "serviceWorkerRegistrations": 563964
+            }
+          },
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+        }
+      },
+      "elapsedMs": 199
+    },
+    {
+      "id": "8883b0c8-d949-4a99-9aa7-124461d8e1c0",
+      "operation": "OCR_SAMPLE",
+      "host": "service-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792246962843,
+      "result": {
+        "text": "Open the door.",
+        "confidence": 0.95,
+        "lines": [
+          {
+            "text": "Open the door.",
+            "confidence": 0.95,
+            "box": {
+              "x": 43,
+              "y": 63,
+              "width": 415,
+              "height": 60
+            }
+          }
+        ],
+        "imageWidth": 1000,
+        "imageHeight": 180,
+        "language": "eng",
+        "elapsedMs": 267
+      },
+      "elapsedMs": 268
+    },
+    {
+      "id": "f5b95b2d-1338-41c2-8643-edcf2561a34f",
+      "operation": "OCR_SAMPLE",
+      "host": "service-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792246964248,
+      "result": {
+        "text": "Buka pintunya.",
+        "confidence": 0.95,
+        "lines": [
+          {
+            "text": "Buka pintunya.",
+            "confidence": 0.96,
+            "box": {
+              "x": 45,
+              "y": 64,
+              "width": 413,
+              "height": 60
+            }
+          }
+        ],
+        "imageWidth": 1000,
+        "imageHeight": 180,
+        "language": "ind",
+        "elapsedMs": 218
+      },
+      "elapsedMs": 220
+    },
+    {
+      "id": "005ef10d-43b8-4b7a-9e56-fd8648401cc5",
+      "operation": "PIPELINE_SAMPLE",
+      "host": "service-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792246965576,
+      "result": {
+        "ocr": {
+          "text": "Open the door.",
+          "confidence": 0.95,
+          "lines": [
+            {
+              "text": "Open the door.",
+              "confidence": 0.95,
+              "box": {
+                "x": 43,
+                "y": 63,
+                "width": 415,
+                "height": 60
+              }
+            }
+          ],
+          "imageWidth": 1000,
+          "imageHeight": 180,
+          "language": "eng",
+          "elapsedMs": 260
+        },
+        "translation": {
+          "sourceText": "Open the door.",
+          "translatedText": "Buka pintunya.",
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "dtype": "q8",
+          "model": "Xenova/nllb-200-distilled-600M",
+          "cold": true,
+          "cache": {
+            "cache": "aksara-nllb-261c31d1a5732c67cdd16d80e8d6088507c7ccea-q8",
+            "totalBytes": 911962632,
+            "downloadedBytes": 0,
+            "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea"
+          },
+          "timing": {
+            "cacheMs": 42,
+            "loadMs": 4640,
+            "inferenceMs": 9905
+          }
+        }
+      },
+      "elapsedMs": 14849
+    },
+    {
+      "id": "9828c3b3-d0f7-4465-85ac-368a7f404090",
+      "operation": "TRANSLATE_SAMPLE",
+      "host": "service-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792246981148,
+      "result": {
+        "sourceText": "Open the door.",
+        "translatedText": "Buka pintunya.",
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "dtype": "q8",
+        "model": "Xenova/nllb-200-distilled-600M",
+        "cold": false,
+        "cache": {
+          "cache": "aksara-nllb-261c31d1a5732c67cdd16d80e8d6088507c7ccea-q8",
+          "totalBytes": 911962632,
+          "downloadedBytes": 0,
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea"
+        },
+        "timing": {
+          "cacheMs": 32,
+          "loadMs": 0,
+          "inferenceMs": 8267
+        }
+      },
+      "elapsedMs": 8300
+    },
+    {
+      "id": "65833f59-542f-464c-97e3-14a7a71bda9b",
+      "operation": "TRANSLATE_SAMPLE",
+      "host": "service-worker",
+      "pair": "id-en",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792246989477,
+      "result": {
+        "sourceText": "Buka pintunya.",
+        "translatedText": "Open the door.",
+        "sourceLanguage": "ind_Latn",
+        "targetLanguage": "eng_Latn",
+        "dtype": "q8",
+        "model": "Xenova/nllb-200-distilled-600M",
+        "cold": false,
+        "cache": {
+          "cache": "aksara-nllb-261c31d1a5732c67cdd16d80e8d6088507c7ccea-q8",
+          "totalBytes": 911962632,
+          "downloadedBytes": 0,
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea"
+        },
+        "timing": {
+          "cacheMs": 23,
+          "loadMs": 0,
+          "inferenceMs": 8327
+        }
+      },
+      "elapsedMs": 8350
+    },
+    {
+      "id": "81ec6fc2-3fd2-4180-8cb0-c5dd61f52f8a",
+      "operation": "TRANSLATE_SAMPLE",
+      "host": "service-worker",
+      "pair": "en-fr",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792246997855,
+      "result": {
+        "sourceText": "Open the door.",
+        "translatedText": "Ouvrez la porte.",
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "fra_Latn",
+        "dtype": "q8",
+        "model": "Xenova/nllb-200-distilled-600M",
+        "cold": false,
+        "cache": {
+          "cache": "aksara-nllb-261c31d1a5732c67cdd16d80e8d6088507c7ccea-q8",
+          "totalBytes": 911962632,
+          "downloadedBytes": 0,
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea"
+        },
+        "timing": {
+          "cacheMs": 34,
+          "loadMs": 0,
+          "inferenceMs": 10202
+        }
+      },
+      "elapsedMs": 10237
+    },
+    {
+      "id": "592ffc10-3d7d-43d6-9819-d3c1b4d7b8ca",
+      "operation": "PIPELINE_SAMPLE",
+      "host": "offscreen-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792247009334,
+      "result": {
+        "ocr": {
+          "text": "Open the door.",
+          "confidence": 0.95,
+          "lines": [
+            {
+              "text": "Open the door.",
+              "confidence": 0.95,
+              "box": {
+                "x": 43,
+                "y": 63,
+                "width": 415,
+                "height": 60
+              }
+            }
+          ],
+          "imageWidth": 1000,
+          "imageHeight": 180,
+          "language": "eng",
+          "elapsedMs": 266
+        },
+        "translation": {
+          "sourceText": "Open the door.",
+          "translatedText": "Buka pintunya.",
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "dtype": "q8",
+          "model": "Xenova/nllb-200-distilled-600M",
+          "cold": true,
+          "cache": {
+            "cache": "aksara-nllb-261c31d1a5732c67cdd16d80e8d6088507c7ccea-q8",
+            "totalBytes": 911962632,
+            "downloadedBytes": 0,
+            "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea"
+          },
+          "timing": {
+            "cacheMs": 39,
+            "loadMs": 4675,
+            "inferenceMs": 10742
+          }
+        }
+      },
+      "elapsedMs": 15801
+    },
+    {
+      "id": "f47ddfd0-5f73-45b3-85ae-859c78f12a0a",
+      "operation": "UNLOAD_MODEL",
+      "host": "offscreen-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792247025445,
+      "result": {
+        "released": true,
+        "note": "Model weights remain cached on disk."
+      },
+      "elapsedMs": 1
+    },
+    {
+      "id": "3b3acc42-504a-409a-9835-8fa65c165f8f",
+      "operation": "PIPELINE_SAMPLE",
+      "host": "offscreen-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792247025454,
+      "result": {
+        "ocr": {
+          "text": "Open the door.",
+          "confidence": 0.95,
+          "lines": [
+            {
+              "text": "Open the door.",
+              "confidence": 0.95,
+              "box": {
+                "x": 43,
+                "y": 63,
+                "width": 415,
+                "height": 60
+              }
+            }
+          ],
+          "imageWidth": 1000,
+          "imageHeight": 180,
+          "language": "eng",
+          "elapsedMs": 486
+        },
+        "translation": {
+          "sourceText": "Open the door.",
+          "translatedText": "Buka pintunya.",
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "dtype": "q8",
+          "model": "Xenova/nllb-200-distilled-600M",
+          "cold": true,
+          "cache": {
+            "cache": "aksara-nllb-261c31d1a5732c67cdd16d80e8d6088507c7ccea-q8",
+            "totalBytes": 911962632,
+            "downloadedBytes": 0,
+            "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea"
+          },
+          "timing": {
+            "cacheMs": 62,
+            "loadMs": 4632,
+            "inferenceMs": 10525
+          }
+        }
+      },
+      "elapsedMs": 15763
+    },
+    {
+      "id": "1d88edfc-e2ab-42a5-97a8-2369d20bf365",
+      "operation": "UNLOAD_MODEL",
+      "host": "offscreen-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792247041433,
+      "result": {
+        "released": true,
+        "note": "Model weights remain cached on disk."
+      },
+      "elapsedMs": 3
+    },
+    {
+      "id": "2f2268f5-dd17-4e15-b7b6-58a1ac5fb020",
+      "operation": "OCR_SAMPLE",
+      "host": "service-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792247043173,
+      "result": {
+        "text": "Open the door.",
+        "confidence": 0.95,
+        "lines": [
+          {
+            "text": "Open the door.",
+            "confidence": 0.95,
+            "box": {
+              "x": 43,
+              "y": 63,
+              "width": 415,
+              "height": 60
+            }
+          }
+        ],
+        "imageWidth": 1000,
+        "imageHeight": 180,
+        "language": "eng",
+        "elapsedMs": 313
+      },
+      "elapsedMs": 358
+    }
+  ],
+  "errors": [],
+  "remoteRequests": [],
+  "interruptedJobRecovered": true,
+  "ok": true
+}

@@ -1,0 +1,28 @@
+{
+  "name": "aksara",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Private, on-device image translation for Chrome.",
+  "scripts": {
+    "build": "tsc --noEmit && vite build && node scripts/package-assets.mjs",
+    "dev": "npm run build && vite build --watch --emptyOutDir=false",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node scripts/browser-smoke.mjs",
+    "test:model": "node scripts/browser-smoke.mjs --model"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "4.3.1",
+    "@noble/hashes": "2.4.0",
+    "@tesseract.js-data/eng": "1.0.0",
+    "@tesseract.js-data/ind": "1.0.0",
+    "tesseract.js": "7.0.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.1.32",
+    "@webgpu/types": "0.1.74",
+    "playwright": "1.64.1",
+    "typescript": "^5.9.3",
+    "vite": "8.3.4"
+  }
+}

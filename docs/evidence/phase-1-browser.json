@@ -1,0 +1,144 @@
+{
+  "generatedAt": "2026-10-17T14:19:40.376Z",
+  "modelTest": false,
+  "browser": "156.0.8078.4",
+  "hardware": {
+    "platform": "win32",
+    "cpu": "AMD Ryzen 5 5600H with Radeon Graphics         ",
+    "totalMemoryBytes": 16477155328
+  },
+  "memory": {
+    "peakProcessPrivateBytes": 0,
+    "peakProcessWorkingSetBytes": 0,
+    "note": "Aggregate isolated-browser process measurements; excludes dedicated GPU VRAM and may count shared resident pages more than once."
+  },
+  "jobs": [
+    {
+      "id": "9e86b353-0d83-4396-baee-3d10172699c2",
+      "operation": "CHECK_GPU",
+      "host": "service-worker",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792246780731,
+      "result": {
+        "serviceWorker": {
+          "available": true,
+          "computeResult": 42,
+          "adapter": {
+            "vendor": "amd",
+            "architecture": "gcn-5",
+            "description": ""
+          },
+          "shaderF16": true,
+          "limits": {
+            "maxBufferSize": 2147483648,
+            "maxStorageBufferBindingSize": 2147483644
+          },
+          "storage": {
+            "quota": 5630389060,
+            "usage": 2183871300,
+            "usageDetails": {
+              "caches": 2183308032,
+              "serviceWorkerRegistrations": 563268
+            }
+          },
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+        },
+        "offscreenWorker": {
+          "available": true,
+          "computeResult": 42,
+          "adapter": {
+            "vendor": "amd",
+            "architecture": "gcn-5",
+            "description": ""
+          },
+          "shaderF16": true,
+          "limits": {
+            "maxBufferSize": 2147483648,
+            "maxStorageBufferBindingSize": 2147483644
+          },
+          "storage": {
+            "quota": 5630389060,
+            "usage": 2183871300,
+            "usageDetails": {
+              "caches": 2183308032,
+              "serviceWorkerRegistrations": 563268
+            }
+          },
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+        }
+      },
+      "elapsedMs": 310
+    },
+    {
+      "id": "f7201973-a8cc-4873-adcb-5d45fd644df6",
+      "operation": "OCR_SAMPLE",
+      "host": "service-worker",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792246781758,
+      "result": {
+        "text": "Open the door.",
+        "confidence": 0.95,
+        "lines": [
+          {
+            "text": "Open the door.",
+            "confidence": 0.95,
+            "box": {
+              "x": 43,
+              "y": 63,
+              "width": 415,
+              "height": 60
+            }
+          }
+        ],
+        "imageWidth": 1000,
+        "imageHeight": 180,
+        "language": "eng",
+        "elapsedMs": 243
+      },
+      "elapsedMs": 244
+    },
+    {
+      "id": "bb9bea9f-01b2-4c1b-b1b9-0a3a7dc94ec1",
+      "operation": "OCR_SAMPLE",
+      "host": "service-worker",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792246782770,
+      "result": {
+        "text": "Buka pintunya.",
+        "confidence": 0.95,
+        "lines": [
+          {
+            "text": "Buka pintunya.",
+            "confidence": 0.96,
+            "box": {
+              "x": 45,
+              "y": 64,
+              "width": 413,
+              "height": 60
+            }
+          }
+        ],
+        "imageWidth": 1000,
+        "imageHeight": 180,
+        "language": "ind",
+        "elapsedMs": 187
+      },
+      "elapsedMs": 189
+    }
+  ],
+  "errors": [],
+  "remoteRequests": [],
+  "ok": true
+}
