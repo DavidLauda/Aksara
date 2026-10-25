@@ -1,0 +1,178 @@
+{
+  "generatedAt": "2026-10-25T16:41:42.578Z",
+  "phase": 4,
+  "browser": "156.0.8078.4",
+  "hardware": {
+    "platform": "win32",
+    "cpu": "AMD Ryzen 5 5600H with Radeon Graphics         ",
+    "totalMemoryBytes": 16477155328
+  },
+  "cases": [
+    {
+      "name": "explicit setup download preserves completed chunks through cancel and resume, then removes them",
+      "ok": true,
+      "elapsedMs": 59018,
+      "explicitButtonClick": true,
+      "initialPartialBytes": 34113594,
+      "resumedPartialBytes": 50890810,
+      "completedPartsReused": 1,
+      "resumedRanges": [
+        {
+          "origin": "https://huggingface.co",
+          "path": "/Xenova/nllb-200-distilled-600M/resolve/261c31d1a5732c67cdd16d80e8d6088507c7ccea/onnx/encoder_model_quantized.onnx",
+          "method": "GET",
+          "range": "bytes=16777216-33554431",
+          "bodyBytes": 0
+        },
+        {
+          "origin": "https://huggingface.co",
+          "path": "/Xenova/nllb-200-distilled-600M/resolve/261c31d1a5732c67cdd16d80e8d6088507c7ccea/onnx/encoder_model_quantized.onnx",
+          "method": "GET",
+          "range": "bytes=33554432-50331647",
+          "bodyBytes": 0
+        }
+      ],
+      "finalCachedBytes": 0,
+      "totalBytes": 911962632,
+      "partialAxeViolations": 0
+    }
+  ],
+  "errors": [],
+  "externalRequests": [
+    {
+      "origin": "https://huggingface.co",
+      "path": "/Xenova/nllb-200-distilled-600M/resolve/261c31d1a5732c67cdd16d80e8d6088507c7ccea/config.json",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/api/resolve-cache/models/Xenova/nllb-200-distilled-600M/261c31d1a5732c67cdd16d80e8d6088507c7ccea/config.json",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/Xenova/nllb-200-distilled-600M/resolve/261c31d1a5732c67cdd16d80e8d6088507c7ccea/generation_config.json",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/api/resolve-cache/models/Xenova/nllb-200-distilled-600M/261c31d1a5732c67cdd16d80e8d6088507c7ccea/generation_config.json",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/Xenova/nllb-200-distilled-600M/resolve/261c31d1a5732c67cdd16d80e8d6088507c7ccea/tokenizer.json",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://us.aws.cdn.hf.co",
+      "path": "/xet-bridge-us/64517b645fb40b9f50b43c09/18761a875b5fe0e2091fe1af33c9d084902f95f0a38d4cdb1d2fa411850a95dd",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/Xenova/nllb-200-distilled-600M/resolve/261c31d1a5732c67cdd16d80e8d6088507c7ccea/tokenizer_config.json",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/api/resolve-cache/models/Xenova/nllb-200-distilled-600M/261c31d1a5732c67cdd16d80e8d6088507c7ccea/tokenizer_config.json",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/Xenova/nllb-200-distilled-600M/resolve/261c31d1a5732c67cdd16d80e8d6088507c7ccea/special_tokens_map.json",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/api/resolve-cache/models/Xenova/nllb-200-distilled-600M/261c31d1a5732c67cdd16d80e8d6088507c7ccea/special_tokens_map.json",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/Xenova/nllb-200-distilled-600M/resolve/261c31d1a5732c67cdd16d80e8d6088507c7ccea/onnx/encoder_model_quantized.onnx",
+      "method": "GET",
+      "range": "bytes=0-16777215",
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://us.aws.cdn.hf.co",
+      "path": "/xet-bridge-us/64517b645fb40b9f50b43c09/2d291e975e27a76ab0a786e49148ca46b8177ffee21429941309f92016c300e3",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/Xenova/nllb-200-distilled-600M/resolve/261c31d1a5732c67cdd16d80e8d6088507c7ccea/onnx/encoder_model_quantized.onnx",
+      "method": "GET",
+      "range": "bytes=16777216-33554431",
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://us.aws.cdn.hf.co",
+      "path": "/xet-bridge-us/64517b645fb40b9f50b43c09/2d291e975e27a76ab0a786e49148ca46b8177ffee21429941309f92016c300e3",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/Xenova/nllb-200-distilled-600M/resolve/261c31d1a5732c67cdd16d80e8d6088507c7ccea/onnx/encoder_model_quantized.onnx",
+      "method": "GET",
+      "range": "bytes=16777216-33554431",
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://us.aws.cdn.hf.co",
+      "path": "/xet-bridge-us/64517b645fb40b9f50b43c09/2d291e975e27a76ab0a786e49148ca46b8177ffee21429941309f92016c300e3",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://huggingface.co",
+      "path": "/Xenova/nllb-200-distilled-600M/resolve/261c31d1a5732c67cdd16d80e8d6088507c7ccea/onnx/encoder_model_quantized.onnx",
+      "method": "GET",
+      "range": "bytes=33554432-50331647",
+      "bodyBytes": 0
+    },
+    {
+      "origin": "https://us.aws.cdn.hf.co",
+      "path": "/xet-bridge-us/64517b645fb40b9f50b43c09/2d291e975e27a76ab0a786e49148ca46b8177ffee21429941309f92016c300e3",
+      "method": "GET",
+      "range": null,
+      "bodyBytes": 0
+    }
+  ],
+  "screenshots": [
+    "translation-download-running.png",
+    "translation-download-partial.png",
+    "translation-download-resumed.png",
+    "translation-download-removed.png"
+  ],
+  "ok": true,
+  "note": "Explicit user-interface clicks downloaded real pinned Hugging Face assets into a separate disposable profile. The probe cancels after complete 16 MiB ranges, resumes missing ranges, cancels again and removes its partial cache. It does not redownload the whole model or touch .test-profile-current.",
+  "extensionVersion": "0.4.0"
+}

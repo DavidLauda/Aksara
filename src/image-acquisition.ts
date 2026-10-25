@@ -1,25 +1,44 @@
 import { IMAGE_LIMITS, ImageAcquisitionError, inspectRaster, validateImageUrl } from './image-policy';
 import { imageStore } from './image-store';
 import { isEnvelope, isRecord } from './protocol';
+import { LANGUAGE_SETTINGS_KEY, languageSettings, type LanguageSettings } from './languages';
+import { OCR_LIMITS } from './ocr-result';
+import { TRANSLATION_LIMITS } from './translation-result';
 
 type Snapshot = { imageId: string; kind: 'url' | 'inline'; url?: string; width: number; height: number };
 type Owner = { tabId: number; documentId: string; frameId: number; pageOrigin: string };
 type Acquisition = {
   id: string; requestId: string; imageId: string; owner: Owner; port: chrome.runtime.Port;
   snapshot: Snapshot; abort: AbortController; timer: ReturnType<typeof setTimeout>;
+  languages: LanguageSettings; heartbeat?: ReturnType<typeof setInterval>; progress?: { stage: string; fraction: number | null };
+  translating?: boolean;
   transferId?: string; bytes?: Uint8Array; offset: number; index: number; chunkCount: number;
 };
 const originPattern = (url: URL) => `${url.origin}/*`;
 
-/** One image acquisition across tabs. Binary data never travels in runtime JSON. */
+/** One page-image job across tabs. Only bounded base64 chunks cross runtime JSON. */
 export class ImageAcquisition {
+  readonly instanceId = crypto.randomUUID();
   private active: Acquisition | null = null;
   private preparing: { port: chrome.runtime.Port; requestId: string; cancelled: boolean } | null = null;
   private inspecting = 0;
   private ready = imageStore.clear();
 
-  constructor(private readonly isDiagnosticBusy: () => boolean, private readonly inspect: (id: string) => Promise<unknown>, private readonly startup: () => Promise<void>) {}
+  constructor(private readonly isDiagnosticBusy: () => boolean, private readonly inspect: (id: string, languages: LanguageSettings, signal: AbortSignal) => Promise<unknown>, private readonly startup: () => Promise<void>) {}
   get busy() { return this.preparing !== null || this.active !== null || this.inspecting > 0; }
+
+  progress(jobId: string, event: unknown) {
+    const job = this.active;
+    if (!job || job.id !== jobId || !isRecord(event) || !['decode', 'ocr_prepare', 'ocr', 'model_prepare', 'model_verify', 'translate'].includes(String(event.stage))) return;
+    if (!job.translating && ['model_prepare', 'model_verify', 'translate'].includes(String(event.stage))) {
+      job.translating = true;
+      clearTimeout(job.timer);
+      job.timer = setTimeout(() => this.stop(job, 'TRANSLATION_TIMEOUT', 'Local translation took too long. Close heavy tabs or try a smaller image.'), TRANSLATION_LIMITS.timeoutMs);
+    }
+    const fraction = typeof event.fraction === 'number' && Number.isFinite(event.fraction) ? Math.max(0, Math.min(1, event.fraction)) : null;
+    job.progress = { stage: String(event.stage), fraction };
+    this.post(job.port, { type: 'IMAGE_PROGRESS', requestId: job.requestId, jobId: job.id, ...job.progress });
+  }
 
   connect(port: chrome.runtime.Port) {
     if (port.name !== 'aksara-images') return;
@@ -33,7 +52,7 @@ export class ImageAcquisition {
   }
 
   private post(port: chrome.runtime.Port, fields: Record<string, unknown>) {
-    try { port.postMessage({ schemaVersion: 1, target: 'content', ...fields }); } catch { /* Document navigated or worker disconnected. */ }
+    try { port.postMessage({ schemaVersion: 1, target: 'content', workerInstanceId: this.instanceId, ...fields }); } catch { /* Document navigated or worker disconnected. */ }
   }
   private fail(port: chrome.runtime.Port, requestId: unknown, error: unknown) {
     const job = this.active;
@@ -44,7 +63,7 @@ export class ImageAcquisition {
   }
   private stop(job: Acquisition, code: string, userMessage: string) {
     if (this.active !== job) return;
-    this.active = null; clearTimeout(job.timer); job.abort.abort(); job.bytes = undefined;
+    this.active = null; clearTimeout(job.timer); clearInterval(job.heartbeat); job.abort.abort(); job.bytes = undefined;
     void imageStore.delete(job.id).catch(() => {});
     this.post(job.port, { type: 'IMAGE_ERROR', requestId: job.requestId, jobId: job.id, code, userMessage });
   }
@@ -79,13 +98,19 @@ export class ImageAcquisition {
       const preparation = { port, requestId, cancelled: false };
       this.preparing = preparation;
       let snapshot: Snapshot;
-      try { await this.ready; await this.startup(); snapshot = await this.snapshot(owner, requestId, value.imageId); }
+      let languages: LanguageSettings;
+      try {
+        await this.ready; await this.startup();
+        const saved = await chrome.storage.local.get(LANGUAGE_SETTINGS_KEY);
+        languages = languageSettings(saved[LANGUAGE_SETTINGS_KEY]);
+        snapshot = await this.snapshot(owner, requestId, value.imageId);
+      }
       finally { if (this.preparing === preparation) this.preparing = null; }
       if (preparation.cancelled) throw new ImageAcquisitionError('CANCELLED', 'Image preparation cancelled.');
       // The document may have cancelled while the authoritative snapshot was read.
       if (this.active || this.isDiagnosticBusy()) throw new ImageAcquisitionError('BUSY', 'Another Aksara job is running. Please retry.');
       const id = crypto.randomUUID();
-      const job: Acquisition = { id, requestId, imageId: value.imageId, owner, snapshot, port, abort: new AbortController(), timer: setTimeout(() => this.stop(job, 'IMAGE_TIMEOUT', 'Reading this image took too long. Please retry.'), IMAGE_LIMITS.timeoutMs), offset: 0, index: 0, chunkCount: 0 };
+      const job: Acquisition = { id, requestId, imageId: value.imageId, owner, snapshot, languages, port, abort: new AbortController(), timer: setTimeout(() => this.stop(job, 'IMAGE_TIMEOUT', 'Reading this image took too long. Please retry.'), IMAGE_LIMITS.timeoutMs), offset: 0, index: 0, chunkCount: 0 };
       this.active = job;
       this.post(port, { type: 'IMAGE_PROGRESS', requestId, jobId: id, stage: 'acquire' });
       if (snapshot.kind === 'inline') {
@@ -161,15 +186,19 @@ export class ImageAcquisition {
     await imageStore.put(job.id, new Blob([bytes as Uint8Array<ArrayBuffer>], { type: raster.mimeType }));
     this.assertActive(job);
     this.post(job.port, { type: 'IMAGE_PROGRESS', requestId: job.requestId, jobId: job.id, stage: 'decode' });
-    // createImageBitmap/digest cannot be interrupted mid-call. Keep the shared
-    // workload locked until they drain, even after a user cancellation.
+    clearTimeout(job.timer);
+    job.timer = setTimeout(() => this.stop(job, 'OCR_TIMEOUT', 'Reading the text took too long. Try a smaller image or check the source language.'), OCR_LIMITS.timeoutMs);
+    job.progress = { stage: 'decode', fraction: null };
+    // Messages keep this bounded OCR job alive; idle extensions have no heartbeat.
+    job.heartbeat = setInterval(() => this.progress(job.id, job.progress), 10_000);
+    // Hold the shared workload lock until a cancelled offscreen host has closed.
     let result: unknown;
     this.inspecting++;
-    try { result = await this.inspect(job.id); } finally { this.inspecting--; }
+    try { result = await this.inspect(job.id, job.languages, job.abort.signal); } finally { this.inspecting--; }
     this.assertActive(job);
     await this.snapshot(job.owner, job.requestId, job.imageId);
     this.assertActive(job);
-    this.active = null; clearTimeout(job.timer); job.bytes = undefined;
+    this.active = null; clearTimeout(job.timer); clearInterval(job.heartbeat); job.bytes = undefined;
     await imageStore.delete(job.id);
     this.post(job.port, { type: 'IMAGE_READY', requestId: job.requestId, jobId: job.id, image: result });
   }

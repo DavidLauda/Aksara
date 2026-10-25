@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-10-25T16:43:35.337Z",
+  "phase": 4,
+  "browser": "156.0.8078.4",
+  "hardware": {
+    "platform": "win32",
+    "cpu": "AMD Ryzen 5 5600H with Radeon Graphics         ",
+    "totalMemoryBytes": 16477155328
+  },
+  "cases": [
+    {
+      "name": "first-use model status and declined consent make no network request",
+      "ok": true,
+      "elapsedMs": 129,
+      "model": {
+        "ready": false,
+        "cachedBytes": 0,
+        "totalBytes": 911962632,
+        "missingBytes": 911962632,
+        "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+        "modelId": "Xenova/nllb-200-distilled-600M",
+        "dtype": "q8",
+        "cache": "aksara-nllb-261c31d1a5732c67cdd16d80e8d6088507c7ccea-q8"
+      },
+      "declinedConsent": "CONSENT_REQUIRED: Use the Download model button in Setup to allow the model download.",
+      "contentRequest": "UNAUTHORIZED_CONTEXT",
+      "remoteRequests": 0
+    },
+    {
+      "name": "page click without a model preserves OCR and requests setup without downloading",
+      "ok": true,
+      "elapsedMs": 1277,
+      "result": {
+        "animated": false,
+        "byteLength": 18236,
+        "context": "offscreen",
+        "height": 300,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 545,
+          "imageHeight": 300,
+          "imageWidth": 900,
+          "lines": [
+            {
+              "box": {
+                "height": 57,
+                "width": 402,
+                "x": 58,
+                "y": 130
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "text": "Open the door."
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Open the door.",
+          "truncated": false
+        },
+        "sha256": "78ecbb8be33390a51fbeede65ae46d4002f6e4f10c95e40ffee2b253a7fa9f89",
+        "translationError": {
+          "code": "MODEL_NOT_READY",
+          "userMessage": "Text recognized. Open Aksara → Setup and download the translation model, then click Translate again."
+        },
+        "width": 900
+      },
+      "remoteRequests": 0,
+      "keyboard": "Enter"
+    },
+    {
+      "name": "same-language image needs no model or network",
+      "ok": true,
+      "elapsedMs": 1079,
+      "result": {
+        "cold": false,
+        "elapsedMs": 0,
+        "model": null,
+        "partial": false,
+        "sameLanguage": true,
+        "segments": [
+          {
+            "box": {
+              "height": 57,
+              "width": 402,
+              "x": 58,
+              "y": 130
+            },
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "sourceText": "Open the door.",
+            "translatedText": "Open the door."
+          }
+        ],
+        "skippedSegments": 0,
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "eng_Latn",
+        "text": "Open the door."
+      },
+      "remoteRequests": 0
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "screenshots": [
+    "translation-setup-empty.png",
+    "translation-model-required.png"
+  ],
+  "ok": true,
+  "note": "Real packaged OCR and NLLB q8/WebGPU inference. Existing .test-profile-current model cache is preserved. No remote inference API or model-download stub is used.",
+  "extensionVersion": "0.4.0"
+}

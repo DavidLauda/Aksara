@@ -1,0 +1,901 @@
+{
+  "generatedAt": "2026-10-25T16:44:09.274Z",
+  "phase": 3,
+  "browser": "156.0.8078.4",
+  "cases": [
+    {
+      "name": "visible eligible images, tiny exclusion, no automatic acquisition",
+      "ok": true,
+      "elapsedMs": 563,
+      "eligibleControls": 1,
+      "automaticImageFetches": 0,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "synthetic page clicks cannot start image acquisition",
+      "ok": true,
+      "elapsedMs": 169,
+      "syntheticAcquisitions": 0,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "keyboard Enter recognizes same-origin image with natural-coordinate boxes",
+      "ok": true,
+      "elapsedMs": 1007,
+      "statuses": [
+        "Text recognized · English · 1 line · 96% confidence"
+      ],
+      "input": "keyboard Enter",
+      "result": {
+        "animated": false,
+        "byteLength": 8896,
+        "context": "offscreen",
+        "height": 280,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.96,
+          "elapsedMs": 647,
+          "imageHeight": 280,
+          "imageWidth": 640,
+          "lines": [
+            {
+              "box": {
+                "height": 40,
+                "width": 255,
+                "x": 44,
+                "y": 115
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "text": "Open the door."
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Open the door.",
+          "truncated": false
+        },
+        "sha256": "92869811333f608d2532511263e43f049d9318e7f5490087f136913a121c3c4d",
+        "translationError": {
+          "code": "MODEL_NOT_READY",
+          "userMessage": "Text recognized. Open Aksara → Setup and download the translation model, then click Translate again."
+        },
+        "width": 640
+      },
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "late image insertion and reinjection stay idempotent",
+      "ok": true,
+      "elapsedMs": 772,
+      "eligibleControls": 2,
+      "roots": 1,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "granted CDN image succeeds without page CORS",
+      "ok": true,
+      "elapsedMs": 833,
+      "statuses": [
+        "Text recognized · English · 1 line · 96% confidence"
+      ],
+      "requestCount": 2,
+      "acquisitionReferrer": null,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "missing CDN grant produces an actionable popup request",
+      "ok": true,
+      "elapsedMs": 418,
+      "statuses": [
+        "Allow image access to denied.aksara-fixture.net in the Aksara popup, then click Translate again."
+      ],
+      "popupPermissionHost": "http://denied.aksara-fixture.net",
+      "backgroundFetches": 0,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "data image uses bounded inline transfer and decoder",
+      "ok": true,
+      "elapsedMs": 749,
+      "statuses": [
+        "Text recognized · English · 1 line · 95% confidence"
+      ],
+      "inlineBytes": 12002,
+      "imageHostRequests": 0,
+      "offline": true,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "blob image uses bounded inline transfer and decoder",
+      "ok": true,
+      "elapsedMs": 2032,
+      "statuses": [
+        "Text recognized · English · 134 lines · 20% confidence"
+      ],
+      "inlineBytes": 403398,
+      "imageHostRequests": 0,
+      "offline": false,
+      "lowConfidence": true,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "explicit cancellation releases the acquisition slot",
+      "ok": true,
+      "elapsedMs": 1017,
+      "statuses": [
+        "Image translation cancelled."
+      ],
+      "subsequentImagePrepared": true,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "source replacement discards the pending result",
+      "ok": true,
+      "elapsedMs": 900,
+      "statuses": [
+        "Text recognized · English · 1 line · 96% confidence"
+      ],
+      "staleResultDiscarded": true,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "unsupported SVG fails with a format explanation",
+      "ok": true,
+      "elapsedMs": 175,
+      "statuses": [
+        "Use a PNG, JPEG, GIF, or WebP image."
+      ],
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "oversized raster header is rejected before decoding",
+      "ok": true,
+      "elapsedMs": 180,
+      "statuses": [
+        "The image exceeds the 16 megapixel or 8192 pixel dimension limit."
+      ],
+      "fixture": "A valid displayed PNG; acquisition response changes IHDR dimensions to 20,000 × 20,000.",
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "language controls save and restore Indonesian source and French target",
+      "ok": true,
+      "elapsedMs": 758,
+      "sourceLanguage": "ind_Latn",
+      "targetLanguage": "fra_Latn",
+      "restoredOnReopen": true,
+      "axeViolations": 0,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "Indonesian multiline image returns natural-coordinate boxes and selected target",
+      "ok": true,
+      "elapsedMs": 2329,
+      "statuses": [
+        "Text recognized · Indonesian · 2 lines · 95% confidence"
+      ],
+      "result": {
+        "animated": false,
+        "byteLength": 17700,
+        "context": "offscreen",
+        "height": 480,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 422,
+          "imageHeight": 480,
+          "imageWidth": 1200,
+          "lines": [
+            {
+              "box": {
+                "height": 59,
+                "width": 413,
+                "x": 65,
+                "y": 114
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "text": "Buka pintunya."
+            },
+            {
+              "box": {
+                "height": 60,
+                "width": 383,
+                "x": 63,
+                "y": 253
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "segmentId": "s2",
+              "text": "Selamat pagi."
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "ind_Latn",
+          "targetLanguage": "fra_Latn",
+          "text": "Buka pintunya.\n\nSelamat pagi.",
+          "truncated": false
+        },
+        "sha256": "ccf9ffc0512d35acbad87b7aefc3e589f7312d2854b0ac88be23b39223c9b791",
+        "translationError": {
+          "code": "MODEL_NOT_READY",
+          "userMessage": "Text recognized. Open Aksara → Setup and download the translation model, then click Translate again."
+        },
+        "width": 1200
+      },
+      "offlineInlineRetry": true,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "blank image explains empty OCR and permits retry",
+      "ok": true,
+      "elapsedMs": 519,
+      "statuses": [
+        "No text found. Check the image language in Aksara’s popup or try a sharper image."
+      ],
+      "code": "NO_TEXT_FOUND",
+      "focusRestored": true,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "cancelling OCR initialization closes its host and allows a successful retry",
+      "ok": true,
+      "elapsedMs": 626,
+      "statuses": [
+        "Image translation cancelled."
+      ],
+      "offscreenHostClosed": true,
+      "retrySucceeded": true,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "service-worker interruption reclaims orphaned OCR and accepts a retry",
+      "ok": true,
+      "elapsedMs": 5267,
+      "statuses": [
+        "Image preparation was interrupted. Click Translate to retry."
+      ],
+      "orphanReclaimed": true,
+      "retrySucceeded": true,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "English OCR layout and accessibility at narrow, tablet and desktop widths",
+      "ok": true,
+      "elapsedMs": 2140,
+      "viewports": [
+        {
+          "viewport": "375x812",
+          "violations": [],
+          "screenshot": "ocr-375.png"
+        },
+        {
+          "viewport": "768x900",
+          "violations": [],
+          "screenshot": "ocr-768.png"
+        },
+        {
+          "viewport": "1440x900",
+          "violations": [],
+          "screenshot": "ocr-1440.png"
+        }
+      ],
+      "reducedMotion": true,
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "responsive currentSrc replacement clears completed OCR text",
+      "ok": true,
+      "elapsedMs": 625,
+      "staleTextRemoved": true,
+      "statuses": [
+        "No text found. Check the image language in Aksara’s popup or try a sharper image."
+      ],
+      "stagedImagesRemaining": 0
+    },
+    {
+      "name": "extension reload interrupts a read and permits controls to be enabled again",
+      "ok": true,
+      "elapsedMs": 6304,
+      "statuses": [
+        "Image preparation was interrupted. Click Translate to retry."
+      ],
+      "controlsReenabled": true,
+      "retrySucceeded": true,
+      "reloadMethod": "Extensions.loadUnpacked on the same test path",
+      "stagedImagesRemaining": 0
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 1,
+      "at": 1792946650662,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/same-origin.png",
+      "count": 1,
+      "at": 1792946650673,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fsame-origin.png&tiny=1"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/tiny.png",
+      "count": 1,
+      "at": 1792946650674,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fsame-origin.png&tiny=1"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 1,
+      "at": 1792946650698,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fsame-origin.png&tiny=1"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/same-origin.png",
+      "count": 2,
+      "at": 1792946651411,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/late.png",
+      "count": 1,
+      "at": 1792946652396,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fsame-origin.png&tiny=1"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/late.png",
+      "count": 2,
+      "at": 1792946652581,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 2,
+      "at": 1792946653170,
+      "referrer": null
+    },
+    {
+      "origin": "http://cdn.aksara-fixture.net",
+      "path": "/cdn.png",
+      "count": 1,
+      "at": 1792946653177,
+      "referrer": "http://page.aksara-fixture.net/"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 2,
+      "at": 1792946653189,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=http%3A%2F%2Fcdn.aksara-fixture.net%2Fcdn.png"
+    },
+    {
+      "origin": "http://cdn.aksara-fixture.net",
+      "path": "/cdn.png",
+      "count": 2,
+      "at": 1792946653341,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 3,
+      "at": 1792946654006,
+      "referrer": null
+    },
+    {
+      "origin": "http://denied.aksara-fixture.net",
+      "path": "/denied.png",
+      "count": 1,
+      "at": 1792946654020,
+      "referrer": "http://page.aksara-fixture.net/"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 3,
+      "at": 1792946654043,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=http%3A%2F%2Fdenied.aksara-fixture.net%2Fdenied.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 4,
+      "at": 1792946654421,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/inline-data-placeholder.png",
+      "count": 1,
+      "at": 1792946654427,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Finline-data-placeholder.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 4,
+      "at": 1792946654448,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Finline-data-placeholder.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 5,
+      "at": 1792946655170,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/inline-blob-placeholder.png",
+      "count": 1,
+      "at": 1792946655177,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Finline-blob-placeholder.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 5,
+      "at": 1792946655198,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Finline-blob-placeholder.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 6,
+      "at": 1792946657202,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/slow-cancel.png",
+      "count": 1,
+      "at": 1792946657209,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fslow-cancel.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 6,
+      "at": 1792946657221,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fslow-cancel.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/slow-cancel.png",
+      "count": 2,
+      "at": 1792946657357,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 7,
+      "at": 1792946657460,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/after-cancel.png",
+      "count": 1,
+      "at": 1792946657466,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fafter-cancel.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 7,
+      "at": 1792946657476,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fafter-cancel.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/after-cancel.png",
+      "count": 2,
+      "at": 1792946657622,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 8,
+      "at": 1792946658219,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/slow-replace.png",
+      "count": 1,
+      "at": 1792946658225,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fslow-replace.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 8,
+      "at": 1792946658245,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fslow-replace.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/slow-replace.png",
+      "count": 2,
+      "at": 1792946658381,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/replacement.png",
+      "count": 1,
+      "at": 1792946658387,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fslow-replace.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/replacement.png",
+      "count": 2,
+      "at": 1792946658593,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 9,
+      "at": 1792946659119,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/unsupported.svg",
+      "count": 1,
+      "at": 1792946659126,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Funsupported.svg"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 9,
+      "at": 1792946659138,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Funsupported.svg"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/unsupported.svg",
+      "count": 2,
+      "at": 1792946659282,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 10,
+      "at": 1792946659294,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/oversized-header.png",
+      "count": 1,
+      "at": 1792946659300,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Foversized-header.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 10,
+      "at": 1792946659313,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Foversized-header.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/oversized-header.png",
+      "count": 2,
+      "at": 1792946659462,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 11,
+      "at": 1792946660273,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/ind.png",
+      "count": 1,
+      "at": 1792946660283,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Find.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 11,
+      "at": 1792946660313,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Find.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/ind.png",
+      "count": 2,
+      "at": 1792946660424,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 12,
+      "at": 1792946662595,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/blank.png",
+      "count": 1,
+      "at": 1792946662601,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fblank.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 12,
+      "at": 1792946662625,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fblank.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/blank.png",
+      "count": 2,
+      "at": 1792946662768,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 13,
+      "at": 1792946663114,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/ocr-cancel.png",
+      "count": 1,
+      "at": 1792946663120,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Focr-cancel.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 13,
+      "at": 1792946663140,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Focr-cancel.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/ocr-cancel.png",
+      "count": 2,
+      "at": 1792946663274,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/ocr-cancel.png",
+      "count": 3,
+      "at": 1792946663385,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 14,
+      "at": 1792946663741,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/ocr-interrupted.png",
+      "count": 1,
+      "at": 1792946663746,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Focr-interrupted.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 14,
+      "at": 1792946663766,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Focr-interrupted.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/ocr-interrupted.png",
+      "count": 2,
+      "at": 1792946663857,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/ocr-interrupted.png",
+      "count": 3,
+      "at": 1792946664003,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 15,
+      "at": 1792946669008,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/responsive.png",
+      "count": 1,
+      "at": 1792946669016,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fresponsive.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 15,
+      "at": 1792946669028,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fresponsive.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/responsive.png",
+      "count": 2,
+      "at": 1792946669185,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/blank.png",
+      "count": 3,
+      "at": 1792946671165,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fresponsive.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/blank.png",
+      "count": 4,
+      "at": 1792946671234,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/responsive.png",
+      "count": 3,
+      "at": 1792946671783,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Fresponsive.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/fixture",
+      "count": 16,
+      "at": 1792946671794,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/ocr-interrupted.png",
+      "count": 4,
+      "at": 1792946671802,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Focr-interrupted.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/favicon.ico",
+      "count": 16,
+      "at": 1792946671815,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Focr-interrupted.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/ocr-interrupted.png",
+      "count": 5,
+      "at": 1792946671975,
+      "referrer": null
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/after-extension-reload.png",
+      "count": 1,
+      "at": 1792946672369,
+      "referrer": "http://page.aksara-fixture.net/fixture?image=%2Focr-interrupted.png"
+    },
+    {
+      "origin": "http://page.aksara-fixture.net",
+      "path": "/after-extension-reload.png",
+      "count": 2,
+      "at": 1792946677463,
+      "referrer": null
+    }
+  ],
+  "ok": true,
+  "popupAxe": {
+    "violations": []
+  },
+  "interruptionTargets": {
+    "targets": [
+      {
+        "targetId": "912448826AA5F0BDD8A55D0CF2D96A83",
+        "type": "service_worker",
+        "title": "Service Worker chrome-extension://fpnejeggiohoolfcdajkafipcpcpmano/background.js",
+        "url": "chrome-extension://fpnejeggiohoolfcdajkafipcpcpmano/background.js",
+        "attached": true,
+        "canAccessOpener": false,
+        "browserContextId": "EE10B07D2FAA05CD01484E77F0B1BA02"
+      },
+      {
+        "targetId": "2E8AD7983CE732AA648F80964E253ABE",
+        "type": "service_worker",
+        "title": "Service Worker chrome-extension://fpnejeggiohoolfcdajkafipcpcpmano/background.js",
+        "url": "chrome-extension://fpnejeggiohoolfcdajkafipcpcpmano/background.js",
+        "attached": true,
+        "canAccessOpener": false,
+        "browserContextId": "EE10B07D2FAA05CD01484E77F0B1BA02"
+      }
+    ],
+    "versions": [
+      {
+        "versionId": "0",
+        "registrationId": "0",
+        "scriptURL": "chrome-extension://fpnejeggiohoolfcdajkafipcpcpmano/background.js",
+        "runningStatus": "running",
+        "status": "redundant",
+        "scriptLastModified": 1792946229,
+        "scriptResponseTime": 0,
+        "controlledClients": [],
+        "targetId": "912448826AA5F0BDD8A55D0CF2D96A83"
+      },
+      {
+        "versionId": "1",
+        "registrationId": "1",
+        "scriptURL": "chrome-extension://fpnejeggiohoolfcdajkafipcpcpmano/background.js",
+        "runningStatus": "running",
+        "status": "activated",
+        "scriptLastModified": 1792946229,
+        "scriptResponseTime": 0,
+        "controlledClients": [],
+        "targetId": "2E8AD7983CE732AA648F80964E253ABE"
+      }
+    ]
+  },
+  "viewports": [
+    {
+      "viewport": "375x812",
+      "violations": [],
+      "screenshot": "ocr-375.png"
+    },
+    {
+      "viewport": "768x900",
+      "violations": [],
+      "screenshot": "ocr-768.png"
+    },
+    {
+      "viewport": "1440x900",
+      "violations": [],
+      "screenshot": "ocr-1440.png"
+    }
+  ],
+  "fixturePerformance": {
+    "lcpMs": 60,
+    "cumulativeLayoutShift": 0.00078730792634969,
+    "maxEventTimingMs": null,
+    "eventTimingSupported": true,
+    "note": "Local fixture measurements; maximum Event Timing is an interaction proxy, not field INP. Null means no qualifying timing entry was observed."
+  }
+}

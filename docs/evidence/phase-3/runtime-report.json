@@ -1,0 +1,149 @@
+{
+  "generatedAt": "2026-10-25T13:13:28.604Z",
+  "modelTest": false,
+  "browser": "156.0.8078.4",
+  "hardware": {
+    "platform": "win32",
+    "cpu": "AMD Ryzen 5 5600H with Radeon Graphics         ",
+    "totalMemoryBytes": 16477155328
+  },
+  "memory": {
+    "peakProcessPrivateBytes": 0,
+    "peakProcessWorkingSetBytes": 0,
+    "note": "Aggregate isolated-browser process measurements; excludes dedicated GPU VRAM and may count shared resident pages more than once."
+  },
+  "jobs": [
+    {
+      "id": "9dc05c84-832b-498f-9630-9a5baace00e1",
+      "operation": "CHECK_GPU",
+      "host": "service-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792934008948,
+      "result": {
+        "serviceWorker": {
+          "available": true,
+          "computeResult": 42,
+          "adapter": {
+            "vendor": "amd",
+            "architecture": "gcn-5",
+            "description": ""
+          },
+          "shaderF16": true,
+          "limits": {
+            "maxBufferSize": 2147483648,
+            "maxStorageBufferBindingSize": 2147483644
+          },
+          "storage": {
+            "quota": 60290733727,
+            "usage": 2204128927,
+            "usageDetails": {
+              "caches": 2183308032,
+              "indexedDB": 20237519,
+              "serviceWorkerRegistrations": 583376
+            }
+          },
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+        },
+        "offscreenWorker": {
+          "available": true,
+          "computeResult": 42,
+          "adapter": {
+            "vendor": "amd",
+            "architecture": "gcn-5",
+            "description": ""
+          },
+          "shaderF16": true,
+          "limits": {
+            "maxBufferSize": 2147483648,
+            "maxStorageBufferBindingSize": 2147483644
+          },
+          "storage": {
+            "quota": 60290733727,
+            "usage": 2204128927,
+            "usageDetails": {
+              "caches": 2183308032,
+              "indexedDB": 20237519,
+              "serviceWorkerRegistrations": 583376
+            }
+          },
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+        }
+      },
+      "elapsedMs": 278
+    },
+    {
+      "id": "3abf780d-c8c0-4011-aa16-32ed7921b8d4",
+      "operation": "OCR_SAMPLE",
+      "host": "service-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792934009972,
+      "result": {
+        "text": "Open the door.",
+        "confidence": 0.95,
+        "lines": [
+          {
+            "text": "Open the door.",
+            "confidence": 0.95,
+            "box": {
+              "x": 43,
+              "y": 63,
+              "width": 415,
+              "height": 60
+            }
+          }
+        ],
+        "imageWidth": 1000,
+        "imageHeight": 180,
+        "language": "eng",
+        "elapsedMs": 270
+      },
+      "elapsedMs": 272
+    },
+    {
+      "id": "6dfff5bf-dad0-4ae9-b692-d49a381ff7ab",
+      "operation": "OCR_SAMPLE",
+      "host": "service-worker",
+      "pair": "en-id",
+      "state": "done",
+      "progress": {
+        "stage": "done",
+        "fraction": 1
+      },
+      "startedAt": 1792934010999,
+      "result": {
+        "text": "Buka pintunya.",
+        "confidence": 0.95,
+        "lines": [
+          {
+            "text": "Buka pintunya.",
+            "confidence": 0.96,
+            "box": {
+              "x": 45,
+              "y": 64,
+              "width": 413,
+              "height": 60
+            }
+          }
+        ],
+        "imageWidth": 1000,
+        "imageHeight": 180,
+        "language": "ind",
+        "elapsedMs": 210
+      },
+      "elapsedMs": 211
+    }
+  ],
+  "errors": [],
+  "remoteRequests": [],
+  "ok": true
+}

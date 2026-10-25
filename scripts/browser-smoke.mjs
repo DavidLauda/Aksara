@@ -12,14 +12,12 @@ const firstHost = process.argv.includes('--offscreen') ? 'offscreen-worker' : 's
 await mkdir('test-results', { recursive: true });
 const context = await chromium.launchPersistentContext(resolve('.test-profile-current'), {
   channel: 'chromium', headless: true,
-  args: ['--enable-unsafe-extension-debugging', `--disable-extensions-except=${resolve('dist')}`, `--load-extension=${resolve('dist')}`],
+  args: ['--enable-unsafe-extension-debugging', `--disable-extensions-except=${resolve('dist')}`],
 });
 const report = { generatedAt: new Date().toISOString(), modelTest, browser: context.browser()?.version(), hardware: { platform: os.platform(), cpu: os.cpus()[0].model, totalMemoryBytes: os.totalmem() }, memory: { peakProcessPrivateBytes: 0, peakProcessWorkingSetBytes: 0, note: 'Aggregate isolated-browser process measurements; excludes dedicated GPU VRAM and may count shared resident pages more than once.' }, jobs: [], errors: [], remoteRequests: [] };
 try {
   const browserSession = await context.browser().newBrowserCDPSession();
-  await browserSession.send('Extensions.loadUnpacked', { path: resolve('dist') });
-  const serviceWorker = context.serviceWorkers()[0] || await context.waitForEvent('serviceworker', { timeout: 20_000 });
-  const extensionId = new URL(serviceWorker.url()).host;
+  const { id: extensionId } = await browserSession.send('Extensions.loadUnpacked', { path: resolve('dist') });
   const page = await context.newPage();
   page.on('pageerror', error => report.errors.push(error.message));
   page.on('console', event => { if (event.type() === 'error') report.errors.push(event.text().slice(0, 500)); });
@@ -29,10 +27,6 @@ try {
     catch (error) { if (attempt >= 15) throw error; await new Promise(resolve => setTimeout(resolve, 500)); }
   }
   await page.screenshot({ path: 'test-results/setup.png', fullPage: true });
-  const workerSession = await context.newCDPSession(page);
-  let versions = [];
-  workerSession.on('ServiceWorker.workerVersionUpdated', ({ versions: updated }) => { versions = updated; });
-  await workerSession.send('ServiceWorker.enable');
   async function memorySample() {
     if (!modelTest || process.platform !== 'win32') return;
     try {
@@ -80,6 +74,18 @@ try {
   const malformed = await page.evaluate(() => chrome.runtime.sendMessage({ schemaVersion: 99, target: 'background', type: 'START_JOB', operation: 'OCR_SAMPLE' }).catch(() => null));
   assert.ok(malformed == null);
   if (modelTest) {
+    const modelStatus = await page.evaluate(() => chrome.runtime.sendMessage({ schemaVersion: 1, target: 'background', type: 'GET_MODEL_STATUS' }));
+    if (!modelStatus.model.ready) {
+      assert.ok(process.argv.includes('--download-model'), 'Model not cached. Explicitly allow its download with npm run test:model -- --download-model.');
+      const accepted = await page.evaluate(() => chrome.runtime.sendMessage({ schemaVersion: 1, target: 'background', type: 'START_MODEL_DOWNLOAD', consent: true }));
+      assert.equal(accepted.ok, true, accepted.error);
+      await page.waitForFunction(async id => {
+        const status = await chrome.runtime.sendMessage({ schemaVersion: 1, target: 'background', type: 'GET_MODEL_STATUS' });
+        return status.job?.id === id && status.job.state !== 'running';
+      }, accepted.jobId, { timeout: 1_810_000, polling: 1000 });
+      const prepared = await page.evaluate(() => chrome.runtime.sendMessage({ schemaVersion: 1, target: 'background', type: 'GET_MODEL_STATUS' }));
+      assert.equal(prepared.model.ready, true, prepared.job?.error);
+    }
     const cold = await run('PIPELINE_SAMPLE', firstHost);
     assert.equal(cold.state, 'done', cold.error);
     assert.match(cold.result.translation.translatedText, /buka|pintu/i);
@@ -107,9 +113,10 @@ try {
       const { job } = await chrome.runtime.sendMessage({ schemaVersion: 1, target: 'background', type: 'GET_JOB' });
       return ['model_prepare', 'translate'].includes(job?.progress?.stage);
     });
-    const version = versions.find(version => version.scriptURL === `chrome-extension://${extensionId}/background.js` && version.runningStatus === 'running');
-    assert.ok(version, 'Service worker version is available for the restart test.');
-    await workerSession.send('ServiceWorker.stopWorker', { versionId: version.versionId });
+    const { targetInfos } = await browserSession.send('Target.getTargets');
+    const workerTarget = targetInfos.find(target => target.type === 'service_worker' && target.url === `chrome-extension://${extensionId}/background.js`);
+    assert.ok(workerTarget, 'Live service worker target is available for the restart test.');
+    await browserSession.send('Target.closeTarget', { targetId: workerTarget.targetId });
     const recovered = await page.evaluate(() => chrome.runtime.sendMessage({ schemaVersion: 1, target: 'background', type: 'GET_JOB' }));
     assert.equal(recovered.job.state, 'error');
     assert.match(recovered.job.error, /INTERRUPTED/);

@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-10-25T16:40:12.908Z",
+  "phase": 4,
+  "browser": "156.0.8078.4",
+  "hardware": {
+    "platform": "win32",
+    "cpu": "AMD Ryzen 5 5600H with Radeon Graphics         ",
+    "totalMemoryBytes": 16477155328
+  },
+  "cases": [
+    {
+      "name": "host switch after idle background restart releases the previous dedicated model worker",
+      "ok": true,
+      "elapsedMs": 60853,
+      "pageTranslation": {
+        "cold": true,
+        "elapsedMs": 33963,
+        "model": "Xenova/nllb-200-distilled-600M",
+        "partial": false,
+        "sameLanguage": false,
+        "segments": [
+          {
+            "box": {
+              "height": 57,
+              "width": 402,
+              "x": 58,
+              "y": 105
+            },
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "sourceText": "Open the door.",
+            "translatedText": "Buka pintunya."
+          },
+          {
+            "box": {
+              "height": 58,
+              "width": 402,
+              "x": 58,
+              "y": 265
+            },
+            "lowConfidence": false,
+            "segmentId": "s2",
+            "sourceText": "Good morning.",
+            "translatedText": "Selamat pagi."
+          }
+        ],
+        "skippedSegments": 0,
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "text": "Buka pintunya.\nSelamat pagi."
+      },
+      "serviceWorkerTranslation": {
+        "sourceText": "Open the door.",
+        "translatedText": "Buka pintunya.",
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "dtype": "q8",
+        "model": "Xenova/nllb-200-distilled-600M",
+        "cold": true,
+        "cache": {
+          "cache": "aksara-nllb-261c31d1a5732c67cdd16d80e8d6088507c7ccea-q8",
+          "totalBytes": 911962632,
+          "downloadedBytes": 0,
+          "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea"
+        },
+        "timing": {
+          "loadMs": 16003,
+          "inferenceMs": 9185
+        }
+      },
+      "previousDedicatedWorkers": 1,
+      "remainingDedicatedWorkers": 0
+    },
+    {
+      "name": "translation preview fits three widths and has no automated accessibility violations",
+      "ok": true,
+      "elapsedMs": 4114,
+      "viewports": [
+        {
+          "width": 375,
+          "height": 812,
+          "violations": [],
+          "screenshot": "translation-375.png"
+        },
+        {
+          "width": 768,
+          "height": 900,
+          "violations": [],
+          "screenshot": "translation-768.png"
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "violations": [],
+          "screenshot": "translation-1440.png"
+        }
+      ],
+      "popupAxeViolations": 0,
+      "setupViewports": [
+        {
+          "width": 375,
+          "height": 812,
+          "violations": [],
+          "screenshot": "translation-setup-375.png"
+        },
+        {
+          "width": 768,
+          "height": 900,
+          "violations": [],
+          "screenshot": "translation-setup-768.png"
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "violations": [],
+          "screenshot": "translation-setup-1440.png"
+        }
+      ],
+      "visualRegression": "INCONCLUSIVE: no approved baseline",
+      "manualScreenReader": "not run"
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "screenshots": [
+    "translation-375.png",
+    "translation-768.png",
+    "translation-1440.png",
+    "translation-popup-ready.png",
+    "translation-setup-375.png",
+    "translation-setup-768.png",
+    "translation-setup-1440.png"
+  ],
+  "ok": true,
+  "note": "Real packaged OCR and NLLB q8/WebGPU inference. Existing .test-profile-current model cache is preserved. No remote inference API or model-download stub is used.",
+  "extensionVersion": "0.4.0",
+  "fixturePerformance": {
+    "lcpMs": 300,
+    "cumulativeLayoutShift": 0.007051595991290453,
+    "maxEventTimingMs": 16,
+    "note": "Local synthetic fixture measurements. Event Timing is not field INP; null means no qualifying event was recorded."
+  }
+}

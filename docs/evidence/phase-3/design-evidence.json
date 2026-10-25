@@ -1,0 +1,30 @@
+{
+  "contract": "docs/PHASE_3.md Design contract: existing Aksara popup and image card, local language selection and selectable OCR preview, six content states, keyboard focus, viewport containment and no new visual framework.",
+  "targetViewports": ["375x812", "768x900", "1440x900"],
+  "accessibility": {
+    "status": "pass",
+    "evidence": "Axe reported zero violations for the popup and result card at tested widths. Real keyboard Enter starts OCR; Cancel works during initialization; Dismiss returns focus to Translate; recognized text is a labeled read-only textarea with visible focus. Popup labels and hidden text behavior were tested. Emulated reduced motion yields a zero-duration button transition. This is a scoped check, not a full screen-reader or WCAG conformance audit."
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "Rendered and visually inspected 375x812, 768x900 and 1440x900 captures. Browser assertions verify the whole result card stays within each viewport and the document has no horizontal overflow. Long noisy OCR text scrolls in the bounded field and uncertainty copy wraps inside the card."
+  },
+  "contentStates": {
+    "loading": { "status": "pass", "evidence": "ocr-loading.png shows Starting local text reader with Cancel. A real Enter cancellation closes the offscreen host and a retry succeeds." },
+    "empty": { "status": "pass", "evidence": "ocr-empty.png shows NO_TEXT_FOUND guidance. The empty textarea is hidden, and keyboard Dismiss restores focus." },
+    "error": { "status": "pass", "evidence": "images-validation.png shows a dimension-limit explanation and Dismiss. Browser cases also exercise unsupported SVG and real background interruption followed by retry." },
+    "partial": { "status": "pass", "evidence": "ocr-low-confidence.png is actual Tesseract output from deterministic noisy pixels: text remains available with a clear may-be-inaccurate warning. Output truncation limits have unit coverage." },
+    "success": { "status": "pass", "evidence": "ocr-768.png and ocr-indonesian.png show recognized English and Indonesian text, line counts and confidence. Captured results have bounded natural-coordinate boxes." },
+    "permission": { "status": "pass", "evidence": "ocr-popup.png shows the missing host by name and Allow image host. The test verifies no background fetch without a grant. Native Chrome grant/deny UI remains a documented manual check." }
+  },
+  "renderedEvidence": [
+    { "viewport": "375x812", "artifact": "ocr-375.png", "observation": "Narrow result card fits within the image area and screen; status wraps, the read-only field has visible keyboard focus, Dismiss is reachable." },
+    { "viewport": "768x900", "artifact": "ocr-768.png", "observation": "Tablet layout preserves the compact card and original image, with clear status, selected-text field and Dismiss." },
+    { "viewport": "1440x900", "artifact": "ocr-1440.png", "observation": "Desktop card stays anchored near the image's upper right, and no type or controls overlap each other." },
+    { "viewport": "375x812", "artifact": "ocr-popup.png", "observation": "Labeled source and target language selectors, readable helper text, activation and permission guidance fit the 330-pixel popup content width; full-page capture includes scrollable host guidance." },
+    { "viewport": "1060x860", "artifact": "ocr-low-confidence.png", "observation": "Actual noisy-image OCR remains selectable and scrollable; the uncertainty message is readable and contained." },
+    { "viewport": "1060x860", "artifact": "ocr-empty.png", "observation": "Empty OCR shows actionable language/sharpness guidance and no blank recognized-text field." },
+    { "viewport": "1060x860", "artifact": "ocr-loading.png", "observation": "OCR setup has a named status and reachable Cancel without changing the original image." },
+    { "viewport": "1060x860", "artifact": "images-validation.png", "observation": "Rejected oversized raster shows a specific explanation with Dismiss; original image remains visible." }
+  ]
+}

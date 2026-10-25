@@ -1,0 +1,376 @@
+{
+  "generatedAt": "2026-10-25T16:30:23.884Z",
+  "phase": 4,
+  "browser": "156.0.8078.4",
+  "hardware": {
+    "platform": "win32",
+    "cpu": "AMD Ryzen 5 5600H with Radeon Graphics         ",
+    "totalMemoryBytes": 16477155328
+  },
+  "cases": [
+    {
+      "name": "first-use model status and declined consent make no network request",
+      "ok": true,
+      "elapsedMs": 136,
+      "model": {
+        "ready": false,
+        "cachedBytes": 0,
+        "totalBytes": 911962632,
+        "missingBytes": 911962632,
+        "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+        "modelId": "Xenova/nllb-200-distilled-600M",
+        "dtype": "q8",
+        "cache": "aksara-nllb-261c31d1a5732c67cdd16d80e8d6088507c7ccea-q8"
+      },
+      "declinedConsent": "CONSENT_REQUIRED: Use the Download model button in Setup to allow the model download.",
+      "contentRequest": "UNAUTHORIZED_CONTEXT",
+      "remoteRequests": 0
+    },
+    {
+      "name": "page click without a model preserves OCR and requests setup without downloading",
+      "ok": true,
+      "elapsedMs": 1255,
+      "result": {
+        "animated": false,
+        "byteLength": 18236,
+        "context": "offscreen",
+        "height": 300,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 599,
+          "imageHeight": 300,
+          "imageWidth": 900,
+          "lines": [
+            {
+              "box": {
+                "height": 57,
+                "width": 402,
+                "x": 58,
+                "y": 130
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "text": "Open the door."
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Open the door.",
+          "truncated": false
+        },
+        "sha256": "78ecbb8be33390a51fbeede65ae46d4002f6e4f10c95e40ffee2b253a7fa9f89",
+        "translationError": {
+          "code": "MODEL_NOT_READY",
+          "userMessage": "Text recognized. Open Aksara → Setup and download the translation model, then click Translate again."
+        },
+        "width": 900
+      },
+      "remoteRequests": 0,
+      "keyboard": "Enter"
+    },
+    {
+      "name": "same-language image needs no model or network",
+      "ok": true,
+      "elapsedMs": 1080,
+      "result": {
+        "cold": false,
+        "elapsedMs": 0,
+        "model": null,
+        "partial": false,
+        "sameLanguage": true,
+        "segments": [
+          {
+            "box": {
+              "height": 57,
+              "width": 402,
+              "x": 58,
+              "y": 130
+            },
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "sourceText": "Open the door.",
+            "translatedText": "Open the door."
+          }
+        ],
+        "skippedSegments": 0,
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "eng_Latn",
+        "text": "Open the door."
+      },
+      "remoteRequests": 0
+    },
+    {
+      "name": "existing pinned q8 assets pass full SHA-256 verification",
+      "ok": true,
+      "elapsedMs": 13225,
+      "model": {
+        "ready": true,
+        "cachedBytes": 911962632,
+        "totalBytes": 911962632,
+        "missingBytes": 0,
+        "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+        "modelId": "Xenova/nllb-200-distilled-600M",
+        "dtype": "q8",
+        "cache": "aksara-nllb-261c31d1a5732c67cdd16d80e8d6088507c7ccea-q8"
+      },
+      "job": {
+        "id": "1c929a0e-6f83-4d13-b16b-7e196d2ee86a",
+        "operation": "VERIFY_MODEL",
+        "state": "done",
+        "progress": {
+          "stage": "done",
+          "fraction": 1
+        },
+        "startedAt": 1792945829015
+      }
+    },
+    {
+      "name": "cold English-to-Indonesian page translation returns matching OCR coordinates",
+      "ok": true,
+      "elapsedMs": 29193,
+      "result": {
+        "cold": true,
+        "elapsedMs": 28151,
+        "model": "Xenova/nllb-200-distilled-600M",
+        "partial": false,
+        "sameLanguage": false,
+        "segments": [
+          {
+            "box": {
+              "height": 57,
+              "width": 402,
+              "x": 58,
+              "y": 130
+            },
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "sourceText": "Open the door.",
+            "translatedText": "Buka pintunya."
+          }
+        ],
+        "skippedSegments": 0,
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "text": "Buka pintunya."
+      },
+      "ocr": {
+        "confidence": 0.95,
+        "elapsedMs": 502,
+        "imageHeight": 300,
+        "imageWidth": 900,
+        "lines": [
+          {
+            "box": {
+              "height": 57,
+              "width": 402,
+              "x": 58,
+              "y": 130
+            },
+            "confidence": 0.96,
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "text": "Open the door."
+          }
+        ],
+        "lowConfidence": false,
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "text": "Open the door.",
+        "truncated": false
+      }
+    },
+    {
+      "name": "warm page translation reuses one model worker",
+      "ok": true,
+      "elapsedMs": 10371,
+      "result": {
+        "cold": false,
+        "elapsedMs": 9149,
+        "model": "Xenova/nllb-200-distilled-600M",
+        "partial": false,
+        "sameLanguage": false,
+        "segments": [
+          {
+            "box": {
+              "height": 57,
+              "width": 402,
+              "x": 58,
+              "y": 130
+            },
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "sourceText": "Open the door.",
+            "translatedText": "Buka pintunya."
+          }
+        ],
+        "skippedSegments": 0,
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "text": "Buka pintunya."
+      }
+    },
+    {
+      "name": "Indonesian-to-English uses captured source and target",
+      "ok": true,
+      "elapsedMs": 9849,
+      "result": {
+        "cold": false,
+        "elapsedMs": 8253,
+        "model": "Xenova/nllb-200-distilled-600M",
+        "partial": false,
+        "sameLanguage": false,
+        "segments": [
+          {
+            "box": {
+              "height": 57,
+              "width": 400,
+              "x": 60,
+              "y": 131
+            },
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "sourceText": "Buka pintunya.",
+            "translatedText": "Open the door."
+          }
+        ],
+        "skippedSegments": 0,
+        "sourceLanguage": "ind_Latn",
+        "targetLanguage": "eng_Latn",
+        "text": "Open the door."
+      },
+      "ocr": {
+        "confidence": 0.95,
+        "elapsedMs": 301,
+        "imageHeight": 300,
+        "imageWidth": 900,
+        "lines": [
+          {
+            "box": {
+              "height": 57,
+              "width": 400,
+              "x": 60,
+              "y": 131
+            },
+            "confidence": 0.96,
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "text": "Buka pintunya."
+          }
+        ],
+        "lowConfidence": false,
+        "sourceLanguage": "ind_Latn",
+        "targetLanguage": "eng_Latn",
+        "text": "Buka pintunya.",
+        "truncated": false
+      }
+    },
+    {
+      "name": "English-to-French translates with the same cached model",
+      "ok": true,
+      "elapsedMs": 11907,
+      "result": {
+        "cold": false,
+        "elapsedMs": 11044,
+        "model": "Xenova/nllb-200-distilled-600M",
+        "partial": false,
+        "sameLanguage": false,
+        "segments": [
+          {
+            "box": {
+              "height": 57,
+              "width": 402,
+              "x": 58,
+              "y": 130
+            },
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "sourceText": "Open the door.",
+            "translatedText": "Ouvrez la porte."
+          }
+        ],
+        "skippedSegments": 0,
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "fra_Latn",
+        "text": "Ouvrez la porte."
+      }
+    },
+    {
+      "name": "cold local translation works offline after the worker is released",
+      "ok": true,
+      "elapsedMs": 27249,
+      "result": {
+        "cold": true,
+        "elapsedMs": 26117,
+        "model": "Xenova/nllb-200-distilled-600M",
+        "partial": false,
+        "sameLanguage": false,
+        "segments": [
+          {
+            "box": {
+              "height": 57,
+              "width": 402,
+              "x": 58,
+              "y": 130
+            },
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "sourceText": "Open the door.",
+            "translatedText": "Buka pintunya."
+          }
+        ],
+        "skippedSegments": 0,
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "text": "Buka pintunya."
+      },
+      "offline": true
+    },
+    {
+      "name": "cancelling model initialization closes the host and permits retry",
+      "ok": true,
+      "elapsedMs": 26974,
+      "hostClosed": true,
+      "cachedWeightsRetained": true,
+      "busy": "BUSY: An Aksara job is already running.",
+      "deleteWhileBusy": "BUSY: Finish or cancel the current Aksara job, then retry.",
+      "retrySucceeded": true
+    },
+    {
+      "name": "actual service-worker restart reclaims orphaned translation and permits retry",
+      "ok": true,
+      "elapsedMs": 27309,
+      "closedBackgroundTargets": 1,
+      "orphanReclaimed": true,
+      "retrySucceeded": true
+    },
+    {
+      "name": "translation preview fits three widths and has no automated accessibility violations",
+      "ok": false,
+      "elapsedMs": 3129,
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'color-contrast'\n+ ]\n- []\n"
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "screenshots": [
+    "translation-setup-empty.png",
+    "translation-model-required.png",
+    "translation-success.png",
+    "translation-french.png",
+    "translation-loading.png",
+    "translation-375.png",
+    "translation-768.png",
+    "translation-1440.png",
+    "translation-popup-ready.png",
+    "translation-failure.png"
+  ],
+  "ok": false,
+  "note": "Real packaged OCR and NLLB q8/WebGPU inference. Existing .test-profile-current model cache is preserved. No remote inference API or model-download stub is used.",
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'color-contrast'\n+ ]\n- []\n\n    at file:///C:/Users/david/Projects/Aksara/scripts/translation-browser-smoke.mjs:344:14\n    at async check (file:///C:/Users/david/Projects/Aksara/scripts/translation-browser-smoke.mjs:160:22)\n    at async file:///C:/Users/david/Projects/Aksara/scripts/translation-browser-smoke.mjs:323:5",
+  "failureStatuses": [
+    "Translated · English → Indonesian"
+  ]
+}

@@ -1,6 +1,8 @@
 import './style.css';
 import { backgroundMessage, isEnvelope, type Job, type Operation } from './protocol';
-import model from './model-manifest.json';
+import { mountModelUi } from './model-ui';
+
+mountModelUi();
 
 const status = document.querySelector<HTMLElement>('#status')!;
 const progress = document.querySelector<HTMLProgressElement>('#progress')!;
@@ -8,7 +10,6 @@ const report = document.querySelector<HTMLElement>('#report')!;
 const buttons = ['check', 'ocr', 'translate', 'pipeline', 'unload'].map(id => document.getElementById(id) as HTMLButtonElement);
 const reports: Job[] = [];
 let current: Job | null = null;
-document.querySelector('#model-size')!.textContent = `${Math.ceil(model.files.reduce((sum, file) => sum + file.bytes, 0) / 1_000_000)} MB`;
 function show(job: Job) {
   current = job;
   const busy = job.state === 'running';
