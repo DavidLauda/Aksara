@@ -8,11 +8,13 @@ import type { OcrResult } from './ocr-result';
 let translator: TranslationPipeline | null = null;
 async function loadTranslator(baseUrl: string, progress: (event: Progress) => void) {
   const status = await assertModelReady();
-  let cold = false;
+  let cold = false, verifyMs = 0, loadMs = 0;
   if (!translator) {
     cold = true;
     progress({ stage: 'model_prepare', fraction: null });
-    await verifyModel(progress);
+    const verifying = performance.now();
+    await verifyModel(progress); verifyMs = Math.round(performance.now() - verifying);
+    const loading = performance.now();
     await checkGpu();
     env.allowLocalModels = false;
     env.allowRemoteModels = true; // URL discovery only: modelFetch is strictly cache-only.
@@ -33,20 +35,21 @@ async function loadTranslator(baseUrl: string, progress: (event: Progress) => vo
       revision: MODEL.revision, device: 'webgpu', dtype: MODEL.dtype as 'q4f16' | 'q8',
       session_options: { enableCpuMemArena: false, enableMemPattern: false, graphOptimizationLevel: 'disabled' },
     });
+    loadMs = Math.round(performance.now() - loading);
   }
-  return { cold, cache: { cache: status.cache, totalBytes: status.totalBytes, downloadedBytes: 0, revision: MODEL.revision } };
+  return { cold, timing: { verifyMs, loadMs }, cache: { cache: status.cache, totalBytes: status.totalBytes, downloadedBytes: 0, revision: MODEL.revision } };
 }
 
 export async function translate(text: string, baseUrl: string, progress: (event: Progress) => void, pair: Pair = 'en-id') {
   if (!text.trim() || text.length > 500) throw new Error('INVALID_INPUT: Samples accept up to 500 characters.');
   const started = performance.now();
-  const { cold, cache } = await loadTranslator(baseUrl, progress);
+  const { cold, cache, timing } = await loadTranslator(baseUrl, progress);
   const loadedAt = performance.now();
   progress({ stage: 'translate', fraction: null });
   const languages = PAIRS[pair];
   const result = await translator!(text, { src_lang: languages.source, tgt_lang: languages.target, max_new_tokens: 48, num_beams: 1 });
   if (!result[0]?.translation_text.trim()) throw new Error('EMPTY_TRANSLATION: The selected model/backend returned no translated text.');
-  return { sourceText: text, translatedText: result[0].translation_text, sourceLanguage: languages.source, targetLanguage: languages.target, dtype: MODEL.dtype, model: MODEL.modelId, cold, cache, timing: { loadMs: Math.round(loadedAt - started), inferenceMs: Math.round(performance.now() - loadedAt) } };
+  return { sourceText: text, translatedText: result[0].translation_text, sourceLanguage: languages.source, targetLanguage: languages.target, dtype: MODEL.dtype, model: MODEL.modelId, cold, cache, timing: { ...timing, inferenceMs: Math.round(performance.now() - loadedAt), totalMs: Math.round(performance.now() - started) } };
 }
 
 export async function translateImage(ocr: OcrResult, baseUrl: string, progress: (event: Progress) => void): Promise<ImageTranslation> {
@@ -54,10 +57,10 @@ export async function translateImage(ocr: OcrResult, baseUrl: string, progress: 
   const plan = planTranslation(ocr);
   const sameLanguage = ocr.sourceLanguage === ocr.targetLanguage;
   if (!plan.segments.length) throw new Error('TRANSLATION_LIMIT');
-  const { cold } = sameLanguage ? { cold: false } : await loadTranslator(baseUrl, progress);
+  const { cold, timing } = sameLanguage ? { cold: false, timing: { verifyMs: 0, loadMs: 0 } } : await loadTranslator(baseUrl, progress);
   const segments: TranslationSegment[] = [];
   let skippedSegments = plan.skippedSegments;
-  let completed = 0;
+  let completed = 0, inferenceCalls = 0, inferenceMs = 0;
   const total = plan.segments.reduce((count, segment) => count + segment.chunks.length, 0);
   for (const segment of plan.segments) {
     const translated: string[] = [];
@@ -68,7 +71,9 @@ export async function translateImage(ocr: OcrResult, baseUrl: string, progress: 
         // Reject oversized token sequences rather than silently truncating OCR.
         const tokens = translator!.tokenizer(chunk);
         if (tokens.input_ids.dims.at(-1)! > TRANSLATION_LIMITS.inputTokens) break;
+        const inferencing = performance.now(); inferenceCalls++;
         const output = await translator!(chunk, { src_lang: ocr.sourceLanguage, tgt_lang: ocr.targetLanguage, max_new_tokens: TRANSLATION_LIMITS.outputTokens, num_beams: 1 });
+        inferenceMs += performance.now() - inferencing;
         const text = output[0]?.translation_text.trim();
         if (!text) throw new Error('EMPTY_TRANSLATION');
         // Very long outputs near the generation ceiling are not presented as complete.
@@ -83,7 +88,7 @@ export async function translateImage(ocr: OcrResult, baseUrl: string, progress: 
   }
   if (!segments.length) throw new Error('TRANSLATION_LIMIT');
   progress({ stage: 'translate', fraction: 1 });
-  return { sourceLanguage: ocr.sourceLanguage, targetLanguage: ocr.targetLanguage, text: segments.map(segment => segment.translatedText).join('\n'), segments, partial: plan.partial || skippedSegments > 0, skippedSegments, sameLanguage, cold, model: sameLanguage ? null : MODEL.modelId, elapsedMs: Math.round(performance.now() - started) };
+  return { sourceLanguage: ocr.sourceLanguage, targetLanguage: ocr.targetLanguage, text: segments.map(segment => segment.translatedText).join('\n'), segments, partial: plan.partial || skippedSegments > 0, skippedSegments, sameLanguage, cold, model: sameLanguage ? null : MODEL.modelId, elapsedMs: Math.round(performance.now() - started), inferenceCalls, timing: { ...timing, inferenceMs: Math.round(inferenceMs) } };
 }
 export async function unload() {
   await translator?.dispose(); translator = null;

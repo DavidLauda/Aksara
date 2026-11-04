@@ -80,6 +80,7 @@ export class ImageOverlay {
     for (const segment of translation.segments) {
       const node = document.createElement('div'); node.className = 'translated-segment'; node.dataset.segmentId = segment.segmentId;
       node.textContent = segment.translatedText; node.tabIndex = 0; node.hidden = true;
+      node.style.textAlign = segment.textAlign ?? 'left';
       this.element.append(node); this.nodes.push(node);
     }
   }
@@ -101,7 +102,8 @@ export class ImageOverlay {
       setRect(node, { ...rect, x: rect.x - clip.x, y: rect.y - clip.y });
       if (this.signatures[index] !== signature && !original) {
         this.signatures[index] = signature;
-        let size = Math.max(12, Math.min(44, rect.height * 0.72));
+        const rows = segment.sourceLineIds?.length ?? 1;
+        let size = Math.max(12, Math.min(44, rows > 1 ? rect.height / rows * 0.9 : rect.height * 0.72));
         node.style.fontSize = `${size}px`;
         // At most seven bounded measurements per changed segment size. Idle
         // tracking only changes position, so it does not repeat font fitting.

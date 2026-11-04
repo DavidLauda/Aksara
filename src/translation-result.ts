@@ -2,8 +2,8 @@ import type { OcrResult, OcrLine } from './ocr-result';
 import type { LanguageSettings } from './languages';
 
 export const TRANSLATION_LIMITS = Object.freeze({ timeoutMs: 240_000, idleMs: 60_000, maxCharacters: 2400, maxChunks: 24, chunkCharacters: 240, inputTokens: 128, outputTokens: 128 });
-export type TranslationSegment = { segmentId: string; sourceText: string; translatedText: string; box?: OcrLine['box']; lowConfidence: boolean };
-export type ImageTranslation = LanguageSettings & { text: string; segments: TranslationSegment[]; partial: boolean; skippedSegments: number; sameLanguage: boolean; cold: boolean; elapsedMs: number; model: string | null };
+export type TranslationSegment = { segmentId: string; sourceText: string; translatedText: string; box?: OcrLine['box']; sourceLineIds?: string[]; textAlign?: 'left' | 'center'; lowConfidence: boolean };
+export type ImageTranslation = LanguageSettings & { text: string; segments: TranslationSegment[]; partial: boolean; skippedSegments: number; sameLanguage: boolean; cold: boolean; elapsedMs: number; model: string | null; inferenceCalls?: number; timing?: { verifyMs: number; loadMs: number; inferenceMs: number } };
 export type TranslationProblem = { code: string; userMessage: string };
 export type TranslationPlan = { segments: Array<Omit<TranslationSegment, 'translatedText'> & { chunks: string[] }>; skippedSegments: number; partial: boolean };
 
@@ -14,6 +14,11 @@ export function splitTranslationText(text: string): string[] {
   while (points.length) {
     let end = Math.min(points.length, TRANSLATION_LIMITS.chunkCharacters);
     if (end < points.length) {
+      // Prefer a complete sentence to a word boundary when a long region has
+      // to be split. Ordinary short paragraphs remain one model input.
+      for (let index = end; index >= Math.floor(end / 2); index--) {
+        if (/\s/.test(points[index]) && /[.!?]/.test(points[index - 1])) { end = index; break; }
+      }
       for (let index = end; index >= Math.floor(end / 2); index--) {
         if (/\s/.test(points[index])) { end = index; break; }
       }
@@ -24,18 +29,64 @@ export function splitTranslationText(text: string): string[] {
   return chunks;
 }
 
-/** Keep whole OCR lines within a bounded sequential inference budget. */
+type TextRegion = Omit<TranslationSegment, 'translatedText'>;
+const regionLimits = { maxLines: 12, maxCharacters: 960 };
+const finiteBox = (box: OcrLine['box']) => [box.x, box.y, box.width, box.height].every(Number.isFinite) && box.width > 0 && box.height > 0;
+
+function adjacent(previous: OcrLine, next: OcrLine): boolean {
+  if (!finiteBox(previous.box) || !finiteBox(next.box)) return false;
+  // Explicit OCR paragraphs/blocks are boundaries. Do not concatenate separate
+  // speakers or panels just because their text happens to be nearby.
+  if (previous.paragraphId && next.paragraphId && previous.paragraphId !== next.paragraphId) return false;
+  if (previous.blockId && next.blockId && previous.blockId !== next.blockId) return false;
+  const sameParagraph = !!previous.paragraphId && previous.paragraphId === next.paragraphId;
+  const a = previous.box, b = next.box, height = Math.max(a.height, b.height);
+  const gap = b.y - a.y - a.height;
+  if (Math.max(a.height, b.height) / Math.min(a.height, b.height) > 1.7 || gap < -Math.min(a.height, b.height) * 0.2 || gap > height * (sameParagraph ? 1 : 0.6)) return false;
+  const overlap = Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x);
+  const aligned = Math.min(Math.abs(a.x - b.x), Math.abs(a.x + a.width - b.x - b.width), Math.abs(a.x + a.width / 2 - b.x - b.width / 2)) <= height * 0.85;
+  if (overlap < Math.min(a.width, b.width) * 0.5 || !aligned) return false;
+  // Legacy/unstructured results may join only an unfinished line followed by
+  // a lowercase continuation; known paragraph IDs do not need this guess.
+  return sameParagraph || !/[.!?:;]["'”’)]*\s*$/.test(previous.text) && /^[\s"'“‘(]*[a-z]/.test(next.text);
+}
+
+/** Preserve paragraph context while bounding geometry, speakers and input size. */
+export function groupTextRegions(ocr: OcrResult): TextRegion[] {
+  if (!ocr.lines.length) return ocr.text.trim() ? [{ segmentId: 'text', sourceText: ocr.text, lowConfidence: ocr.lowConfidence }] : [];
+  const groups: OcrLine[][] = [];
+  for (const line of ocr.lines) {
+    if (!line.text.trim()) continue;
+    const current = groups.at(-1);
+    if (current && current.length < regionLimits.maxLines && current.reduce((sum, row) => sum + Array.from(row.text).length + 1, 0) + Array.from(line.text).length <= regionLimits.maxCharacters && adjacent(current.at(-1)!, line)) current.push(line);
+    else groups.push([line]);
+  }
+  return groups.map(lines => {
+    if (lines.length === 1) {
+      const line = lines[0];
+      return { segmentId: line.segmentId, sourceText: line.text, lowConfidence: line.lowConfidence, box: line.box };
+    }
+    const x = Math.min(...lines.map(line => line.box.x)), y = Math.min(...lines.map(line => line.box.y));
+    const right = Math.max(...lines.map(line => line.box.x + line.box.width)), bottom = Math.max(...lines.map(line => line.box.y + line.box.height));
+    const centers = lines.map(line => line.box.x + line.box.width / 2), lefts = lines.map(line => line.box.x), height = Math.max(...lines.map(line => line.box.height));
+    const centered = Math.max(...centers) - Math.min(...centers) < height * 0.6 && Math.max(...lefts) - Math.min(...lefts) > height * 0.25;
+    // Visual line wraps become spaces, not separate translation requests.
+    const sourceText = lines.map(line => line.text.trim()).join(' ').replace(/\s+/g, ' ');
+    return { segmentId: `g-${lines[0].segmentId}`, sourceLineIds: lines.map(line => line.segmentId), sourceText, lowConfidence: lines.some(line => line.lowConfidence), box: { x, y, width: right - x, height: bottom - y }, textAlign: centered ? 'center' : 'left' };
+  });
+}
+
+/** Keep whole text regions within a bounded sequential inference budget. */
 export function planTranslation(ocr: OcrResult): TranslationPlan {
-  const candidates = ocr.lines.length ? ocr.lines : [{ segmentId: 'text', text: ocr.text, lowConfidence: ocr.lowConfidence, box: undefined }];
+  const candidates = groupTextRegions(ocr);
   const segments: TranslationPlan['segments'] = [];
   let characters = 0, chunksUsed = 0, skippedSegments = 0;
-  for (const line of candidates) {
-    if (!line.text.trim()) continue;
-    const chunks = splitTranslationText(line.text);
-    const count = Array.from(line.text).length;
+  for (const region of candidates) {
+    const chunks = splitTranslationText(region.sourceText);
+    const count = Array.from(region.sourceText).length;
     if (characters + count > TRANSLATION_LIMITS.maxCharacters || chunksUsed + chunks.length > TRANSLATION_LIMITS.maxChunks) { skippedSegments++; continue; }
     characters += count; chunksUsed += chunks.length;
-    segments.push({ segmentId: line.segmentId, sourceText: line.text, lowConfidence: line.lowConfidence, ...(line.box ? { box: line.box } : {}), chunks });
+    segments.push({ ...region, chunks });
   }
   return { segments, skippedSegments, partial: ocr.truncated || skippedSegments > 0 };
 }

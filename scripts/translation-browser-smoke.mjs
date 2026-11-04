@@ -213,11 +213,15 @@ function assertTranslation(image, sourceLanguage, targetLanguage, pattern) {
   assert.ok(result, JSON.stringify(image.translationError));
   assert.equal(result.sourceLanguage, sourceLanguage); assert.equal(result.targetLanguage, targetLanguage);
   assert.match(result.text, pattern); assert.equal(result.partial, false); assert.equal(result.skippedSegments, 0);
-  assert.equal(result.segments.length, image.ocr.lines.length);
+  assert.equal(result.segments.reduce((sum, segment) => sum + (segment.sourceLineIds?.length || 1), 0), image.ocr.lines.length);
   for (const segment of result.segments) {
-    const original = image.ocr.lines.find(line => line.segmentId === segment.segmentId);
-    assert.ok(original); assert.deepEqual(segment.box, original.box);
-    assert.equal(segment.sourceText, original.text); assert.equal(segment.lowConfidence, original.lowConfidence);
+    const originals = (segment.sourceLineIds || [segment.segmentId]).map(id => image.ocr.lines.find(line => line.segmentId === id));
+    assert.ok(originals.every(Boolean));
+    const left = Math.min(...originals.map(line => line.box.x)), top = Math.min(...originals.map(line => line.box.y));
+    const right = Math.max(...originals.map(line => line.box.x + line.box.width)), bottom = Math.max(...originals.map(line => line.box.y + line.box.height));
+    assert.deepEqual(segment.box, { x: left, y: top, width: right - left, height: bottom - top });
+    assert.equal(segment.sourceText, originals.map(line => line.text.trim()).join(' ').replace(/\s+/g, ' '));
+    assert.equal(segment.lowConfidence, originals.some(line => line.lowConfidence));
     assert.ok(segment.translatedText.trim());
   }
   return result;

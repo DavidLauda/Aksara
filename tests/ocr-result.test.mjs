@@ -16,10 +16,20 @@ test('language settings accept only bundled OCR sources and mapped target langua
 });
 test('OCR output returns stable line IDs, natural coordinates, normalized confidence and captured languages', () => {
   const result = normalize(page([line(' Open the door.\n'), line('Hello', 89, { x0: 30, y0: 100, x1: 140, y1: 145 })]));
-  assert.deepEqual(result.lines[0], { segmentId: 's1', text: 'Open the door.', confidence: 0.95, lowConfidence: false, box: { x: 12, y: 20, width: 168, height: 40 } });
+  assert.deepEqual(result.lines[0], { segmentId: 's1', blockId: 'b1', paragraphId: 'b1p1', text: 'Open the door.', confidence: 0.95, lowConfidence: false, box: { x: 12, y: 20, width: 168, height: 40 } });
   assert.equal(result.lines[1].segmentId, 's2');
   assert.equal(result.confidence, 0.95); assert.equal(result.imageWidth, 640); assert.equal(result.imageHeight, 280);
   assert.equal(result.sourceLanguage, 'eng_Latn'); assert.equal(result.targetLanguage, 'ind_Latn'); assert.equal(result.elapsedMs, 123);
+});
+
+test('OCR preserves stable paragraph and block boundaries for contextual translation', () => {
+  const result = normalize({ text: 'We got this\nmysterious\npackage.\nHello', confidence: 95, blocks: [
+    { paragraphs: [{ lines: [line('We got this'), line('mysterious'), line('package.')] }, { lines: [line('Hello')] }] },
+    { paragraphs: [{ lines: [line('Next panel')] }] },
+  ] });
+  assert.deepEqual(result.lines.map(row => [row.segmentId, row.blockId, row.paragraphId]), [
+    ['s1', 'b1', 'b1p1'], ['s2', 'b1', 'b1p1'], ['s3', 'b1', 'b1p1'], ['s4', 'b1', 'b1p2'], ['s5', 'b2', 'b2p1'],
+  ]);
 });
 test('boxes are clamped to image bounds and invalid or empty boxes are dropped', () => {
   const result = normalize(page([

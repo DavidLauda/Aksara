@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import os from 'node:os';
 
@@ -21,6 +21,8 @@ let context, page, bridge, browserSession, extensionId, realImage;
 const imageBytes = await sharp({ create: { width: 900, height: 440, channels: 3, background: '#fbfaf4' } })
   .composite([{ input: Buffer.from('<svg width="900" height="440"><g font-family="Arial" font-size="62" fill="#19251f"><text x="55" y="150">Open the door.</text><text x="55" y="310">Good morning.</text></g></svg>') }]).png().toBuffer();
 const imageUrl = `data:image/png;base64,${imageBytes.toString('base64')}`;
+const contextImageUrl = `data:image/png;base64,${(await readFile('tests/fixtures/comic-context.png')).toString('base64')}`;
+const twoBubblesUrl = `data:image/png;base64,${(await readFile('tests/fixtures/comic-two-bubbles.png')).toString('base64')}`;
 const replacementUrl = `data:image/png;base64,${(await sharp({ create: { width: 900, height: 440, channels: 3, background: '#efeee7' } }).png().toBuffer()).toString('base64')}`;
 const server = createServer((request, response) => {
   if (request.url === '/favicon.ico') { response.writeHead(204); response.end(); return; }
@@ -206,10 +208,65 @@ async function assertAligned(expected, tolerance = 2) {
   return actual;
 }
 
+function assertSourceRegion(image, region, lineCount) {
+  assert.equal(region.sourceLineIds.length, lineCount);
+  const members = region.sourceLineIds.map(id => image.ocr.lines.find(line => line.segmentId === id));
+  assert.ok(members.every(Boolean), 'Grouped translations retain each actual OCR line ID.');
+  assert.equal(new Set(members.map(line => line.paragraphId)).size, 1, 'A region cannot cross a paragraph.');
+  const x = Math.min(...members.map(line => line.box.x)), y = Math.min(...members.map(line => line.box.y));
+  const right = Math.max(...members.map(line => line.box.x + line.box.width)), bottom = Math.max(...members.map(line => line.box.y + line.box.height));
+  assert.deepEqual(region.box, { x, y, width: right - x, height: bottom - y });
+}
+
+async function useImage(source, width = '420px') {
+  await page.locator('#sample').evaluate(async (image, { source, width }) => { image.style.width = width; image.src = source; await image.decode(); }, { source, width });
+}
+
 try {
   await mkdir('test-results', { recursive: true });
   await new Promise((resolveServer, reject) => { server.once('error', reject); server.listen(80, '127.0.0.1', resolveServer); });
   await launch();
+  await check('wrapped sentence from the supplied comic retains context in one real NLLB request', async () => {
+    await useImage(contextImageUrl); await capture('context-comic-original');
+    await startImage(translateButton(), true); const image = await imageResult(); realImage = image;
+    assert.equal(image.ocr.lines.length, 3);
+    assert.equal(image.translation.segments.length, 1);
+    const [region] = image.translation.segments;
+    assert.equal(region.sourceText, 'We got this mysterious package.');
+    assertSourceRegion(image, region, 3);
+    assert.equal(image.translation.inferenceCalls, 1, 'Three wrapped source rows must not cause three independent translations.');
+    assert.match(region.translatedText, /paket|bungkusan/i);
+    assert.match(region.translatedText, /misterius/i);
+    assert.doesNotMatch(region.translatedText, /(?:bisa|dapat) melakukannya/i);
+    for (const value of Object.values(image.translation.timing)) assert.ok(Number.isFinite(value) && value >= 0);
+    await until(async () => await segments().count() === 1, 'one wrapped overlay for the complete speech bubble');
+    await assertAligned(await measureExpected());
+    await capture('context-comic-translated');
+    for (const [width, height] of [[375, 812], [768, 900], [1440, 900]]) {
+      await page.setViewportSize({ width, height }); await assertAligned(await measureExpected());
+      const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+      assert.deepEqual(audit.violations.map(item => item.id), []);
+      await capture(`context-comic-${width}`);
+    }
+    await page.setViewportSize({ width: 1100, height: 900 });
+    return { image, originalSourceRows: 3, translationRequests: 1, renderingFixture: false };
+  });
+  await check('two real comic speech bubbles retain separate sentences and separate overlay boxes', async () => {
+    await useImage(twoBubblesUrl); await startImage(); const image = await imageResult(); realImage = image;
+    assert.equal(image.translation.segments.length, 2);
+    const [first, second] = image.translation.segments;
+    assert.equal(first.sourceText, "Huh? There's nothing inside.");
+    assert.equal(second.sourceText, "It's just an empty cardbox.");
+    assertSourceRegion(image, first, 3); assertSourceRegion(image, second, 3);
+    assert.ok(first.box.y + first.box.height < second.box.y, 'Different bubble regions remain separate.');
+    assert.equal(image.translation.inferenceCalls, 2);
+    assert.match(second.translatedText, /kotak|kardus/i);
+    assert.doesNotMatch(second.translatedText, /cacing/i);
+    await until(async () => await segments().count() === 2, 'one overlay per speech bubble');
+    await assertAligned(await measureExpected()); await capture('context-two-bubbles');
+    return { image, originalSourceRows: 6, translationRequests: 2, renderingFixture: false };
+  });
+  await useImage(imageUrl, '');
   await check('real two-line OCR and NLLB translation becomes aligned text safely', async () => {
     await startImage(translateButton(), true);
     await until(async () => /Reading|Starting|Loading|Verifying|Translating/.test((await status().allTextContents()).join(' ')), 'actual translation progress');
