@@ -1,0 +1,32 @@
+{
+  "contract": "docs/PHASE_5.md: use the image as the reading surface, preserving the existing quiet green controls and warm neutral palette. Position selectable translations using the painted image and natural OCR boxes; expose original/copy/retry/details/contrast/dismiss with native keyboard controls. Hide unreliable geometry and show complete text with recovery guidance. Store only exact-origin exclusions and a contrast boolean. Target 375x812, 768x900 and 1440x900, with a compact 330px popup. Local references are Phase 4 captures and existing popup styling.",
+  "targetViewports": ["375x812", "768x900", "1440x900"],
+  "accessibility": {
+    "status": "pass",
+    "evidence": "The final browser run has zero axe violations on all three result viewports and the popup. Trusted keyboard activation, original/translation toggle, details, known-text copy, high contrast and Dismiss/focus restoration pass. Rendered captures show visible focus and readable labels. Region language, connected field labels and expanded/pressed states are implemented. Screen reader and native Chrome popup/dialog behavior remain explicitly manual. This is scoped evidence, not a full WCAG claim."
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "Final 375x812, 768x900 and 1440x900 captures were inspected: translated boxes align, text and controls fit and there is no horizontal page overflow. Numeric browser assertions cover fit/crop/position/scale/scroll/resize and clipping, plus 150% visual-viewport zoom with bounded controls. Unsupported layouts open text details rather than guessing."
+  },
+  "contentStates": {
+    "loading": { "status": "pass", "evidence": "overlay-loading.png shows a real pending OCR/model/translation request with stage feedback and Cancel. The suite separately disables a site during actual local work and verifies the worker host closes." },
+    "empty": { "status": "pass", "evidence": "The final image regression's ocr-empty.png shows actual NO_TEXT_FOUND guidance with Retry and Dismiss. First-use checks also preserve OCR and Setup guidance without a downloaded model." },
+    "error": { "status": "pass", "evidence": "overlay-unsupported.png shows actual rotated-layout rejection, automatically opened selectable text and a reason. The final suite verifies restoring a supported layout restores the overlay. Prior failed automatic opening was repaired and the complete run passes." },
+    "partial": { "status": "pass", "evidence": "Actual crop/ancestor-clipping cases keep the original geometry and mark unavailable regions. The explicitly synthetic long-text fixture in overlay-literal-long-text.png triggers overflow guidance while Text details retains the complete string; it is not claimed as model inference." },
+    "success": { "status": "pass", "evidence": "Actual cached Tesseract/NLLB produces Buka pintunya. and Selamat pagi. at matching OCR line positions. Original comparison, Copy, Retry and independent controls pass. The warm-neutral backing covers the source text while preserving the image." },
+    "permission": { "status": "pass", "evidence": "The popup site preference is tested through actual checkbox interactions, persistence, disabled activation and manual re-enabling. Image regression also shows named-host guidance in images-permission.png without fetching the ungranted host. Native grant/deny dialogs remain manual; no new permission is requested."
+    }
+  },
+  "renderedEvidence": [
+    { "viewport": "375x812", "artifact": "overlay-375.png", "observation": "Narrow image translations remain aligned and readable, with a bounded compact panel and wrapped native actions. The opaque backing prevents source text bleed-through." },
+    { "viewport": "768x900", "artifact": "overlay-768.png", "observation": "Tablet layout scales translated regions with the image; original/copy/retry/contrast/details/dismiss remain reachable without horizontal overflow." },
+    { "viewport": "1440x900", "artifact": "overlay-1440.png", "observation": "Desktop image carries two mapped text regions and the control panel uses space below it. Clear status and focus remain visible." },
+    { "viewport": "375x900", "artifact": "overlay-popup.png", "observation": "The compact popup preserves language fields, exact-origin preference, explicit activation, local model readiness and Setup within the content column." },
+    { "viewport": "1100x900", "artifact": "overlay-zoom.png", "observation": "At 150% visual-viewport zoom the mapped text remains aligned and controls stay within the visible viewport; limited space can put the panel over image content." },
+    { "viewport": "1100x900", "artifact": "overlay-unsupported.png", "observation": "Rotated source pixels retain no guessed overlay; the expanded labeled fields show complete translated/original text and explain the mapping limitation." },
+    { "viewport": "1100x900", "artifact": "overlay-literal-long-text.png", "observation": "HTML-like fixture strings are literal text, long regions stay bounded and overflow guidance leads to the complete details field." },
+    { "viewport": "375x900", "artifact": "overlay-site-disabled.png", "observation": "The unchecked site preference disables activation and its origin scope stays visible. Re-enabling remains a manual page action." },
+    { "viewport": "1100x900", "artifact": "overlay-loading.png", "observation": "Actual local processing shows a named stage and Cancel; no remote assets are downloaded by this journey." }
+  ]
+}

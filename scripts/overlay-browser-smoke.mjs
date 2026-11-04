@@ -189,8 +189,8 @@ async function measureExpected(fit = 'fill', position = [0.5, 0.5], positionUnit
       const ratio = fit === 'cover' ? Math.max(width / objectWidth, height / objectHeight) : Math.min(width / objectWidth, height / objectHeight, ...(fit === 'scale-down' ? [1] : []));
       objectWidth *= ratio; objectHeight *= ratio;
     }
-    const offsetX = positionUnit === 'px' ? position[0] * scaleX : (width - objectWidth) * position[0];
-    const offsetY = positionUnit === 'px' ? position[1] * scaleY : (height - objectHeight) * position[1];
+    const offsetX = positionUnit === 'px' ? position[0] * scaleX : positionUnit === 'edge' ? width - objectWidth - position[0] * scaleX : (width - objectWidth) * position[0];
+    const offsetY = positionUnit === 'px' ? position[1] * scaleY : positionUnit === 'edge' ? height - objectHeight - position[1] * scaleY : (height - objectHeight) * position[1];
     return { content, painted: { x: content.x + offsetX, y: content.y + offsetY, width: objectWidth, height: objectHeight }, boxes: result.translation.segments.map(segment => ({ id: segment.segmentId, x: content.x + offsetX + segment.box.x / result.ocr.imageWidth * objectWidth, y: content.y + offsetY + segment.box.y / result.ocr.imageHeight * objectHeight, width: segment.box.width / result.ocr.imageWidth * objectWidth, height: segment.box.height / result.ocr.imageHeight * objectHeight })) };
   }, { fit, position, positionUnit, result: realImage });
 }
@@ -211,7 +211,9 @@ try {
   await new Promise((resolveServer, reject) => { server.once('error', reject); server.listen(80, '127.0.0.1', resolveServer); });
   await launch();
   await check('real two-line OCR and NLLB translation becomes aligned text safely', async () => {
-    await startImage(translateButton(), true); realImage = await imageResult();
+    await startImage(translateButton(), true);
+    await until(async () => /Reading|Starting|Loading|Verifying|Translating/.test((await status().allTextContents()).join(' ')), 'actual translation progress');
+    await capture('overlay-loading'); realImage = await imageResult();
     assert.equal(realImage.translation.segments.length, 2);
     assert.match(realImage.translation.segments[0].translatedText, /buka|pintu/i);
     assert.match(realImage.translation.segments[1].translatedText, /selamat|pagi/i);
@@ -252,6 +254,7 @@ try {
       { name: 'none pixels', fit: 'none', position: [12, 24], unit: 'px', css: 'width:760px;height:520px;max-width:none;object-fit:none;object-position:12px 24px' },
       { name: 'scale-down no upscale', fit: 'scale-down', position: [0, 0], css: 'width:960px;height:600px;max-width:none;object-fit:scale-down;object-position:left top' },
       { name: 'scale-down shrinking', fit: 'scale-down', position: [0.5, 0.5], css: 'width:640px;height:380px;max-width:none;object-fit:scale-down;object-position:center' },
+      { name: 'none edge-offset calculation', fit: 'none', position: [10, 20], unit: 'edge', css: 'width:960px;height:560px;max-width:none;object-fit:none;object-position:right 10px bottom 20px' },
     ];
     const evidence = [];
     for (const item of matrix) {
@@ -271,7 +274,9 @@ try {
     const resized = await assertAligned(await measureExpected());
     await restyle('width:640px;height:360px;max-width:none;object-fit:fill', 'transform:scale(.9);transform-origin:top left');
     const ancestorScale = await assertAligned(await measureExpected());
-    return { scaled, scrolled, moved, resized, ancestorScale };
+    await restyle('width:640px;height:360px;max-width:none;object-fit:fill;scale:.8 1.1;transform-origin:top left');
+    const independentScale = await assertAligned(await measureExpected());
+    return { scaled, scrolled, moved, resized, ancestorScale, independentScale };
   });
   await check('clipped ancestors hide translated pixels outside the displayed image area', async () => {
     await restyle('width:700px;height:auto;max-width:none', 'width:430px;height:230px;overflow:hidden;border:7px solid #6c8472;padding:0');
@@ -286,6 +291,20 @@ try {
     assert.ok(clipping.overflow.includes('hidden') || clipping.overflow.includes('clip') || clipping.clipPath !== 'none', 'The overlay must have a real CSS clipping boundary.');
     await capture('overlay-ancestor-clip'); return { clipping };
   });
+  await check('visual-viewport zoom preserves mapped boxes and keeps controls reachable', async () => {
+    await restyle();
+    const session = await context.newCDPSession(page);
+    try {
+      await session.send('Emulation.setPageScaleFactor', { pageScaleFactor: 1.5 });
+      await assertAligned(await measureExpected());
+      await until(async () => page.locator('#aksara-root .card').evaluate(node => {
+        const r = node.getBoundingClientRect(), v = visualViewport;
+        return r.left >= v.offsetLeft && r.top >= v.offsetTop && r.right <= v.offsetLeft + v.width + 1 && r.bottom <= v.offsetTop + v.height + 1;
+      }), 'controls fit the scaled visual viewport');
+      await capture('overlay-zoom');
+    } finally { await session.send('Emulation.setPageScaleFactor', { pageScaleFactor: 1 }); await session.detach(); }
+    return { pageScaleFactor: 1.5, originalImageUnmodified: true };
+  });
   await check('unsupported rotation falls back to selectable translated text', async () => {
     await restyle('width:640px;height:auto;max-width:none;transform:rotate(7deg)');
     await until(async () => !await overlay().isVisible(), 'unsafe rotated overlay hidden');
@@ -294,6 +313,14 @@ try {
     await capture('overlay-unsupported');
     await restyle(); await until(async () => await overlay().isVisible(), 'supported layout restores overlay');
     return { originalResultRetained: true };
+  });
+  await check('invisible images hide their controls and restored pixels recover the saved overlay', async () => {
+    await page.locator('#sample').evaluate(image => { image.style.opacity = '0'; });
+    await until(async () => await translateButton().count() === 0 && !await overlay().isVisible(), 'invisible image hides overlay and controls');
+    await page.locator('#sample').evaluate(image => { image.style.opacity = '1'; });
+    await until(async () => await translateButton().count() === 1 && await overlay().isVisible(), 'restored image restores overlay');
+    await assertAligned(await measureExpected());
+    return { retainedResult: true, noNewInference: true };
   });
   await check('high contrast persists, and page and popup fit three widths with no axe violations', async () => {
     await control('overlay-contrast').press('Enter');
@@ -336,6 +363,20 @@ try {
     await until(async () => await translateButton().count() === 1, 'controls can be activated again');
     return { disabledOrigin: fixtureOrigin, persisted: true, noAutomaticInference: true };
   });
+  await check('disabling a site during a real job cancels its worker and requires manual activation', async () => {
+    await startImage();
+    await until(async () => (await captured()).some(event => event.type === 'IMAGE_PROGRESS' && ['ocr_prepare', 'ocr', 'model_prepare', 'model_verify'].includes(event.stage)), 'real local job starts');
+    await bridge.evaluate(origin => chrome.storage.local.set({ siteSettings: { disabledOrigins: [origin] } }), fixtureOrigin);
+    await until(async () => await translateButton().count() === 0 && await segments().count() === 0, 'site preference cancels current page work');
+    await until(async () => (await bridge.evaluate(() => chrome.runtime.getContexts({ contextTypes: [chrome.runtime.ContextType.OFFSCREEN_DOCUMENT] }))).length === 0, 'cancelled worker host is reclaimed');
+    await bridge.evaluate(() => chrome.storage.local.set({ siteSettings: { disabledOrigins: [] } }));
+    await page.waitForTimeout(200);
+    assert.equal(await translateButton().count(), 0, 'Allowing the site must not inject controls or start work automatically.');
+    await page.bringToFront(); await bridge.reload(); await bridge.locator('#enable-tab:not([disabled])').waitFor();
+    await bridge.locator('#enable-tab').click();
+    await until(async () => await translateButton().count() === 1, 'manual activation restores page controls');
+    return { realWorkCancelled: true, offscreenHostClosed: true, manualActivationRequired: true };
+  });
   await check('hostile and long translated strings remain literal bounded rendering fixtures', async () => {
     await page.setViewportSize({ width: 1100, height: 900 }); await restyle();
     const hostile = '<img src=x onerror="window.__aksaraInjected=true"> & <script>window.__aksaraInjected=true</script>';
@@ -363,6 +404,38 @@ try {
     await page.locator('#sample').evaluate(async (image, source) => { image.src = source; await image.decode(); }, replacementUrl);
     await until(async () => await segments().count() === 0, 'source replacement clears stale translated regions');
     return { focusRestored: true, renderingFixtureReplayForInvalidation: true };
+  });
+  await check('same-document navigation clears completed translations without starting another job', async () => {
+    await page.locator('#sample').evaluate(async (image, source) => { image.src = source; await image.decode(); }, imageUrl);
+    await inContent('fixture', [realImage]); await startImage(); await imageResult();
+    await until(async () => await segments().count() === 2, 'completed rendering fixture before route change');
+    await page.evaluate(() => history.pushState({}, '', '/another-route'));
+    await until(async () => await segments().count() === 0, 'route change invalidates overlay');
+    assert.equal(await page.locator('#aksara-root .translated-text').inputValue(), '');
+    assert.equal(await translateButton().count(), 1);
+    return { renderingFixtureReplayForNavigation: true, sourceUnchanged: true, noAutomaticInference: true };
+  });
+  await check('two image results have independent original toggles and Dismiss actions', async () => {
+    await page.evaluate(() => {
+      const image = document.querySelector('#sample'); image.style.cssText = 'width:400px;height:auto;max-width:none';
+      const clone = image.cloneNode(); clone.id = 'sample-two';
+      document.querySelector('#clipper').style.cssText = 'display:flex;gap:28px'; image.after(clone);
+    });
+    await until(async () => await translateButton().count() === 2, 'two independently eligible images');
+    for (const index of [0, 1]) {
+      await inContent('fixture', [realImage]); await startImage(translateButton().nth(index)); await imageResult();
+    }
+    await until(async () => await overlay().count() === 2, 'two independent overlay layers');
+    const controls = page.locator('#aksara-root .control');
+    const firstId = await controls.nth(0).getAttribute('data-image-id'), secondId = await controls.nth(1).getAttribute('data-image-id');
+    await controls.nth(1).locator('.toggle-original').click();
+    await until(async () => !await page.locator(`#aksara-root .image-overlay[data-image-id="${secondId}"]`).isVisible(), 'second image reveals its original after the layout frame');
+    assert.equal(await page.locator(`#aksara-root .image-overlay[data-image-id="${firstId}"]`).isVisible(), true);
+    assert.equal(await page.locator(`#aksara-root .image-overlay[data-image-id="${secondId}"]`).isVisible(), false);
+    await controls.nth(1).locator('.dismiss').click();
+    assert.equal(await overlay().count(), 1);
+    assert.equal(await page.locator(`#aksara-root .image-overlay[data-image-id="${firstId}"] .translated-segment`).count(), 2);
+    return { renderingFixtureReplayForIndependence: true, separateImageIds: [firstId, secondId] };
   });
   report.fixturePerformance = { ...await page.evaluate(() => globalThis.__aksaraVitals), note: 'Controlled local fixture including intentional layout mutations. Event Timing is not field INP; null means no qualifying event.' };
   assert.deepEqual(report.externalRequests, [], 'Overlay tests use existing local model files and inline pixels only.');

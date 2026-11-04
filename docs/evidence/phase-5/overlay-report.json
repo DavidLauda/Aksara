@@ -1,0 +1,790 @@
+{
+  "generatedAt": "2026-11-04T11:27:55.549Z",
+  "phase": 5,
+  "browser": "156.0.8078.4",
+  "extensionVersion": "0.5.0",
+  "hardware": {
+    "platform": "win32",
+    "cpu": "AMD Ryzen 5 5600H with Radeon Graphics         ",
+    "totalMemoryBytes": 16477155328
+  },
+  "cases": [
+    {
+      "name": "real two-line OCR and NLLB translation becomes aligned text safely",
+      "ok": true,
+      "elapsedMs": 33006,
+      "image": {
+        "animated": false,
+        "byteLength": 32340,
+        "context": "offscreen",
+        "height": 440,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 572,
+          "imageHeight": 440,
+          "imageWidth": 900,
+          "lines": [
+            {
+              "box": {
+                "height": 57,
+                "width": 402,
+                "x": 58,
+                "y": 105
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "text": "Open the door."
+            },
+            {
+              "box": {
+                "height": 58,
+                "width": 402,
+                "x": 58,
+                "y": 265
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "segmentId": "s2",
+              "text": "Good morning."
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Open the door.\n\nGood morning.",
+          "truncated": false
+        },
+        "sha256": "9ad523c8f30a6e2771480a2dd2da81116b235335b838b8344a27b24cb121fd96",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 31935,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 57,
+                "width": 402,
+                "x": 58,
+                "y": 105
+              },
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "sourceText": "Open the door.",
+              "translatedText": "Buka pintunya."
+            },
+            {
+              "box": {
+                "height": 58,
+                "width": 402,
+                "x": 58,
+                "y": 265
+              },
+              "lowConfidence": false,
+              "segmentId": "s2",
+              "sourceText": "Good morning.",
+              "translatedText": "Selamat pagi."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Buka pintunya.\nSelamat pagi."
+        },
+        "width": 900
+      },
+      "expected": {
+        "content": {
+          "x": 50,
+          "y": 138.5,
+          "width": 900,
+          "height": 440
+        },
+        "painted": {
+          "x": 50,
+          "y": 138.5,
+          "width": 900,
+          "height": 440
+        },
+        "boxes": [
+          {
+            "id": "s1",
+            "x": 108,
+            "y": 243.5,
+            "width": 402,
+            "height": 57
+          },
+          {
+            "id": "s2",
+            "x": 108,
+            "y": 403.5,
+            "width": 402,
+            "height": 57.99999999999999
+          }
+        ]
+      },
+      "actual": [
+        {
+          "id": "s1",
+          "x": 108,
+          "y": 243.5,
+          "width": 402,
+          "height": 57
+        },
+        {
+          "id": "s2",
+          "x": 108,
+          "y": 403.5,
+          "width": 402,
+          "height": 58
+        }
+      ],
+      "renderingFixture": false
+    },
+    {
+      "name": "original toggle preserves result and retry runs the real local engine",
+      "ok": true,
+      "elapsedMs": 12927,
+      "retryResult": {
+        "cold": false,
+        "elapsedMs": 12208,
+        "model": "Xenova/nllb-200-distilled-600M",
+        "partial": false,
+        "sameLanguage": false,
+        "segments": [
+          {
+            "box": {
+              "height": 57,
+              "width": 402,
+              "x": 58,
+              "y": 105
+            },
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "sourceText": "Open the door.",
+            "translatedText": "Buka pintunya."
+          },
+          {
+            "box": {
+              "height": 58,
+              "width": 402,
+              "x": 58,
+              "y": 265
+            },
+            "lowConfidence": false,
+            "segmentId": "s2",
+            "sourceText": "Good morning.",
+            "translatedText": "Selamat pagi."
+          }
+        ],
+        "skippedSegments": 0,
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "text": "Buka pintunya.\nSelamat pagi."
+      },
+      "renderingFixture": false
+    },
+    {
+      "name": "copy produces the complete known translation and details remain keyboard reachable",
+      "ok": true,
+      "elapsedMs": 125,
+      "copiedKnownFixture": true,
+      "detailsOpenedAndClosed": true
+    },
+    {
+      "name": "object-fit, noncenter object-position, borders and padding map natural OCR coordinates",
+      "ok": true,
+      "elapsedMs": 1028,
+      "matrix": [
+        {
+          "name": "fill",
+          "expected": {
+            "content": {
+              "x": 70,
+              "y": 158.5,
+              "width": 640,
+              "height": 360
+            },
+            "painted": {
+              "x": 70,
+              "y": 158.5,
+              "width": 640,
+              "height": 360
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 111.24444444444444,
+                "y": 244.4090909090909,
+                "width": 285.8666666666667,
+                "height": 46.63636363636364
+              },
+              {
+                "id": "s2",
+                "x": 111.24444444444444,
+                "y": 375.3181818181818,
+                "width": 285.8666666666667,
+                "height": 47.45454545454545
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 111.234375,
+              "y": 244.40625,
+              "width": 285.859375,
+              "height": 46.625
+            },
+            {
+              "id": "s2",
+              "x": 111.234375,
+              "y": 375.3125,
+              "width": 285.859375,
+              "height": 47.453125
+            }
+          ]
+        },
+        {
+          "name": "contain 25% 75%",
+          "expected": {
+            "content": {
+              "x": 70,
+              "y": 158.5,
+              "width": 640,
+              "height": 420
+            },
+            "painted": {
+              "x": 70,
+              "y": 238.83333333333331,
+              "width": 640,
+              "height": 312.8888888888889
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 111.24444444444444,
+                "y": 313.5,
+                "width": 285.8666666666667,
+                "height": 40.53333333333334
+              },
+              {
+                "id": "s2",
+                "x": 111.24444444444444,
+                "y": 427.27777777777777,
+                "width": 285.8666666666667,
+                "height": 41.24444444444445
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 111.234375,
+              "y": 313.484375,
+              "width": 285.859375,
+              "height": 40.53125
+            },
+            {
+              "id": "s2",
+              "x": 111.234375,
+              "y": 427.265625,
+              "width": 285.859375,
+              "height": 41.234375
+            }
+          ]
+        },
+        {
+          "name": "cover right bottom",
+          "expected": {
+            "content": {
+              "x": 50,
+              "y": 138.5,
+              "width": 640,
+              "height": 420
+            },
+            "painted": {
+              "x": -169.09090909090912,
+              "y": 138.5,
+              "width": 859.0909090909091,
+              "height": 420
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": -113.72727272727275,
+                "y": 238.72727272727275,
+                "width": 383.72727272727275,
+                "height": 54.40909090909091
+              },
+              {
+                "id": "s2",
+                "x": -113.72727272727275,
+                "y": 391.4545454545455,
+                "width": 383.72727272727275,
+                "height": 55.36363636363636
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": -113.71875,
+              "y": 238.71875,
+              "width": 383.71875,
+              "height": 54.40625
+            },
+            {
+              "id": "s2",
+              "x": -113.71875,
+              "y": 391.453125,
+              "width": 383.71875,
+              "height": 55.359375
+            }
+          ]
+        },
+        {
+          "name": "none pixels",
+          "expected": {
+            "content": {
+              "x": 50,
+              "y": 138.5,
+              "width": 760,
+              "height": 520
+            },
+            "painted": {
+              "x": 62,
+              "y": 162.5,
+              "width": 900,
+              "height": 440
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 120,
+                "y": 267.5,
+                "width": 402,
+                "height": 57
+              },
+              {
+                "id": "s2",
+                "x": 120,
+                "y": 427.5,
+                "width": 402,
+                "height": 57.99999999999999
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 120,
+              "y": 267.5,
+              "width": 402,
+              "height": 57
+            },
+            {
+              "id": "s2",
+              "x": 120,
+              "y": 427.5,
+              "width": 402,
+              "height": 58
+            }
+          ]
+        },
+        {
+          "name": "scale-down no upscale",
+          "expected": {
+            "content": {
+              "x": 50,
+              "y": 138.5,
+              "width": 960,
+              "height": 600
+            },
+            "painted": {
+              "x": 50,
+              "y": 138.5,
+              "width": 900,
+              "height": 440
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 108,
+                "y": 243.5,
+                "width": 402,
+                "height": 57
+              },
+              {
+                "id": "s2",
+                "x": 108,
+                "y": 403.5,
+                "width": 402,
+                "height": 57.99999999999999
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 108,
+              "y": 243.5,
+              "width": 402,
+              "height": 57
+            },
+            {
+              "id": "s2",
+              "x": 108,
+              "y": 403.5,
+              "width": 402,
+              "height": 58
+            }
+          ]
+        },
+        {
+          "name": "scale-down shrinking",
+          "expected": {
+            "content": {
+              "x": 50,
+              "y": 138.5,
+              "width": 640,
+              "height": 380
+            },
+            "painted": {
+              "x": 50,
+              "y": 172.05555555555554,
+              "width": 640,
+              "height": 312.8888888888889
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 91.24444444444444,
+                "y": 246.72222222222223,
+                "width": 285.8666666666667,
+                "height": 40.53333333333334
+              },
+              {
+                "id": "s2",
+                "x": 91.24444444444444,
+                "y": 360.5,
+                "width": 285.8666666666667,
+                "height": 41.24444444444445
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 91.234375,
+              "y": 246.703125,
+              "width": 285.859375,
+              "height": 40.53125
+            },
+            {
+              "id": "s2",
+              "x": 91.234375,
+              "y": 360.484375,
+              "width": 285.859375,
+              "height": 41.234375
+            }
+          ]
+        },
+        {
+          "name": "none edge-offset calculation",
+          "expected": {
+            "content": {
+              "x": 50,
+              "y": 138.5,
+              "width": 960,
+              "height": 560
+            },
+            "painted": {
+              "x": 100,
+              "y": 238.5,
+              "width": 900,
+              "height": 440
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 158,
+                "y": 343.5,
+                "width": 402,
+                "height": 57
+              },
+              {
+                "id": "s2",
+                "x": 158,
+                "y": 503.5,
+                "width": 402,
+                "height": 57.99999999999999
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 158,
+              "y": 343.5,
+              "width": 402,
+              "height": 57
+            },
+            {
+              "id": "s2",
+              "x": 158,
+              "y": 503.5,
+              "width": 402,
+              "height": 58
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "scroll, DOM movement, resize and positive CSS scaling keep overlays aligned",
+      "ok": true,
+      "elapsedMs": 498,
+      "scaled": [
+        {
+          "id": "s1",
+          "x": 95.78125,
+          "y": 250.59375,
+          "width": 228.6875,
+          "height": 51.296875
+        },
+        {
+          "id": "s2",
+          "x": 95.78125,
+          "y": 394.59375,
+          "width": 228.6875,
+          "height": 52.1875
+        }
+      ],
+      "scrolled": [
+        {
+          "id": "s1",
+          "x": 95.78125,
+          "y": 140.59375,
+          "width": 228.6875,
+          "height": 51.296875
+        },
+        {
+          "id": "s2",
+          "x": 95.78125,
+          "y": 284.59375,
+          "width": 228.6875,
+          "height": 52.1875
+        }
+      ],
+      "moved": [
+        {
+          "id": "s1",
+          "x": 95.78125,
+          "y": 252.59375,
+          "width": 228.6875,
+          "height": 51.296875
+        },
+        {
+          "id": "s2",
+          "x": 95.78125,
+          "y": 396.59375,
+          "width": 228.6875,
+          "height": 52.1875
+        }
+      ],
+      "resized": [
+        {
+          "id": "s1",
+          "x": 91.65625,
+          "y": 236.84375,
+          "width": 200.09375,
+          "height": 42.75
+        },
+        {
+          "id": "s2",
+          "x": 91.65625,
+          "y": 356.84375,
+          "width": 200.09375,
+          "height": 43.5
+        }
+      ],
+      "ancestorScale": [
+        {
+          "id": "s1",
+          "x": 87.109375,
+          "y": 215.8125,
+          "width": 257.265625,
+          "height": 41.96875
+        },
+        {
+          "id": "s2",
+          "x": 87.109375,
+          "y": 333.625,
+          "width": 257.265625,
+          "height": 42.703125
+        }
+      ],
+      "independentScale": [
+        {
+          "id": "s1",
+          "x": 82.984375,
+          "y": 233,
+          "width": 228.6875,
+          "height": 51.296875
+        },
+        {
+          "id": "s2",
+          "x": 82.984375,
+          "y": 377,
+          "width": 228.6875,
+          "height": 52.1875
+        }
+      ]
+    },
+    {
+      "name": "clipped ancestors hide translated pixels outside the displayed image area",
+      "ok": true,
+      "elapsedMs": 178,
+      "clipping": {
+        "clip": {
+          "x": 50,
+          "y": 138.5,
+          "width": 430,
+          "height": 230
+        },
+        "layer": {
+          "x": 57,
+          "y": 145.5,
+          "width": 416,
+          "height": 216
+        },
+        "overflow": "hidden",
+        "clipPath": "none"
+      }
+    },
+    {
+      "name": "visual-viewport zoom preserves mapped boxes and keeps controls reachable",
+      "ok": true,
+      "elapsedMs": 205,
+      "pageScaleFactor": 1.5,
+      "originalImageUnmodified": true
+    },
+    {
+      "name": "unsupported rotation falls back to selectable translated text",
+      "ok": true,
+      "elapsedMs": 298,
+      "originalResultRetained": true
+    },
+    {
+      "name": "invisible images hide their controls and restored pixels recover the saved overlay",
+      "ok": true,
+      "elapsedMs": 30,
+      "retainedResult": true,
+      "noNewInference": true
+    },
+    {
+      "name": "high contrast persists, and page and popup fit three widths with no axe violations",
+      "ok": true,
+      "elapsedMs": 2847,
+      "sizes": [
+        {
+          "width": 375,
+          "height": 812,
+          "axeViolations": 0
+        },
+        {
+          "width": 768,
+          "height": 900,
+          "axeViolations": 0
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "axeViolations": 0
+        }
+      ],
+      "popupAxeViolations": 0,
+      "highContrastSaved": true,
+      "visualRegression": "INCONCLUSIVE: no approved matching baseline"
+    },
+    {
+      "name": "per-site disable removes controls and survives popup reload without affecting other origins",
+      "ok": true,
+      "elapsedMs": 321,
+      "disabledOrigin": "http://page.aksara-fixture.net",
+      "persisted": true,
+      "noAutomaticInference": true
+    },
+    {
+      "name": "disabling a site during a real job cancels its worker and requires manual activation",
+      "ok": true,
+      "elapsedMs": 1553,
+      "realWorkCancelled": true,
+      "offscreenHostClosed": true,
+      "manualActivationRequired": true
+    },
+    {
+      "name": "hostile and long translated strings remain literal bounded rendering fixtures",
+      "ok": true,
+      "elapsedMs": 268,
+      "renderingFixture": true,
+      "noInferenceClaim": true,
+      "literalHtml": true,
+      "textLength": 1859
+    },
+    {
+      "name": "Dismiss clears overlays and restores focus; source replacement invalidates completed text",
+      "ok": true,
+      "elapsedMs": 62,
+      "focusRestored": true,
+      "renderingFixtureReplayForInvalidation": true
+    },
+    {
+      "name": "same-document navigation clears completed translations without starting another job",
+      "ok": true,
+      "elapsedMs": 79,
+      "renderingFixtureReplayForNavigation": true,
+      "sourceUnchanged": true,
+      "noAutomaticInference": true
+    },
+    {
+      "name": "two image results have independent original toggles and Dismiss actions",
+      "ok": true,
+      "elapsedMs": 231,
+      "renderingFixtureReplayForIndependence": true,
+      "separateImageIds": [
+        "f44dd846e61d51207fef6f2cb525b752",
+        "57b70b7c17679c2370e64f336af90611"
+      ]
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "screenshots": [
+    "overlay-loading.png",
+    "overlay-success.png",
+    "overlay-object-fit.png",
+    "overlay-ancestor-clip.png",
+    "overlay-zoom.png",
+    "overlay-unsupported.png",
+    "overlay-high-contrast.png",
+    "overlay-375.png",
+    "overlay-768.png",
+    "overlay-1440.png",
+    "overlay-popup.png",
+    "overlay-site-disabled.png",
+    "overlay-literal-long-text.png"
+  ],
+  "ok": true,
+  "note": "Primary and retry journeys use real packaged Tesseract and cached NLLB/WebGPU. Geometry reuses those actual results. Only explicitly labeled hostile/long-text rendering cases substitute UI fixture data; they are not inference claims. The existing model cache is preserved.",
+  "fixturePerformance": {
+    "lcpMs": 48,
+    "cumulativeLayoutShift": 1.6163062078629817,
+    "maxEventTimingMs": 32,
+    "note": "Controlled local fixture including intentional layout mutations. Event Timing is not field INP; null means no qualifying event."
+  }
+}

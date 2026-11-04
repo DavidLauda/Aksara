@@ -4,6 +4,7 @@ import { isEnvelope, isRecord } from './protocol';
 import { LANGUAGE_SETTINGS_KEY, languageSettings, type LanguageSettings } from './languages';
 import { OCR_LIMITS } from './ocr-result';
 import { TRANSLATION_LIMITS } from './translation-result';
+import { SITE_SETTINGS_KEY, siteAllowed, siteSettings } from './site-settings';
 
 type Snapshot = { imageId: string; kind: 'url' | 'inline'; url?: string; width: number; height: number };
 type Owner = { tabId: number; documentId: string; frameId: number; pageOrigin: string };
@@ -101,7 +102,8 @@ export class ImageAcquisition {
       let languages: LanguageSettings;
       try {
         await this.ready; await this.startup();
-        const saved = await chrome.storage.local.get(LANGUAGE_SETTINGS_KEY);
+        const saved = await chrome.storage.local.get([LANGUAGE_SETTINGS_KEY, SITE_SETTINGS_KEY]);
+        if (!siteAllowed(siteSettings(saved[SITE_SETTINGS_KEY]), owner.pageOrigin)) throw new ImageAcquisitionError('SITE_DISABLED', 'Image controls are disabled on this site. Enable them in Aksara’s popup to continue.');
         languages = languageSettings(saved[LANGUAGE_SETTINGS_KEY]);
         snapshot = await this.snapshot(owner, requestId, value.imageId);
       }

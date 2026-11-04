@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Aksara",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Private image translation with local OCR, WebGPU translation and offline model storage.",
   "minimum_chrome_version": "124",
   "permissions": ["storage", "offscreen", "unlimitedStorage", "activeTab", "scripting"],
