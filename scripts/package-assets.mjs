@@ -23,5 +23,6 @@ await copy('node_modules/onnxruntime-web/README.md', 'licenses/onnxruntime-readm
 await copy('third_party/onnxruntime-LICENSE.txt', 'licenses/onnxruntime.txt');
 await copy('third_party/onnxruntime-NOTICES.txt', 'licenses/onnxruntime-notices.txt');
 await copy('node_modules/@noble/hashes/LICENSE', 'licenses/noble-hashes.txt');
+await copy('node_modules/regenerator-runtime/LICENSE', 'licenses/regenerator-runtime.txt');
 await writeFile('dist/asset-manifest.json', JSON.stringify({ files }, null, 2) + '\n');
 console.log(`Packaged ${files.length} local runtime/language assets.`);

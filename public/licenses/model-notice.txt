@@ -1,0 +1,19 @@
+Aksara model attribution — research preview
+
+NLLB-200 distilled 600M was developed by Meta AI Research.
+Model card: https://huggingface.co/facebook/nllb-200-distilled-600M
+License: Creative Commons Attribution-NonCommercial 4.0 International.
+License text: https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
+Aksara selects Xenova's ONNX / q8 conversion:
+https://huggingface.co/Xenova/nllb-200-distilled-600M
+Pinned revision: 261c31d1a5732c67cdd16d80e8d6088507c7ccea
+The conversion/quantization is a change of representation from the original
+checkpoint. Aksara does not retrain or edit these weights. The pinned files
+download separately after explicit consent and are not included in this package.
+
+Meta describes NLLB as a research model, not released for production deployment.
+No commercial-use rights or endorsement by Meta or Xenova are implied.
+
+Reference: NLLB Team et al. (2022), No Language Left Behind: Scaling
+Human-Centered Machine Translation. https://arxiv.org/abs/2207.04672

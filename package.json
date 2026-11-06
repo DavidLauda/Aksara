@@ -1,6 +1,6 @@
 {
   "name": "aksara",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "description": "Private, on-device image translation for Chrome.",
@@ -12,7 +12,8 @@
     "test:model": "node scripts/browser-smoke.mjs --model",
     "test:images": "node scripts/image-browser-smoke.mjs",
     "test:translation": "node scripts/translation-browser-smoke.mjs",
-    "test:overlays": "node scripts/overlay-browser-smoke.mjs"
+    "test:overlays": "node scripts/overlay-browser-smoke.mjs",
+    "test:hardening": "node scripts/hardening-browser-smoke.mjs"
   },
   "dependencies": {
     "@huggingface/transformers": "4.3.1",

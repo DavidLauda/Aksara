@@ -62,5 +62,13 @@ export async function checkGpu(signal?: AbortSignal) {
   // Promise.race retains rejection handlers on the unfinished probe, including
   // a late requestDevice/mapAsync failure after cancellation has been returned.
   try { return await Promise.race([probe, stopPromise]); }
+  catch (error) {
+    if (stopped) throw stopped;
+    if (error instanceof Error && error.message.startsWith('WEBGPU_UNAVAILABLE:')) throw error;
+    // Adapter/device/shader/map failures are GPU preflight failures, even when
+    // the driver returns an unlabelled OperationError or allocation exception.
+    // Keep driver details out of persisted operational messages.
+    throw new Error('WEBGPU_UNAVAILABLE: GPU capability check failed. Restart Chrome or check hardware acceleration, then retry.');
+  }
   finally { clearTimeout(timer); signal?.removeEventListener('abort', abort); }
 }

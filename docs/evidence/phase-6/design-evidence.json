@@ -1,0 +1,20 @@
+{
+  "contract": "docs/PHASE_6.md: packaged Privacy & local data surface. Explain local processing, image-host/model connections, storage, deletion and website DOM visibility. Reuse existing Setup typography, quiet green links, warm background, readable column and gold focus. Popup/Setup links must reach the packaged script-free page without new permissions. No loading animation, consent modal or remote resources.",
+  "targetViewports": ["375x812", "768x900", "1440x900"],
+  "accessibility": { "status": "pass", "evidence": "Hardening browser suite reports zero axe violations at all three privacy widths and in the popup. Keyboard Enter opens Privacy from the focused popup link, then Return reaches Setup, whose privacy link resolves. Rendered review confirms visible focus, readable contrast, semantic headings and long content. Native browser grant UI and a full screen-reader pass remain manual; no full WCAG claim is made." },
+  "responsive": { "status": "pass", "evidence": "All three full-page privacy captures were visually inspected. The narrow heading wraps, paragraphs stay inside their sections, the wide reading column stays bounded, and numeric browser checks find no horizontal overflow. The new popup link fits its 330 px content column. Reduced-motion emulation is active; the static page has no motion." },
+  "contentStates": {
+    "loading": { "status": "not-applicable", "reason": "The new privacy surface is complete packaged HTML/CSS with no asynchronous application data, progress operation or cancellation action." },
+    "empty": { "status": "not-applicable", "reason": "The informational page contains fixed disclosure content and does not query a collection or accept user input that could produce an empty state." },
+    "error": { "status": "not-applicable", "reason": "There is no form, permission operation or runtime task on this static page. Existing processing errors remain on their tested Setup/page surfaces." },
+    "partial": { "status": "not-applicable", "reason": "No data fetching, OCR or pagination occurs on the privacy page; all sections are shipped together and remain scrollable." },
+    "success": { "status": "pass", "evidence": "All disclosure sections are present at every target width. Actual keyboard navigation opens the packaged page and returns to Setup, with no page/extension errors or external requests in the passing hardening report." },
+    "permission": { "status": "not-applicable", "reason": "Privacy is informational and requests no permissions. Its copy explains the existing named-origin grant and revocation controls. Native grant behavior remains a separate manual release gate." }
+  },
+  "renderedEvidence": [
+    { "viewport": "375x812", "artifact": "privacy-375.png", "observation": "The heading wraps naturally; every disclosure section remains readable in the narrow column and the return link remains reachable by scrolling." },
+    { "viewport": "768x900", "artifact": "privacy-768.png", "observation": "Tablet layout preserves text hierarchy, section separation and a visible return link without horizontal overflow." },
+    { "viewport": "1440x900", "artifact": "privacy-1440.png", "observation": "The full desktop page retains a bounded reading column, clear disclosure headings and consistent spacing with the existing Setup surface." },
+    { "viewport": "330x760", "artifact": "hardening-popup.png", "observation": "The privacy link fits below the preview status and shows the existing gold keyboard focus indicator. No primary control is displaced outside the content column." }
+  ]
+}

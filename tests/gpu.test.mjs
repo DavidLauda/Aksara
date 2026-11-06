@@ -21,6 +21,22 @@ function installGpuConstants(t) {
 }
 const nextTurn = () => new Promise(resolve => setImmediate(resolve));
 
+test('unlabelled adapter and device failures are reported as GPU errors without driver details', async t => {
+  for (const stage of ['adapter', 'device']) {
+    await t.test(stage, async child => {
+      const detail = 'private driver diagnostic at 0x1234';
+      installNavigator(child, { requestAdapter: async () => {
+        if (stage === 'adapter') throw new DOMException(detail, 'OperationError');
+        return { requestDevice: async () => { throw new Error(detail); } };
+      } });
+      await assert.rejects(checkGpu(), error => {
+        assert.match(error.message, /^WEBGPU_UNAVAILABLE: GPU capability check failed/);
+        assert.doesNotMatch(error.message, /private|0x1234/); return true;
+      });
+    });
+  }
+});
+
 test('pre-aborted GPU check never requests an adapter', async t => {
   let requested = false;
   installNavigator(t, { requestAdapter: async () => { requested = true; return null; } });

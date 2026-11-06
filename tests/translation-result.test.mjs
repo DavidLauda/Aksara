@@ -124,6 +124,7 @@ test('text without OCR boxes is translated without inventing image coordinates',
 test('runtime failures become actionable bounded errors without source text, URLs or stacks', () => {
   const cases = [
     ['MODEL_NOT_READY: https://private.example/image.png', 'MODEL_NOT_READY'],
+    ['MODEL_INTEGRITY_FAILED: Secret OCR text https://private.example/model', 'MODEL_INTEGRITY_FAILED'],
     ['WEBGPU_UNAVAILABLE: no adapter', 'WEBGPU_UNAVAILABLE'],
     ['no available backend found', 'WEBGPU_UNAVAILABLE'],
     ['memory allocation failed at 0x10', 'MODEL_MEMORY_ERROR'],

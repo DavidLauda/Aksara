@@ -1,6 +1,6 @@
 # Aksara
 
-A Chrome Manifest V3 extension for private image translation using Tesseract.js and Transformers.js. **The Phase 5 preview places local translations over the matching text regions in webpage images.** Sources are English and Indonesian; targets are Indonesian, English and French. The original image stays in place, with selectable DOM text on an opaque backing. See the [PRD](PRD.md) and [Phase 5 details](docs/PHASE_5.md).
+A Chrome Manifest V3 extension for private image translation using Tesseract.js and Transformers.js. **Version 0.6.0 is the Phase 6 research preview**, with local translations over matching image text, recovery checks and a packaged privacy notice. Sources are English and Indonesian; targets are Indonesian, English and French. The original image stays in place, with selectable DOM text on an opaque backing. See the [PRD](PRD.md), [hardening and release decision](docs/PHASE_6.md) and [overlay details](docs/PHASE_5.md).
 
 ## Build and load
 
@@ -52,6 +52,7 @@ npm run test:browser
 npm run test:model
 npm run test:translation
 npm run test:overlays
+npm run test:hardening
 ```
 
 `test:images` runs real Chromium image/OCR fixtures, including both languages, natural-coordinate boxes, offline inline reads, saved preferences, low-confidence and empty results, cancellation, forced worker interruption, responsive source changes and temporary-storage cleanup. It also audits the popup and result card with axe at 375, 768 and 1440 pixel page widths. It binds a local fixture server to port 80 and recreates its own `.test-profile-ocr` profile, using a copied extension with test-only host grants and browser DNS overrides. The actual Chrome host-permission grant dialog is not automated; test that interaction manually in the unpacked extension.
@@ -62,6 +63,8 @@ npm run test:overlays
 
 `test:overlays` uses the supplied comic-panel regression fixtures with actual OCR → NLLB to verify a wrapped sentence becomes one request and two bubbles remain separate. It also checks initial translation/Retry and coordinate alignment across fit/position/crop/scale/scroll/resize layouts, plus copy, original toggle, details, contrast, site disable, invalidation and responsive accessibility. Hostile/long-text and independent-image render fixtures are explicitly labeled in the report and do not claim inference quality. It shares `.test-profile-current` and port 80, so run it after other browser suites finish. It does not download model weights.
 
+`test:hardening` uses its own disposable `.test-profile-hardening` and `.test-extension-hardening` copy. It checks real Chromium CacheStorage with tiny pinned fixture files, chunk eviction/repair, checksum corruption, a low-quota preflight and a browser without a usable GPU. HTTP(S) networking is blocked in this suite. It also checks the packaged privacy page and its popup/Setup links with keyboard navigation, three viewport sizes and axe. These fixture faults do not claim physical GPU exhaustion or full-size cache stress. The image suite additionally covers strict CSP, multi-tab ownership, cross-document navigation, rejected redirects and oversized streaming bodies.
+
 Reports and screenshots are written to `test-results/`. Image and translation page tests do not download weights. Model assertions use actual OCR/NLLB and no external translation API. Cache unit tests use tiny fixtures for failure paths; the overlay suite separately marks synthetic DOM rendering cases. See [Phase 5 findings](docs/PHASE_5.md), [Phase 4 findings](docs/PHASE_4.md), [Phase 3 findings](docs/PHASE_3.md), [Phase 2 findings](docs/PHASE_2.md) and the historical [Phase 1 findings](docs/PHASE_1.md).
 
 The manifest's minimum version is Chrome 124; validation here uses Chromium 156 on one Windows/AMD machine. Older Chrome versions and other GPU vendors still need device coverage. Download size is not runtime memory usage.
@@ -69,3 +72,5 @@ The manifest's minimum version is Chrome 124; validation here uses Chromium 156 
 ## Model licensing
 
 NLLB weights use CC-BY-NC-4.0. Meta describes the model as intended for research. Resolve model rights and intended use before commercial distribution. The extension does not change that license by converting, caching, or quantizing the model. Dependency notices are packaged under `dist/licenses`; review distribution notices again before release.
+
+Open **Privacy & local data** from the popup or Setup to review local storage, image-host requests, model downloads and deletion controls. The page ships locally and makes no network requests. A public release still needs a published privacy-policy URL, completed dependency/data provenance review and a broader device/manual QA matrix. The Phase 6 decision is **DO NOT SHIP publicly or commercially**; continue local research testing. It is not a Chrome Web Store approval.

@@ -52,11 +52,20 @@ async function startServer() {
     response.setHeader('Cache-Control', 'no-store');
     // No Access-Control-Allow-Origin: CDN success exercises extension host access.
     if (url.pathname === '/fixture') {
+      if (url.searchParams.has('csp')) response.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'none'; connect-src 'none'; worker-src 'none'; img-src 'self' data: blob:; style-src 'unsafe-inline'");
       response.writeHead(200, { 'Content-Type': 'text/html' });
       response.end(fixtureHtml(url.searchParams.get('image') || '/same-origin.png', { tiny: url.searchParams.has('tiny') }));
       return;
     }
     if (url.pathname === '/favicon.ico') { response.writeHead(204); response.end(); return; }
+    if (url.pathname === '/redirect-on-read.png' && count > 1) {
+      response.writeHead(302, { Location: 'http://127.0.0.1/private-target.png' }); response.end(); return;
+    }
+    if (url.pathname === '/large-stream.png' && count > 1) {
+      response.writeHead(200, { 'Content-Type': 'image/png' });
+      // No Content-Length: the acquisition reader must enforce its own bound.
+      response.end(Buffer.alloc(8 * 1024 * 1024 + 1)); return;
+    }
     if (url.pathname.startsWith('/slow-') && count > 1) {
       await new Promise(resolveGate => gates.set(url.pathname, resolveGate));
       if (response.destroyed) return;
@@ -129,6 +138,7 @@ async function openFixture(image, options = {}) {
   const url = new URL('/fixture', fixtureOrigin);
   url.searchParams.set('image', image);
   if (options.tiny) url.searchParams.set('tiny', '1');
+  if (options.csp) url.searchParams.set('csp', '1');
   await page.goto(url.href);
   await page.locator('#sample').evaluate(image => image.decode());
   return inject();
@@ -245,6 +255,18 @@ try {
     assert.equal(counts.get('page.aksara-fixture.net/same-origin.png'), before, 'Synthetic clicks must not fetch the image.');
     assert.ok((await imageStatuses().allTextContents()).every(text => !text.trim()), 'Synthetic clicks must not create an image job or status.');
     return { syntheticAcquisitions: 0 };
+  });
+
+  await check('page content cannot start diagnostics or manage the model cache', async () => {
+    const responses = await bridge.evaluate(async url => {
+      const tab = (await chrome.tabs.query({})).find(tab => tab.url === url);
+      return (await chrome.scripting.executeScript({ target: { tabId: tab.id }, func: async () => {
+        const operations = [{ type: 'START_JOB', operation: 'CHECK_GPU' }, { type: 'START_MODEL_DOWNLOAD', consent: true }, { type: 'DELETE_MODEL' }, { type: 'GET_MODEL_STATUS' }];
+        return Promise.all(operations.map(fields => chrome.runtime.sendMessage({ schemaVersion: 1, target: 'background', ...fields })));
+      } }))[0].result;
+    }, page.url());
+    for (const response of responses) assert.deepEqual(response, { ok: false, error: 'UNAUTHORIZED_CONTEXT' });
+    return { rejectedOperations: responses.length, modelNetworking: 0 };
   });
 
   await check('keyboard Enter recognizes same-origin image with natural-coordinate boxes', async () => {
@@ -372,6 +394,75 @@ try {
     await clickTranslate();
     await imageStatusMatches(/Text recognized/i);
     return { statuses, subsequentImagePrepared: true };
+  });
+
+  await check('strict page CSP still permits isolated controls and packaged OCR', async () => {
+    await openFixture('/csp.png', { csp: true });
+    await clickTranslate();
+    const statuses = await imageStatusMatches(/Text recognized/i);
+    assert.match(await recognizedText().inputValue(), /Open the door\./i);
+    await page.screenshot({ path: 'test-results/ocr-strict-csp.png', fullPage: true });
+    return { statuses, pageScriptConnectAndWorkerPolicy: 'none', ocr: 'real bundled Tesseract', inference: 'model absent; recognized text preserved' };
+  });
+
+  await check('two tabs share the job gate and only the owning port can cancel', async () => {
+    await openFixture('/slow-multitab.png'); await clickTranslate();
+    await until(() => gates.has('/slow-multitab.png'), 'first tab owns held image fetch');
+    const firstPage = page, secondPage = await context.newPage();
+    let owner;
+    try {
+      owner = await bridge.evaluate(async url => {
+        const tab = (await chrome.tabs.query({})).find(tab => tab.url === url);
+        return (await chrome.scripting.executeScript({ target: { tabId: tab.id }, func: () => globalThis.__aksaraTestMessages.find(event => event.type === 'IMAGE_PROGRESS') }))[0].result;
+      }, firstPage.url());
+      page = secondPage;
+      await openFixture('/multitab-second.png'); await clickTranslate();
+      const statuses = await imageStatusMatches(/Another Aksara job/i);
+      assert.equal(counts.get('page.aksara-fixture.net/multitab-second.png'), 1, 'Busy tab must not acquire its image.');
+      const busyResponses = await bridge.evaluate(async () => {
+        const send = fields => chrome.runtime.sendMessage({ schemaVersion: 1, target: 'background', ...fields });
+        return [await send({ type: 'START_JOB', operation: 'CHECK_GPU' }), await send({ type: 'START_MODEL_DOWNLOAD', consent: true })];
+      });
+      for (const response of busyResponses) assert.match(response.error, /^BUSY:/);
+      await bridge.evaluate(async ({ url, requestId }) => {
+        const tab = (await chrome.tabs.query({})).find(tab => tab.url === url);
+        await chrome.scripting.executeScript({ target: { tabId: tab.id }, func: async requestId => {
+          const port = chrome.runtime.connect({ name: 'aksara-images' });
+          port.postMessage({ schemaVersion: 1, target: 'background', type: 'CANCEL_IMAGE', requestId });
+          await new Promise(resolveWait => setTimeout(resolveWait, 120)); port.disconnect();
+        }, args: [requestId] });
+      }, { url: secondPage.url(), requestId: owner.requestId });
+      assert.equal(await firstPage.locator('#aksara-root button[aria-label="Cancel image preparation"]').count(), 1, 'Foreign port must not cancel the owner.');
+      page = firstPage;
+      await page.locator('#aksara-root button[aria-label="Cancel image preparation"]').click();
+      await imageStatusMatches(/cancel/i); release('/slow-multitab.png');
+      page = secondPage;
+      await clickTranslate(); await imageStatusMatches(/Text recognized/i);
+      assert.match(await recognizedText().inputValue(), /Open the door\./i);
+      return { statuses, busyResponses, foreignCancellationIgnored: true, secondTabRetrySucceeded: true };
+    } finally { page = firstPage; release('/slow-multitab.png'); await secondPage.close(); }
+  });
+
+  await check('cross-document navigation cancels the old read and permits the new document', async () => {
+    await openFixture('/slow-navigation.png'); await clickTranslate();
+    await until(() => gates.has('/slow-navigation.png'), 'navigation image is held');
+    await openFixture('/after-navigation.png'); release('/slow-navigation.png');
+    await clickTranslate(); const statuses = await imageStatusMatches(/Text recognized/i);
+    assert.match(await recognizedText().inputValue(), /Open the door\./i);
+    const result = await latestResult(); assert.ok(result.ocr.text);
+    return { statuses, oldDocumentResultDiscarded: true, newDocumentSucceeded: true };
+  });
+
+  await check('image redirect is rejected without following its private destination', async () => {
+    await openFixture('/redirect-on-read.png'); await clickTranslate();
+    const statuses = await imageStatusMatches(/Redirected or protected/i);
+    assert.equal(requests.filter(request => request.path === '/private-target.png').length, 0);
+    return { statuses, redirectedDestinationRequests: 0 };
+  });
+
+  await check('image body without Content-Length is bounded to eight MiB', async () => {
+    await openFixture('/large-stream.png'); await clickTranslate();
+    return { statuses: await imageStatusMatches(/larger than the 8 MB limit/i), responseBytes: 8 * 1024 * 1024 + 1, contentLength: null };
   });
 
   await check('source replacement discards the pending result', async () => {

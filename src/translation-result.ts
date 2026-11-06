@@ -95,6 +95,7 @@ export function planTranslation(ocr: OcrResult): TranslationPlan {
 export function translationProblem(error: unknown): TranslationProblem {
   const message = error instanceof Error ? error.message : String(error);
   if (/MODEL_NOT_READY/.test(message)) return { code: 'MODEL_NOT_READY', userMessage: 'Text recognized. Open Aksara → Setup and download the translation model, then click Translate again.' };
+  if (/MODEL_INTEGRITY_FAILED/.test(message)) return { code: 'MODEL_INTEGRITY_FAILED', userMessage: 'Text recognized. A damaged model file was removed. Open Aksara → Setup and download again to repair it, then retry. Other cached files are preserved.' };
   if (/WEBGPU_UNAVAILABLE|no available backend|no usable gpu/i.test(message)) return { code: 'WEBGPU_UNAVAILABLE', userMessage: 'Local translation needs WebGPU. Enable Chrome hardware acceleration or try a supported device. Recognized text is still available.' };
   if (/out of memory|memory access|allocation|allocate|\boom\b|GPU.*lost|device.*lost|buffer.*size/i.test(message)) return { code: 'MODEL_MEMORY_ERROR', userMessage: 'The translation worker ran out of memory or lost its GPU. Close heavy tabs, then retry with a smaller image. Model files stay cached.' };
   if (/TRANSLATION_LIMIT/.test(message)) return { code: 'TRANSLATION_LIMIT', userMessage: 'This image has too much text for one translation. Try a smaller crop. Recognized text is still available.' };

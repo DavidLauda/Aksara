@@ -13,6 +13,7 @@ export default defineConfig({
         background: resolve('src/background.ts'),
         popup: resolve('popup.html'),
         options: resolve('options.html'),
+        privacy: resolve('privacy.html'),
         offscreen: resolve('offscreen.html'),
       },
       output: { entryFileNames: '[name].js', chunkFileNames: 'chunks/[name]-[hash].js' },
