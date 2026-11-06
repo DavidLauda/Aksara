@@ -5,3 +5,4 @@ dist/
 .browser/
 test-results/
 *.log
+BeeMart/
