@@ -3,9 +3,10 @@ import { errorMessage, isEnvelope, type Pair, type Progress, SAMPLE_TEXT } from 
 import { imageStore } from './image-store';
 import { assertDimensions, ImageAcquisitionError, inspectRaster } from './image-policy';
 import { languageSettings, ocrLanguage, type LanguageSettings } from './languages';
-import { normalizeOcr } from './ocr-result';
+import { normalizeOcr, mergeRecoveredOcr, OCR_LIMITS } from './ocr-result';
 import type { OcrResult } from './ocr-result';
 import { TRANSLATION_LIMITS } from './translation-result';
+import { findLightRegions, visualRegionForLine, planLightRegionRecovery, lightRegionMask, applyLightRegionMask, LIGHT_REGION_LIMITS, type LightRegionMap } from './light-regions';
 
 let ocr: TesseractWorker | null = null;
 let translationWorker: globalThis.Worker | null = null;
@@ -113,7 +114,49 @@ async function inspectImage(jobId: string, languages?: LanguageSettings) {
       await Promise.race([ocr.setParameters({ tessedit_pageseg_mode: PSM.SPARSE_TEXT }), failed]);
       ({ data } = await Promise.race([ocr.recognize(canvas, { rotateAuto: false }, { text: true, blocks: true }, `${jobId}-sparse`), failed]));
     }
-    const result = normalizeOcr(data, image.width, image.height, languages, performance.now() - started);
+    const layoutStarted = performance.now();
+    let layout: LightRegionMap | undefined;
+    const layoutCanvas = document.createElement('canvas');
+    try {
+      const scale = Math.min(1, LIGHT_REGION_LIMITS.maxSide / Math.max(image.width, image.height));
+      layoutCanvas.width = Math.max(1, Math.round(image.width * scale)); layoutCanvas.height = Math.max(1, Math.round(image.height * scale));
+      const ctx = layoutCanvas.getContext('2d')!;
+      ctx.drawImage(canvas, 0, 0, layoutCanvas.width, layoutCanvas.height);
+      layout = findLightRegions(ctx.getImageData(0, 0, layoutCanvas.width, layoutCanvas.height).data, layoutCanvas.width, layoutCanvas.height, image.width, image.height);
+    } catch { /* Optional layout hints must not discard otherwise readable OCR. */ }
+    finally { layoutCanvas.width = layoutCanvas.height = 1; }
+    const layoutMs = Math.round(performance.now() - layoutStarted);
+    let result = normalizeOcr(data, image.width, image.height, languages, performance.now() - started);
+    let recoveryAttempts = 0, recoveredRegions = 0, recoveryMs = 0;
+    if (!result.text && layout?.regions.length) {
+      const recovering = performance.now(), plan = planLightRegionRecovery(layout);
+      const parts: Array<{ ocr: OcrResult; x: number; y: number; visualRegionId: string }> = [];
+      await Promise.race([ocr.setParameters({ tessedit_pageseg_mode: PSM.SINGLE_BLOCK }), failed]);
+      for (const { region, crop } of plan.selected) {
+        const recoveryCanvas = document.createElement('canvas');
+        try {
+          recoveryCanvas.width = crop.width; recoveryCanvas.height = crop.height;
+          const ctx = recoveryCanvas.getContext('2d')!;
+          ctx.drawImage(canvas, crop.x, crop.y, crop.width, crop.height, 0, 0, crop.width, crop.height);
+          const pixels = ctx.getImageData(0, 0, crop.width, crop.height);
+          applyLightRegionMask(pixels.data, crop, layout, lightRegionMask(layout, region)); ctx.putImageData(pixels, 0, 0);
+          recoveryAttempts++;
+          const { data: recovered } = await Promise.race([ocr.recognize(recoveryCanvas, { rotateAuto: false }, { text: true, blocks: true }, `${jobId}-region-${region.id}`), failed]);
+          const cropOcr = normalizeOcr(recovered, crop.width, crop.height, languages, 0);
+          // Recovery rejects punctuation-only or weak guesses from artwork.
+          if (cropOcr.confidence >= OCR_LIMITS.lowConfidence && (cropOcr.text.match(/[\p{L}\p{N}]/gu)?.length ?? 0) >= 2 && cropOcr.lines.length) parts.push({ ocr: cropOcr, x: crop.x, y: crop.y, visualRegionId: region.id });
+        } finally { recoveryCanvas.width = recoveryCanvas.height = 1; }
+      }
+      recoveredRegions = parts.length; recoveryMs = Math.round(performance.now() - recovering);
+      result = mergeRecoveredOcr(parts, image.width, image.height, languages, performance.now() - started, plan.skipped > 0);
+    } else if (layout) {
+      result.lines = result.lines.map(line => {
+        const visualRegionId = visualRegionForLine(layout!, line.box);
+        return visualRegionId ? { ...line, visualRegionId } : line;
+      });
+    }
+    result.layout = { candidates: layout?.regions.length ?? 0, recoveryAttempts, recoveredRegions, layoutMs, recoveryMs };
+    result.elapsedMs = Math.round(performance.now() - started);
     if (!result.text) throw new ImageAcquisitionError('NO_TEXT_FOUND', 'No text found. Check the image language in Aksara’s popup or try a sharper image.');
     return { ...image, ocr: result };
   } finally { await ocr?.terminate(); ocr = null; bitmap?.close(); if (canvas) canvas.width = canvas.height = 1; await imageStore.delete(jobId); }

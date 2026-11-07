@@ -19,3 +19,5 @@ The user does not need to collect a new dataset to begin. The starter set uses t
 See [benchmark instructions and metric definitions](../benchmarks/README.md) and the [completed initial baseline](evidence/phase-7-benchmark/QA.md). Twenty attempts finished: eighteen returned translations, and two exposed a repeatable NO_TEXT_FOUND on the same idiom fixture. A separate wrapped-sentence case has zero OCR errors but incorrect paragraph grouping. These are recorded failures to investigate, not a quality pass. Raw reports also remain under ignored `test-results/benchmark/<timestamp>/`.
 
 Single pairs on one device are observations, not statistical latency guarantees. The optional memory observer changes timing conditions; compare like-for-like runs. No physical memory exhaustion is induced. Human translation ratings and a broader real corpus remain outstanding; the benchmark keeps those limits visible rather than inventing a combined accuracy score.
+
+The subsequent [0.6.1 OCR recovery/grouping change](REGION_OCR_FIX.md) addresses the two observed failures. The original baseline above remains unchanged for comparison; current measurements are recorded separately.

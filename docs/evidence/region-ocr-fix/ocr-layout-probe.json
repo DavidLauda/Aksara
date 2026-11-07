@@ -1,0 +1,1102 @@
+{
+  "note": "Node local WASM diagnostic, not a browser latency measurement. Rectangles come from annotations for diagnosis only.",
+  "results": [
+    {
+      "id": "idiom",
+      "mode": "auto",
+      "text": "",
+      "confidence": 0,
+      "blocks": []
+    },
+    {
+      "id": "idiom",
+      "mode": "sparse",
+      "text": "",
+      "confidence": 0,
+      "blocks": []
+    },
+    {
+      "id": "idiom",
+      "mode": "block",
+      "text": "",
+      "confidence": 0,
+      "blocks": []
+    },
+    {
+      "id": "idiom",
+      "mode": "annotated-rectangle-block",
+      "text": ": We got this!",
+      "confidence": 71,
+      "blocks": [
+        {
+          "bbox": {
+            "x0": 232,
+            "y0": 142,
+            "x1": 728,
+            "y1": 201
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 232,
+                "y0": 142,
+                "x1": 728,
+                "y1": 201
+              },
+              "lines": [
+                {
+                  "text": ": We got this!",
+                  "bbox": {
+                    "x0": 232,
+                    "y0": 142,
+                    "x1": 728,
+                    "y1": 201
+                  },
+                  "confidence": 43
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "idiom",
+      "mode": "pixel-mask-block",
+      "region": {
+        "id": "v1",
+        "label": 1,
+        "grid": {
+          "x": 222,
+          "y": 132,
+          "width": 516,
+          "height": 126
+        },
+        "pixels": 59156,
+        "box": {
+          "x": 222,
+          "y": 132,
+          "width": 516,
+          "height": 126
+        }
+      },
+      "crop": {
+        "x": 220,
+        "y": 130,
+        "width": 520,
+        "height": 130
+      },
+      "text": "We got this!",
+      "confidence": 95,
+      "lines": [
+        {
+          "text": "We got this!",
+          "bbox": {
+            "x0": 145,
+            "y0": 30,
+            "x1": 372,
+            "y1": 71
+          }
+        }
+      ]
+    },
+    {
+      "id": "wrapped-parcel",
+      "mode": "auto",
+      "text": "We found a\nstrange little\n\nparcel.",
+      "confidence": 95,
+      "blocks": [
+        {
+          "bbox": {
+            "x0": 363,
+            "y0": 160,
+            "x1": 597,
+            "y1": 259
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 363,
+                "y0": 160,
+                "x1": 597,
+                "y1": 259
+              },
+              "lines": [
+                {
+                  "text": "We found a",
+                  "bbox": {
+                    "x0": 369,
+                    "y0": 160,
+                    "x1": 590,
+                    "y1": 193
+                  },
+                  "confidence": 96
+                },
+                {
+                  "text": "strange little",
+                  "bbox": {
+                    "x0": 363,
+                    "y0": 218,
+                    "x1": 597,
+                    "y1": 259
+                  },
+                  "confidence": 95
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bbox": {
+            "x0": 417,
+            "y0": 275,
+            "x1": 542,
+            "y1": 315
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 417,
+                "y0": 275,
+                "x1": 542,
+                "y1": 315
+              },
+              "lines": [
+                {
+                  "text": "parcel.",
+                  "bbox": {
+                    "x0": 417,
+                    "y0": 275,
+                    "x1": 542,
+                    "y1": 315
+                  },
+                  "confidence": 96
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wrapped-parcel",
+      "mode": "sparse",
+      "text": "We found a\n\nstrange little\n\nparcel.",
+      "confidence": 95,
+      "blocks": [
+        {
+          "bbox": {
+            "x0": 369,
+            "y0": 160,
+            "x1": 590,
+            "y1": 193
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 369,
+                "y0": 160,
+                "x1": 590,
+                "y1": 193
+              },
+              "lines": [
+                {
+                  "text": "We found a",
+                  "bbox": {
+                    "x0": 369,
+                    "y0": 160,
+                    "x1": 590,
+                    "y1": 193
+                  },
+                  "confidence": 95
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bbox": {
+            "x0": 363,
+            "y0": 218,
+            "x1": 597,
+            "y1": 259
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 363,
+                "y0": 218,
+                "x1": 597,
+                "y1": 259
+              },
+              "lines": [
+                {
+                  "text": "strange little",
+                  "bbox": {
+                    "x0": 363,
+                    "y0": 218,
+                    "x1": 597,
+                    "y1": 259
+                  },
+                  "confidence": 95
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bbox": {
+            "x0": 417,
+            "y0": 275,
+            "x1": 542,
+            "y1": 315
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 417,
+                "y0": 275,
+                "x1": 542,
+                "y1": 315
+              },
+              "lines": [
+                {
+                  "text": "parcel.",
+                  "bbox": {
+                    "x0": 417,
+                    "y0": 275,
+                    "x1": 542,
+                    "y1": 315
+                  },
+                  "confidence": 96
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wrapped-parcel",
+      "mode": "block",
+      "text": "We found a\nstrange little\nparcel.\n7",
+      "confidence": 86,
+      "blocks": [
+        {
+          "bbox": {
+            "x0": 276,
+            "y0": 160,
+            "x1": 597,
+            "y1": 394
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 276,
+                "y0": 160,
+                "x1": 597,
+                "y1": 394
+              },
+              "lines": [
+                {
+                  "text": "We found a",
+                  "bbox": {
+                    "x0": 369,
+                    "y0": 160,
+                    "x1": 590,
+                    "y1": 193
+                  },
+                  "confidence": 96
+                },
+                {
+                  "text": "strange little",
+                  "bbox": {
+                    "x0": 363,
+                    "y0": 218,
+                    "x1": 597,
+                    "y1": 259
+                  },
+                  "confidence": 95
+                },
+                {
+                  "text": "parcel.",
+                  "bbox": {
+                    "x0": 417,
+                    "y0": 275,
+                    "x1": 542,
+                    "y1": 315
+                  },
+                  "confidence": 96
+                },
+                {
+                  "text": "7",
+                  "bbox": {
+                    "x0": 276,
+                    "y0": 371,
+                    "x1": 320,
+                    "y1": 394
+                  },
+                  "confidence": 34
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wrapped-parcel",
+      "mode": "annotated-rectangle-block",
+      "text": "! We found a\nstrange little\nparcel.",
+      "confidence": 81,
+      "blocks": [
+        {
+          "bbox": {
+            "x0": 232,
+            "y0": 142,
+            "x1": 728,
+            "y1": 315
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 232,
+                "y0": 142,
+                "x1": 728,
+                "y1": 315
+              },
+              "lines": [
+                {
+                  "text": "! We found a",
+                  "bbox": {
+                    "x0": 232,
+                    "y0": 142,
+                    "x1": 728,
+                    "y1": 193
+                  },
+                  "confidence": 42
+                },
+                {
+                  "text": "strange little",
+                  "bbox": {
+                    "x0": 363,
+                    "y0": 218,
+                    "x1": 597,
+                    "y1": 259
+                  },
+                  "confidence": 93
+                },
+                {
+                  "text": "parcel.",
+                  "bbox": {
+                    "x0": 417,
+                    "y0": 275,
+                    "x1": 542,
+                    "y1": 315
+                  },
+                  "confidence": 96
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wrapped-parcel",
+      "mode": "pixel-mask-block",
+      "region": {
+        "id": "v1",
+        "label": 1,
+        "grid": {
+          "x": 222,
+          "y": 132,
+          "width": 516,
+          "height": 238
+        },
+        "pixels": 112128,
+        "box": {
+          "x": 222,
+          "y": 132,
+          "width": 516,
+          "height": 238
+        }
+      },
+      "crop": {
+        "x": 220,
+        "y": 130,
+        "width": 520,
+        "height": 242
+      },
+      "text": "We found a\nstrange little\nparcel.",
+      "confidence": 94,
+      "lines": [
+        {
+          "text": "We found a",
+          "bbox": {
+            "x0": 149,
+            "y0": 30,
+            "x1": 370,
+            "y1": 63
+          }
+        },
+        {
+          "text": "strange little",
+          "bbox": {
+            "x0": 143,
+            "y0": 88,
+            "x1": 377,
+            "y1": 129
+          }
+        },
+        {
+          "text": "parcel.",
+          "bbox": {
+            "x0": 197,
+            "y0": 145,
+            "x1": 322,
+            "y1": 185
+          }
+        }
+      ]
+    },
+    {
+      "id": "real-two-bubbles",
+      "mode": "auto",
+      "text": "Huh?\nThere's nothing\ninside.\n\nIt's just\nan empty\ncardbox.",
+      "confidence": 91,
+      "blocks": [
+        {
+          "bbox": {
+            "x0": 20,
+            "y0": 20,
+            "x1": 201,
+            "y1": 109
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 20,
+                "y0": 20,
+                "x1": 201,
+                "y1": 109
+              },
+              "lines": [
+                {
+                  "text": "Huh?",
+                  "bbox": {
+                    "x0": 82,
+                    "y0": 20,
+                    "x1": 138,
+                    "y1": 43
+                  },
+                  "confidence": 62
+                },
+                {
+                  "text": "There's nothing",
+                  "bbox": {
+                    "x0": 20,
+                    "y0": 52,
+                    "x1": 201,
+                    "y1": 82
+                  },
+                  "confidence": 85
+                },
+                {
+                  "text": "inside.",
+                  "bbox": {
+                    "x0": 69,
+                    "y0": 87,
+                    "x1": 151,
+                    "y1": 109
+                  },
+                  "confidence": 87
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bbox": {
+            "x0": 191,
+            "y0": 133,
+            "x1": 311,
+            "y1": 224
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 191,
+                "y0": 133,
+                "x1": 311,
+                "y1": 224
+              },
+              "lines": [
+                {
+                  "text": "It's just",
+                  "bbox": {
+                    "x0": 202,
+                    "y0": 133,
+                    "x1": 300,
+                    "y1": 163
+                  },
+                  "confidence": 93
+                },
+                {
+                  "text": "an empty",
+                  "bbox": {
+                    "x0": 191,
+                    "y0": 166,
+                    "x1": 311,
+                    "y1": 195
+                  },
+                  "confidence": 95
+                },
+                {
+                  "text": "cardbox.",
+                  "bbox": {
+                    "x0": 201,
+                    "y0": 199,
+                    "x1": 301,
+                    "y1": 224
+                  },
+                  "confidence": 73
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "real-two-bubbles",
+      "mode": "sparse",
+      "text": "Huh?\n\nThere's nothing\n\ninside.\n\nIt's just\n\nan empty\n\ncardbox.\n\nCa\n\n-N A",
+      "confidence": 72,
+      "blocks": [
+        {
+          "bbox": {
+            "x0": 82,
+            "y0": 20,
+            "x1": 138,
+            "y1": 43
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 82,
+                "y0": 20,
+                "x1": 138,
+                "y1": 43
+              },
+              "lines": [
+                {
+                  "text": "Huh?",
+                  "bbox": {
+                    "x0": 82,
+                    "y0": 20,
+                    "x1": 138,
+                    "y1": 43
+                  },
+                  "confidence": 86
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bbox": {
+            "x0": 20,
+            "y0": 52,
+            "x1": 201,
+            "y1": 82
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 20,
+                "y0": 52,
+                "x1": 201,
+                "y1": 82
+              },
+              "lines": [
+                {
+                  "text": "There's nothing",
+                  "bbox": {
+                    "x0": 20,
+                    "y0": 52,
+                    "x1": 201,
+                    "y1": 82
+                  },
+                  "confidence": 85
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bbox": {
+            "x0": 69,
+            "y0": 87,
+            "x1": 151,
+            "y1": 109
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 69,
+                "y0": 87,
+                "x1": 151,
+                "y1": 109
+              },
+              "lines": [
+                {
+                  "text": "inside.",
+                  "bbox": {
+                    "x0": 69,
+                    "y0": 87,
+                    "x1": 151,
+                    "y1": 109
+                  },
+                  "confidence": 94
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bbox": {
+            "x0": 202,
+            "y0": 133,
+            "x1": 300,
+            "y1": 163
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 202,
+                "y0": 133,
+                "x1": 300,
+                "y1": 163
+              },
+              "lines": [
+                {
+                  "text": "It's just",
+                  "bbox": {
+                    "x0": 202,
+                    "y0": 133,
+                    "x1": 300,
+                    "y1": 163
+                  },
+                  "confidence": 93
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bbox": {
+            "x0": 191,
+            "y0": 166,
+            "x1": 311,
+            "y1": 195
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 191,
+                "y0": 166,
+                "x1": 311,
+                "y1": 195
+              },
+              "lines": [
+                {
+                  "text": "an empty",
+                  "bbox": {
+                    "x0": 191,
+                    "y0": 166,
+                    "x1": 311,
+                    "y1": 195
+                  },
+                  "confidence": 95
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bbox": {
+            "x0": 201,
+            "y0": 199,
+            "x1": 301,
+            "y1": 224
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 201,
+                "y0": 199,
+                "x1": 301,
+                "y1": 224
+              },
+              "lines": [
+                {
+                  "text": "cardbox.",
+                  "bbox": {
+                    "x0": 201,
+                    "y0": 199,
+                    "x1": 301,
+                    "y1": 224
+                  },
+                  "confidence": 85
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bbox": {
+            "x0": 20,
+            "y0": 245,
+            "x1": 149,
+            "y1": 303
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 20,
+                "y0": 245,
+                "x1": 149,
+                "y1": 303
+              },
+              "lines": [
+                {
+                  "text": "Ca",
+                  "bbox": {
+                    "x0": 20,
+                    "y0": 245,
+                    "x1": 149,
+                    "y1": 303
+                  },
+                  "confidence": 25
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "bbox": {
+            "x0": 40,
+            "y0": 323,
+            "x1": 118,
+            "y1": 356
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 40,
+                "y0": 323,
+                "x1": 118,
+                "y1": 356
+              },
+              "lines": [
+                {
+                  "text": "-N A",
+                  "bbox": {
+                    "x0": 40,
+                    "y0": 323,
+                    "x1": 118,
+                    "y1": 356
+                  },
+                  "confidence": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "real-two-bubbles",
+      "mode": "block",
+      "text": "Huh?\nThere's nothing\ninside.\nIt's just\nan empty\ncardbox.\nAE\n7 =",
+      "confidence": 80,
+      "blocks": [
+        {
+          "bbox": {
+            "x0": 7,
+            "y0": 20,
+            "x1": 311,
+            "y1": 382
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 7,
+                "y0": 20,
+                "x1": 311,
+                "y1": 382
+              },
+              "lines": [
+                {
+                  "text": "Huh?",
+                  "bbox": {
+                    "x0": 82,
+                    "y0": 20,
+                    "x1": 138,
+                    "y1": 43
+                  },
+                  "confidence": 62
+                },
+                {
+                  "text": "There's nothing",
+                  "bbox": {
+                    "x0": 20,
+                    "y0": 52,
+                    "x1": 201,
+                    "y1": 82
+                  },
+                  "confidence": 85
+                },
+                {
+                  "text": "inside.",
+                  "bbox": {
+                    "x0": 69,
+                    "y0": 87,
+                    "x1": 151,
+                    "y1": 109
+                  },
+                  "confidence": 87
+                },
+                {
+                  "text": "It's just",
+                  "bbox": {
+                    "x0": 202,
+                    "y0": 133,
+                    "x1": 300,
+                    "y1": 163
+                  },
+                  "confidence": 93
+                },
+                {
+                  "text": "an empty",
+                  "bbox": {
+                    "x0": 191,
+                    "y0": 166,
+                    "x1": 311,
+                    "y1": 195
+                  },
+                  "confidence": 95
+                },
+                {
+                  "text": "cardbox.",
+                  "bbox": {
+                    "x0": 201,
+                    "y0": 199,
+                    "x1": 301,
+                    "y1": 224
+                  },
+                  "confidence": 83
+                },
+                {
+                  "text": "AE",
+                  "bbox": {
+                    "x0": 20,
+                    "y0": 245,
+                    "x1": 149,
+                    "y1": 303
+                  },
+                  "confidence": 59
+                },
+                {
+                  "text": "7 =",
+                  "bbox": {
+                    "x0": 7,
+                    "y0": 308,
+                    "x1": 140,
+                    "y1": 382
+                  },
+                  "confidence": 64
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "real-two-bubbles",
+      "mode": "annotated-rectangle-block",
+      "text": "Huh?\nThere's nothing\n__ inside. um",
+      "confidence": 69,
+      "blocks": [
+        {
+          "bbox": {
+            "x0": 10,
+            "y0": 19,
+            "x1": 215,
+            "y1": 113
+          },
+          "paragraphs": [
+            {
+              "bbox": {
+                "x0": 10,
+                "y0": 19,
+                "x1": 215,
+                "y1": 113
+              },
+              "lines": [
+                {
+                  "text": "Huh?",
+                  "bbox": {
+                    "x0": 82,
+                    "y0": 19,
+                    "x1": 138,
+                    "y1": 44
+                  },
+                  "confidence": 82
+                },
+                {
+                  "text": "There's nothing",
+                  "bbox": {
+                    "x0": 19,
+                    "y0": 52,
+                    "x1": 201,
+                    "y1": 83
+                  },
+                  "confidence": 90
+                },
+                {
+                  "text": "__ inside. um",
+                  "bbox": {
+                    "x0": 10,
+                    "y0": 87,
+                    "x1": 215,
+                    "y1": 113
+                  },
+                  "confidence": 52
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "real-two-bubbles",
+      "mode": "pixel-mask-block",
+      "region": {
+        "id": "v2",
+        "label": 2,
+        "grid": {
+          "x": 7,
+          "y": 6,
+          "width": 233,
+          "height": 164
+        },
+        "pixels": 22096,
+        "box": {
+          "x": 7,
+          "y": 6,
+          "width": 233,
+          "height": 164
+        }
+      },
+      "crop": {
+        "x": 5,
+        "y": 4,
+        "width": 237,
+        "height": 168
+      },
+      "text": "Huh?\nThere's nothing\ninside.",
+      "confidence": 85,
+      "lines": [
+        {
+          "text": "Huh?",
+          "bbox": {
+            "x0": 77,
+            "y0": 16,
+            "x1": 133,
+            "y1": 40
+          }
+        },
+        {
+          "text": "There's nothing",
+          "bbox": {
+            "x0": 15,
+            "y0": 48,
+            "x1": 196,
+            "y1": 79
+          }
+        },
+        {
+          "text": "inside.",
+          "bbox": {
+            "x0": 64,
+            "y0": 83,
+            "x1": 146,
+            "y1": 105
+          }
+        }
+      ]
+    },
+    {
+      "id": "real-two-bubbles",
+      "mode": "pixel-mask-block",
+      "region": {
+        "id": "v15",
+        "label": 15,
+        "grid": {
+          "x": 174,
+          "y": 108,
+          "width": 156,
+          "height": 173
+        },
+        "pixels": 14975,
+        "box": {
+          "x": 174,
+          "y": 108,
+          "width": 156,
+          "height": 173
+        }
+      },
+      "crop": {
+        "x": 172,
+        "y": 106,
+        "width": 160,
+        "height": 177
+      },
+      "text": "If's just\nan empty\ncardbox.",
+      "confidence": 86,
+      "lines": [
+        {
+          "text": "If's just",
+          "bbox": {
+            "x0": 30,
+            "y0": 27,
+            "x1": 128,
+            "y1": 57
+          }
+        },
+        {
+          "text": "an empty",
+          "bbox": {
+            "x0": 19,
+            "y0": 60,
+            "x1": 139,
+            "y1": 89
+          }
+        },
+        {
+          "text": "cardbox.",
+          "bbox": {
+            "x0": 29,
+            "y0": 92,
+            "x1": 129,
+            "y1": 118
+          }
+        }
+      ]
+    }
+  ]
+}

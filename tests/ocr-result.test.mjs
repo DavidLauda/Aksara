@@ -1,11 +1,31 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DEFAULT_LANGUAGES, SOURCE_LANGUAGES, TARGET_LANGUAGES, languageSettings, ocrLanguage } from '../src/languages.ts';
-import { normalizeOcr, OCR_LIMITS } from '../src/ocr-result.ts';
+import { normalizeOcr, mergeRecoveredOcr, OCR_LIMITS } from '../src/ocr-result.ts';
 
 const line = (text, confidence = 95, bbox = { x0: 12, y0: 20, x1: 180, y1: 60 }) => ({ text, confidence, bbox });
 const page = (lines, text = 'Open the door.', confidence = 95) => ({ text, confidence, blocks: [{ paragraphs: [{ lines }] }] });
 const normalize = data => normalizeOcr(data, 640, 280, DEFAULT_LANGUAGES, 123.4);
+
+test('recovered crop boxes return to natural coordinates with unique IDs and retained uncertainty', () => {
+  const a = normalize(page([line('Hello', 95, { x0: 10, y0: 12, x1: 60, y1: 32 })], 'Hello'));
+  const b = normalize(page([line('world', 45, { x0: 0, y0: 5, x1: 90, y1: 25 })], 'world', 45));
+  const result = mergeRecoveredOcr([{ ocr: a, x: 100, y: 50, visualRegionId: 'v1' }, { ocr: b, x: 600, y: 100, visualRegionId: 'v2' }], 640, 280, DEFAULT_LANGUAGES, 555);
+  assert.equal(result.text, 'Hello\n\nworld'); assert.equal(result.elapsedMs, 555);
+  assert.deepEqual(result.lines.map(line => line.segmentId), ['s1', 's2']);
+  assert.notEqual(result.lines[0].paragraphId, result.lines[1].paragraphId);
+  assert.deepEqual(result.lines[0].box, { x: 110, y: 62, width: 50, height: 20 });
+  assert.deepEqual(result.lines[1].box, { x: 600, y: 105, width: 40, height: 20 });
+  assert.deepEqual(result.lines.map(line => line.visualRegionId), ['v1', 'v2']);
+  assert.equal(result.lowConfidence, true); assert.equal(result.confidence, .7);
+  assert.equal(mergeRecoveredOcr([], 640, 280, DEFAULT_LANGUAGES, 10, true).truncated, true);
+});
+
+test('combining recovered crops preserves global text/line limits and marks partial results', () => {
+  const source = normalize(page(Array.from({ length: 300 }, () => line('text')), 'x'.repeat(OCR_LIMITS.maxText)));
+  const result = mergeRecoveredOcr([{ ocr: source, x: 0, y: 0, visualRegionId: 'v1' }, { ocr: source, x: 0, y: 0, visualRegionId: 'v2' }], 640, 280, DEFAULT_LANGUAGES, 10);
+  assert.equal(result.text.length, OCR_LIMITS.maxText); assert.equal(result.lines.length, OCR_LIMITS.maxLines); assert.equal(result.truncated, true);
+});
 
 test('language settings accept only bundled OCR sources and mapped target languages', () => {
   assert.deepEqual(languageSettings(null), DEFAULT_LANGUAGES);

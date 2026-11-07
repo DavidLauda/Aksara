@@ -23,6 +23,8 @@ const imageBytes = await sharp({ create: { width: 900, height: 440, channels: 3,
 const imageUrl = `data:image/png;base64,${imageBytes.toString('base64')}`;
 const contextImageUrl = `data:image/png;base64,${(await readFile('tests/fixtures/comic-context.png')).toString('base64')}`;
 const twoBubblesUrl = `data:image/png;base64,${(await readFile('tests/fixtures/comic-two-bubbles.png')).toString('base64')}`;
+const parcelUrl = `data:image/png;base64,${(await readFile('benchmarks/fixtures/wrapped-parcel.png')).toString('base64')}`;
+const idiomUrl = `data:image/png;base64,${(await readFile('benchmarks/fixtures/idiom.png')).toString('base64')}`;
 const replacementUrl = `data:image/png;base64,${(await sharp({ create: { width: 900, height: 440, channels: 3, background: '#efeee7' } }).png().toBuffer()).toString('base64')}`;
 const server = createServer((request, response) => {
   if (request.url === '/favicon.ico') { response.writeHead(204); response.end(); return; }
@@ -212,7 +214,9 @@ function assertSourceRegion(image, region, lineCount) {
   assert.equal(region.sourceLineIds.length, lineCount);
   const members = region.sourceLineIds.map(id => image.ocr.lines.find(line => line.segmentId === id));
   assert.ok(members.every(Boolean), 'Grouped translations retain each actual OCR line ID.');
-  assert.equal(new Set(members.map(line => line.paragraphId)).size, 1, 'A region cannot cross a paragraph.');
+  const sameParagraph = new Set(members.map(line => line.paragraphId)).size === 1;
+  const sameVisualRegion = members.every(line => line.visualRegionId) && new Set(members.map(line => line.visualRegionId)).size === 1;
+  assert.ok(sameParagraph || sameVisualRegion, 'Cross-paragraph grouping requires shared pixel-region evidence.');
   const x = Math.min(...members.map(line => line.box.x)), y = Math.min(...members.map(line => line.box.y));
   const right = Math.max(...members.map(line => line.box.x + line.box.width)), bottom = Math.max(...members.map(line => line.box.y + line.box.height));
   assert.deepEqual(region.box, { x, y, width: right - x, height: bottom - y });
@@ -265,6 +269,35 @@ try {
     await until(async () => await segments().count() === 2, 'one overlay per speech bubble');
     await assertAligned(await measureExpected()); await capture('context-two-bubbles');
     return { image, originalSourceRows: 6, translationRequests: 2, renderingFixture: false };
+  });
+  await check('a pixel-supported wrapped sentence crosses fragmented OCR blocks in one real model request', async () => {
+    await useImage(parcelUrl, '640px'); await startImage(); const image = await imageResult(); realImage = image;
+    assert.equal(image.ocr.lines.length, 3); assert.ok(new Set(image.ocr.lines.map(line => line.blockId)).size > 1);
+    assert.ok(image.ocr.lines.every(line => line.visualRegionId));
+    assert.equal(new Set(image.ocr.lines.map(line => line.visualRegionId)).size, 1);
+    assert.equal(image.ocr.layout.recoveryAttempts, 0, 'Successful original OCR must not be re-recognized.');
+    assert.equal(image.translation.segments.length, 1); assert.equal(image.translation.inferenceCalls, 1);
+    assert.equal(image.translation.segments[0].sourceText, 'We found a strange little parcel.');
+    assertSourceRegion(image, image.translation.segments[0], 3);
+    const sizes = [];
+    for (const [width, height] of [[375, 812], [768, 900], [1440, 900]]) {
+      await page.setViewportSize({ width, height }); await assertAligned(await measureExpected());
+      const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+      assert.deepEqual(audit.violations.map(item => item.id), []);
+      await capture(`region-parcel-${width}`); sizes.push({ width, height, axeViolations: 0 });
+    }
+    await page.setViewportSize({ width: 1100, height: 900 });
+    return { image, sizes, renderingFixture: false };
+  });
+  await check('empty whole-image OCR recovers actual text from a border-masked region with natural boxes', async () => {
+    await useImage(idiomUrl, '640px'); await startImage(); const image = await imageResult(); realImage = image;
+    assert.equal(image.ocr.text, 'We got this!'); assert.equal(image.ocr.lines.length, 1);
+    assert.ok(image.ocr.layout.recoveryAttempts > 0); assert.equal(image.ocr.layout.recoveredRegions, 1);
+    assert.ok(image.ocr.lines[0].visualRegionId); assert.equal(image.translation.inferenceCalls, 1);
+    const box = image.ocr.lines[0].box;
+    assert.ok(box.x > 220 && box.x + box.width < 740 && box.y > 130 && box.y + box.height < 260, 'Recovered coordinates refer to the actual source bubble, not crop-local pixels.');
+    await assertAligned(await measureExpected()); await capture('region-idiom-translated');
+    return { image, naturalCoordinates: true, renderingFixture: false };
   });
   await useImage(imageUrl, '');
   await check('real two-line OCR and NLLB translation becomes aligned text safely', async () => {

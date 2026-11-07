@@ -1,0 +1,4000 @@
+{
+  "schemaVersion": 1,
+  "id": "2026-11-07T02-25-59-502Z",
+  "generatedAt": "2026-11-07T02:25:59.502Z",
+  "corpus": {
+    "schemaVersion": 1,
+    "id": "aksara-starter-v1",
+    "description": "Two real panels and eight controlled layout cases. Not a representative real-comic evaluation set.",
+    "cases": [
+      {
+        "id": "real-package",
+        "file": "../tests/fixtures/comic-context.png",
+        "kind": "real",
+        "tags": [
+          "wrapped-sentence",
+          "literal-context"
+        ],
+        "regions": [
+          {
+            "id": "package",
+            "text": "We got this mysterious package.",
+            "box": {
+              "x": 170,
+              "y": 45,
+              "width": 185,
+              "height": 115
+            },
+            "referenceTranslation": "Kami mendapat paket misterius ini."
+          }
+        ],
+        "reviewNotes": "Got refers to receiving a package, not encouragement. Kami/kita depends on the audience; both can be valid.",
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "width": 360,
+        "height": 391,
+        "provenance": "User-supplied War and Peas screenshot; development-only crop. No redistribution rights inferred.",
+        "sha256": "5158ef5d10971afc76694a03efe21e3458c215812d6316535edb06b336a89c4e"
+      },
+      {
+        "id": "real-two-bubbles",
+        "file": "../tests/fixtures/comic-two-bubbles.png",
+        "kind": "real",
+        "tags": [
+          "two-speakers",
+          "interjection",
+          "nonstandard-word"
+        ],
+        "regions": [
+          {
+            "id": "empty",
+            "text": "Huh? There's nothing inside.",
+            "box": {
+              "x": 10,
+              "y": 8,
+              "width": 205,
+              "height": 105
+            },
+            "referenceTranslation": "Hah? Tidak ada apa-apa di dalamnya."
+          },
+          {
+            "id": "box",
+            "text": "It's just an empty cardbox.",
+            "box": {
+              "x": 180,
+              "y": 120,
+              "width": 150,
+              "height": 115
+            },
+            "referenceTranslation": "Ini hanya kotak kardus kosong."
+          }
+        ],
+        "reviewNotes": "Preserve the interjection and negation. Cardbox is the original nonstandard spelling; the Indonesian reference is an interpretation, not an authoritative exact answer.",
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "width": 360,
+        "height": 392,
+        "provenance": "User-supplied War and Peas screenshot; development-only crop. No redistribution rights inferred.",
+        "sha256": "a7feffb23bf8e3604d08963e938ecccb4ccb2f7b640b5a88dc0cfc3c6a0b1b36"
+      },
+      {
+        "id": "wrapped-parcel",
+        "kind": "synthetic",
+        "file": "fixtures/wrapped-parcel.png",
+        "tags": [
+          "wrapped-sentence"
+        ],
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "width": 960,
+        "height": 560,
+        "sha256": "10194394eabff4999f9e8742137ecaf9080d20e0fc703c5ca5e1ee692c825374",
+        "regions": [
+          {
+            "id": "r1",
+            "text": "We found a strange little parcel.",
+            "box": {
+              "x": 232,
+              "y": 142,
+              "width": 496,
+              "height": 217.6
+            },
+            "referenceTranslation": "Kami menemukan sebuah paket kecil yang aneh."
+          }
+        ],
+        "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+        "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+      },
+      {
+        "id": "two-speakers",
+        "kind": "synthetic",
+        "file": "fixtures/two-speakers.png",
+        "tags": [
+          "two-speakers",
+          "negation"
+        ],
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "width": 960,
+        "height": 560,
+        "sha256": "be20df59fe412ac8fe9710200a970b045c9b9153165cd85198d3bab4a94a243f",
+        "regions": [
+          {
+            "id": "r1",
+            "text": "Did you open it?",
+            "box": {
+              "x": 52,
+              "y": 87,
+              "width": 396,
+              "height": 106
+            },
+            "referenceTranslation": "Apakah kamu sudah membukanya?"
+          },
+          {
+            "id": "r2",
+            "text": "No, it is still sealed.",
+            "box": {
+              "x": 512,
+              "y": 207,
+              "width": 396,
+              "height": 160.4
+            },
+            "referenceTranslation": "Belum, benda itu masih tersegel."
+          }
+        ],
+        "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+        "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+      },
+      {
+        "id": "negation",
+        "kind": "synthetic",
+        "file": "fixtures/negation.png",
+        "tags": [
+          "negation",
+          "imperative"
+        ],
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "width": 960,
+        "height": 560,
+        "sha256": "7563f15baab72565a5c035ee95f211b4c086375cca5a12f8120691e0cc8d44b3",
+        "regions": [
+          {
+            "id": "r1",
+            "text": "Don't open that box!",
+            "box": {
+              "x": 232,
+              "y": 142,
+              "width": 496,
+              "height": 160.4
+            },
+            "referenceTranslation": "Jangan buka kotak itu!"
+          }
+        ],
+        "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+        "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+      },
+      {
+        "id": "idiom",
+        "kind": "synthetic",
+        "file": "fixtures/idiom.png",
+        "tags": [
+          "idiom",
+          "context-contrast"
+        ],
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "width": 960,
+        "height": 560,
+        "sha256": "9aa20b597215a6cbd8319af129eb5816ee1b98d8aa723875b52ef651bdfdd9ab",
+        "regions": [
+          {
+            "id": "r1",
+            "text": "We got this!",
+            "box": {
+              "x": 232,
+              "y": 142,
+              "width": 496,
+              "height": 106
+            },
+            "referenceTranslation": "Kita pasti bisa!"
+          }
+        ],
+        "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+        "reviewNotes": "Here the isolated exclamation is encouragement. Contrast with receiving a package in real-package."
+      },
+      {
+        "id": "punctuation",
+        "kind": "synthetic",
+        "file": "fixtures/punctuation.png",
+        "tags": [
+          "punctuation",
+          "question"
+        ],
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "width": 960,
+        "height": 560,
+        "sha256": "2b47675ba31a226bf278a07c162d64b391b557954d67a59e4bd9d42de4e79985",
+        "regions": [
+          {
+            "id": "r1",
+            "text": "Wait... Is that mine?",
+            "box": {
+              "x": 232,
+              "y": 142,
+              "width": 496,
+              "height": 160.4
+            },
+            "referenceTranslation": "Tunggu... Apakah itu milikku?"
+          }
+        ],
+        "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+        "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+      },
+      {
+        "id": "caption-and-dialogue",
+        "kind": "synthetic",
+        "file": "fixtures/caption-and-dialogue.png",
+        "tags": [
+          "caption",
+          "separate-regions"
+        ],
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "width": 960,
+        "height": 560,
+        "sha256": "1ce04949dc89f798282bfc27e81b285ef2caa85763a1bb0019b35acf6277c579",
+        "regions": [
+          {
+            "id": "r1",
+            "text": "Later that night.",
+            "box": {
+              "x": 52,
+              "y": 87,
+              "width": 396,
+              "height": 106
+            },
+            "referenceTranslation": "Malam harinya."
+          },
+          {
+            "id": "r2",
+            "text": "Where is the key?",
+            "box": {
+              "x": 512,
+              "y": 207,
+              "width": 396,
+              "height": 160.4
+            },
+            "referenceTranslation": "Di mana kuncinya?"
+          }
+        ],
+        "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+        "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+      },
+      {
+        "id": "small-text",
+        "kind": "synthetic",
+        "file": "fixtures/small-text.png",
+        "tags": [
+          "small-text",
+          "wrapped-sentence"
+        ],
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "width": 960,
+        "height": 560,
+        "sha256": "95a8ab0840fefe16ec531411f4094fe1329b6f0a3075eef55a0314420e6eb798",
+        "regions": [
+          {
+            "id": "r1",
+            "text": "Please leave the package by the door.",
+            "box": {
+              "x": 232,
+              "y": 142,
+              "width": 496,
+              "height": 106
+            },
+            "referenceTranslation": "Tolong letakkan paketnya di dekat pintu."
+          }
+        ],
+        "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+        "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+      },
+      {
+        "id": "indonesian-negation",
+        "kind": "synthetic",
+        "file": "fixtures/indonesian-negation.png",
+        "tags": [
+          "indonesian",
+          "negation"
+        ],
+        "sourceLanguage": "ind_Latn",
+        "targetLanguage": "eng_Latn",
+        "width": 960,
+        "height": 560,
+        "sha256": "17d26fd8bfba6ccd96bf8e71be8a9b6819037a898fdf3000c377353145ad38da",
+        "regions": [
+          {
+            "id": "r1",
+            "text": "Jangan buka kotak itu!",
+            "box": {
+              "x": 232,
+              "y": 142,
+              "width": 496,
+              "height": 160.4
+            },
+            "referenceTranslation": "Do not open that box!"
+          }
+        ],
+        "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+        "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+      }
+    ]
+  },
+  "runs": [
+    {
+      "caseId": "real-package",
+      "kind": "real",
+      "mode": "cold",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 29222,
+      "image": {
+        "animated": false,
+        "byteLength": 228819,
+        "context": "offscreen",
+        "height": 391,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.94,
+          "elapsedMs": 675,
+          "imageHeight": 391,
+          "imageWidth": 360,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 23,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 30,
+                "width": 152,
+                "x": 185,
+                "y": 56
+              },
+              "confidence": 0.93,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "We got this",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 28,
+                "width": 138,
+                "x": 192,
+                "y": 90
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "mysterious",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 31,
+                "width": 104,
+                "x": 209,
+                "y": 122
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s3",
+              "text": "package.",
+              "visualRegionId": "v2"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "We got this\nmysterious\npackage.",
+          "truncated": false
+        },
+        "sha256": "05f2c49d6b89bdc074bb6c3c4aa2be1f6bd3ffcf598065c0c66726b831475166",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 28310,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 97,
+                "width": 152,
+                "x": 185,
+                "y": 56
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2",
+                "s3"
+              ],
+              "sourceText": "We got this mysterious package.",
+              "textAlign": "center",
+              "translatedText": "Kami punya paket misterius ini."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Kami punya paket misterius ini.",
+          "timing": {
+            "inferenceMs": 11548,
+            "loadMs": 4442,
+            "verifyMs": 12300
+          }
+        },
+        "width": 360
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 31,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 5,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "package",
+            "expectedText": "We got this mysterious package.",
+            "observedText": "We got this mysterious package.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 31,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 5,
+              "wer": 0
+            },
+            "detectedLines": 3,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 3,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 16,
+        "peakPrivateBytes": 5920784384,
+        "peakSummedWorkingSetBytes": 5303214080,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "real-package",
+      "kind": "real",
+      "mode": "warm",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 10786,
+      "image": {
+        "animated": false,
+        "byteLength": 228819,
+        "context": "offscreen",
+        "height": 391,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.94,
+          "elapsedMs": 527,
+          "imageHeight": 391,
+          "imageWidth": 360,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 20,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 30,
+                "width": 152,
+                "x": 185,
+                "y": 56
+              },
+              "confidence": 0.93,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "We got this",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 28,
+                "width": 138,
+                "x": 192,
+                "y": 90
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "mysterious",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 31,
+                "width": 104,
+                "x": 209,
+                "y": 122
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s3",
+              "text": "package.",
+              "visualRegionId": "v2"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "We got this\nmysterious\npackage.",
+          "truncated": false
+        },
+        "sha256": "05f2c49d6b89bdc074bb6c3c4aa2be1f6bd3ffcf598065c0c66726b831475166",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 10119,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 97,
+                "width": 152,
+                "x": 185,
+                "y": 56
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2",
+                "s3"
+              ],
+              "sourceText": "We got this mysterious package.",
+              "textAlign": "center",
+              "translatedText": "Kami punya paket misterius ini."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Kami punya paket misterius ini.",
+          "timing": {
+            "inferenceMs": 10094,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 360
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 31,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 5,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "package",
+            "expectedText": "We got this mysterious package.",
+            "observedText": "We got this mysterious package.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 31,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 5,
+              "wer": 0
+            },
+            "detectedLines": 3,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 3,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 7,
+        "peakPrivateBytes": 5405782016,
+        "peakSummedWorkingSetBytes": 5048684544,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "real-two-bubbles",
+      "kind": "real",
+      "mode": "cold",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 38609,
+      "image": {
+        "animated": false,
+        "byteLength": 207280,
+        "context": "offscreen",
+        "height": 392,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.9,
+          "elapsedMs": 518,
+          "imageHeight": 392,
+          "imageWidth": 360,
+          "layout": {
+            "candidates": 2,
+            "layoutMs": 7,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 23,
+                "width": 56,
+                "x": 82,
+                "y": 20
+              },
+              "confidence": 0.62,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Huh?",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 30,
+                "width": 181,
+                "x": 20,
+                "y": 52
+              },
+              "confidence": 0.85,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "There's nothing",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 22,
+                "width": 82,
+                "x": 69,
+                "y": 87
+              },
+              "confidence": 0.87,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s3",
+              "text": "inside.",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 30,
+                "width": 98,
+                "x": 202,
+                "y": 133
+              },
+              "confidence": 0.93,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s4",
+              "text": "It's just",
+              "visualRegionId": "v15"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 29,
+                "width": 120,
+                "x": 191,
+                "y": 166
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s5",
+              "text": "an empty",
+              "visualRegionId": "v15"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 25,
+                "width": 100,
+                "x": 201,
+                "y": 199
+              },
+              "confidence": 0.73,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s6",
+              "text": "cardbox.",
+              "visualRegionId": "v15"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Huh?\nThere's nothing\ninside.\n\nIt's just\nan empty\ncardbox.",
+          "truncated": false
+        },
+        "sha256": "4068a1d190a93c9f14a4df8448af9d47959b21edb23a5e0bcc0ec7337ec2a759",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 37874,
+          "inferenceCalls": 2,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 89,
+                "width": 181,
+                "x": 20,
+                "y": 20
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2",
+                "s3"
+              ],
+              "sourceText": "Huh? There's nothing inside.",
+              "textAlign": "center",
+              "translatedText": "Tidak ada apa-apa di dalam."
+            },
+            {
+              "box": {
+                "height": 91,
+                "width": 120,
+                "x": 191,
+                "y": 133
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s4",
+              "sourceLineIds": [
+                "s4",
+                "s5",
+                "s6"
+              ],
+              "sourceText": "It's just an empty cardbox.",
+              "textAlign": "center",
+              "translatedText": "Ini hanya kotak kartu kosong."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Tidak ada apa-apa di dalam.\nIni hanya kotak kartu kosong.",
+          "timing": {
+            "inferenceMs": 21560,
+            "loadMs": 4122,
+            "verifyMs": 12163
+          }
+        },
+        "width": 360
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 56,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 9,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "empty",
+            "expectedText": "Huh? There's nothing inside.",
+            "observedText": "Huh? There's nothing inside.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 28,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 3,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          },
+          {
+            "id": "box",
+            "expectedText": "It's just an empty cardbox.",
+            "observedText": "It's just an empty cardbox.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 27,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 5,
+              "wer": 0
+            },
+            "detectedLines": 3,
+            "groups": [
+              "g-s4"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 6,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 21,
+        "peakPrivateBytes": 5926191104,
+        "peakSummedWorkingSetBytes": 5637197824,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "real-two-bubbles",
+      "kind": "real",
+      "mode": "warm",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 23758,
+      "image": {
+        "animated": false,
+        "byteLength": 207280,
+        "context": "offscreen",
+        "height": 392,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.9,
+          "elapsedMs": 552,
+          "imageHeight": 392,
+          "imageWidth": 360,
+          "layout": {
+            "candidates": 2,
+            "layoutMs": 11,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 23,
+                "width": 56,
+                "x": 82,
+                "y": 20
+              },
+              "confidence": 0.62,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Huh?",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 30,
+                "width": 181,
+                "x": 20,
+                "y": 52
+              },
+              "confidence": 0.85,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "There's nothing",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 22,
+                "width": 82,
+                "x": 69,
+                "y": 87
+              },
+              "confidence": 0.87,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s3",
+              "text": "inside.",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 30,
+                "width": 98,
+                "x": 202,
+                "y": 133
+              },
+              "confidence": 0.93,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s4",
+              "text": "It's just",
+              "visualRegionId": "v15"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 29,
+                "width": 120,
+                "x": 191,
+                "y": 166
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s5",
+              "text": "an empty",
+              "visualRegionId": "v15"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 25,
+                "width": 100,
+                "x": 201,
+                "y": 199
+              },
+              "confidence": 0.73,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s6",
+              "text": "cardbox.",
+              "visualRegionId": "v15"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Huh?\nThere's nothing\ninside.\n\nIt's just\nan empty\ncardbox.",
+          "truncated": false
+        },
+        "sha256": "4068a1d190a93c9f14a4df8448af9d47959b21edb23a5e0bcc0ec7337ec2a759",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 22943,
+          "inferenceCalls": 2,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 89,
+                "width": 181,
+                "x": 20,
+                "y": 20
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2",
+                "s3"
+              ],
+              "sourceText": "Huh? There's nothing inside.",
+              "textAlign": "center",
+              "translatedText": "Tidak ada apa-apa di dalam."
+            },
+            {
+              "box": {
+                "height": 91,
+                "width": 120,
+                "x": 191,
+                "y": 133
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s4",
+              "sourceLineIds": [
+                "s4",
+                "s5",
+                "s6"
+              ],
+              "sourceText": "It's just an empty cardbox.",
+              "textAlign": "center",
+              "translatedText": "Ini hanya kotak kartu kosong."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Tidak ada apa-apa di dalam.\nIni hanya kotak kartu kosong.",
+          "timing": {
+            "inferenceMs": 22917,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 360
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 56,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 9,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "empty",
+            "expectedText": "Huh? There's nothing inside.",
+            "observedText": "Huh? There's nothing inside.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 28,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 3,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          },
+          {
+            "id": "box",
+            "expectedText": "It's just an empty cardbox.",
+            "observedText": "It's just an empty cardbox.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 27,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 5,
+              "wer": 0
+            },
+            "detectedLines": 3,
+            "groups": [
+              "g-s4"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 6,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 13,
+        "peakPrivateBytes": 5377019904,
+        "peakSummedWorkingSetBytes": 5073342464,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "wrapped-parcel",
+      "kind": "synthetic",
+      "mode": "cold",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 29365,
+      "image": {
+        "animated": false,
+        "byteLength": 37142,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 565,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 24,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 33,
+                "width": 221,
+                "x": 369,
+                "y": 160
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "We found a",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 41,
+                "width": 234,
+                "x": 363,
+                "y": 218
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "strange little",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 40,
+                "width": 125,
+                "x": 417,
+                "y": 275
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s3",
+              "text": "parcel.",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "We found a\nstrange little\n\nparcel.",
+          "truncated": false
+        },
+        "sha256": "1ec93fcfae885f52d6242f81251ef8ec5de541e5d08db79bf3eb21387a48e7b2",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 28693,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 155,
+                "width": 234,
+                "x": 363,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2",
+                "s3"
+              ],
+              "sourceText": "We found a strange little parcel.",
+              "textAlign": "center",
+              "translatedText": "Kami menemukan paket kecil yang aneh."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Kami menemukan paket kecil yang aneh.",
+          "timing": {
+            "inferenceMs": 11695,
+            "loadMs": 4672,
+            "verifyMs": 12296
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 33,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 6,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "We found a strange little parcel.",
+            "observedText": "We found a strange little parcel.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 33,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 6,
+              "wer": 0
+            },
+            "detectedLines": 3,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 3,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 16,
+        "peakPrivateBytes": 5815902208,
+        "peakSummedWorkingSetBytes": 5666639872,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "wrapped-parcel",
+      "kind": "synthetic",
+      "mode": "warm",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 10796,
+      "image": {
+        "animated": false,
+        "byteLength": 37142,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 593,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 27,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 33,
+                "width": 221,
+                "x": 369,
+                "y": 160
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "We found a",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 41,
+                "width": 234,
+                "x": 363,
+                "y": 218
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "strange little",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 40,
+                "width": 125,
+                "x": 417,
+                "y": 275
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s3",
+              "text": "parcel.",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "We found a\nstrange little\n\nparcel.",
+          "truncated": false
+        },
+        "sha256": "1ec93fcfae885f52d6242f81251ef8ec5de541e5d08db79bf3eb21387a48e7b2",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 10060,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 155,
+                "width": 234,
+                "x": 363,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2",
+                "s3"
+              ],
+              "sourceText": "We found a strange little parcel.",
+              "textAlign": "center",
+              "translatedText": "Kami menemukan paket kecil yang aneh."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Kami menemukan paket kecil yang aneh.",
+          "timing": {
+            "inferenceMs": 10019,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 33,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 6,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "We found a strange little parcel.",
+            "observedText": "We found a strange little parcel.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 33,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 6,
+              "wer": 0
+            },
+            "detectedLines": 3,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 3,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 7,
+        "peakPrivateBytes": 4948533248,
+        "peakSummedWorkingSetBytes": 4576391168,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "two-speakers",
+      "kind": "synthetic",
+      "mode": "cold",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 37160,
+      "image": {
+        "animated": false,
+        "byteLength": 44181,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.92,
+          "elapsedMs": 592,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 2,
+            "layoutMs": 23,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 41,
+                "width": 313,
+                "x": 94,
+                "y": 105
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Did you open it?",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 38,
+                "width": 142,
+                "x": 640,
+                "y": 225
+              },
+              "confidence": 0.85,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s2",
+              "text": "No, itis",
+              "visualRegionId": "v8"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 32,
+                "width": 212,
+                "x": 603,
+                "y": 283
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s3",
+              "text": "still sealed.",
+              "visualRegionId": "v8"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Did you open it?\n\nNo, itis\nstill sealed.",
+          "truncated": false
+        },
+        "sha256": "d6e8ff1d8f83bb4258a392e66f963dfe0fbdc5e8554b527b071bf259ba06f6fc",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 36368,
+          "inferenceCalls": 2,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 41,
+                "width": 313,
+                "x": 94,
+                "y": 105
+              },
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "sourceText": "Did you open it?",
+              "translatedText": "Apa kau membukanya?"
+            },
+            {
+              "box": {
+                "height": 90,
+                "width": 212,
+                "x": 603,
+                "y": 225
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s2",
+              "sourceLineIds": [
+                "s2",
+                "s3"
+              ],
+              "sourceText": "No, itis still sealed.",
+              "textAlign": "center",
+              "translatedText": "Tidak, masih tertutup."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Apa kau membukanya?\nTidak, masih tertutup.",
+          "timing": {
+            "inferenceMs": 19895,
+            "loadMs": 4243,
+            "verifyMs": 12204
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 1,
+          "referenceCharacters": 40,
+          "cer": 0.025,
+          "wordEdits": 2,
+          "referenceWords": 9,
+          "wer": 0.2222222222222222
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Did you open it?",
+            "observedText": "Did you open it?",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 16,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 1,
+            "groups": [
+              "s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          },
+          {
+            "id": "r2",
+            "expectedText": "No, it is still sealed.",
+            "observedText": "No, itis still sealed.",
+            "ocr": {
+              "characterEdits": 1,
+              "referenceCharacters": 23,
+              "cer": 0.043478260869565216,
+              "wordEdits": 2,
+              "referenceWords": 5,
+              "wer": 0.4
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s2"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 20,
+        "peakPrivateBytes": 5916712960,
+        "peakSummedWorkingSetBytes": 5603033088,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "two-speakers",
+      "kind": "synthetic",
+      "mode": "warm",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 18286,
+      "image": {
+        "animated": false,
+        "byteLength": 44181,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.92,
+          "elapsedMs": 583,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 2,
+            "layoutMs": 24,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 41,
+                "width": 313,
+                "x": 94,
+                "y": 105
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Did you open it?",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 38,
+                "width": 142,
+                "x": 640,
+                "y": 225
+              },
+              "confidence": 0.85,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s2",
+              "text": "No, itis",
+              "visualRegionId": "v8"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 32,
+                "width": 212,
+                "x": 603,
+                "y": 283
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s3",
+              "text": "still sealed.",
+              "visualRegionId": "v8"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Did you open it?\n\nNo, itis\nstill sealed.",
+          "truncated": false
+        },
+        "sha256": "d6e8ff1d8f83bb4258a392e66f963dfe0fbdc5e8554b527b071bf259ba06f6fc",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 17484,
+          "inferenceCalls": 2,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 41,
+                "width": 313,
+                "x": 94,
+                "y": 105
+              },
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "sourceText": "Did you open it?",
+              "translatedText": "Apa kau membukanya?"
+            },
+            {
+              "box": {
+                "height": 90,
+                "width": 212,
+                "x": 603,
+                "y": 225
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s2",
+              "sourceLineIds": [
+                "s2",
+                "s3"
+              ],
+              "sourceText": "No, itis still sealed.",
+              "textAlign": "center",
+              "translatedText": "Tidak, masih tertutup."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Apa kau membukanya?\nTidak, masih tertutup.",
+          "timing": {
+            "inferenceMs": 17457,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 1,
+          "referenceCharacters": 40,
+          "cer": 0.025,
+          "wordEdits": 2,
+          "referenceWords": 9,
+          "wer": 0.2222222222222222
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Did you open it?",
+            "observedText": "Did you open it?",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 16,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 1,
+            "groups": [
+              "s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          },
+          {
+            "id": "r2",
+            "expectedText": "No, it is still sealed.",
+            "observedText": "No, itis still sealed.",
+            "ocr": {
+              "characterEdits": 1,
+              "referenceCharacters": 23,
+              "cer": 0.043478260869565216,
+              "wordEdits": 2,
+              "referenceWords": 5,
+              "wer": 0.4
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s2"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 11,
+        "peakPrivateBytes": 5153918976,
+        "peakSummedWorkingSetBytes": 4941266944,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "negation",
+      "kind": "synthetic",
+      "mode": "cold",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 26121,
+      "image": {
+        "animated": false,
+        "byteLength": 31116,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 549,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 19,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 41,
+                "width": 205,
+                "x": 378,
+                "y": 160
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Don't open",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 32,
+                "width": 165,
+                "x": 396,
+                "y": 218
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "that box!",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Don't open\nthat box!",
+          "truncated": false
+        },
+        "sha256": "1b2290398368e1283aece1c56baecbb629d44dbf52cb164c757a8f52060785ec",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 25435,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 90,
+                "width": 205,
+                "x": 378,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2"
+              ],
+              "sourceText": "Don't open that box!",
+              "textAlign": "center",
+              "translatedText": "Jangan buka kotak itu!"
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Jangan buka kotak itu!",
+          "timing": {
+            "inferenceMs": 9031,
+            "loadMs": 4188,
+            "verifyMs": 12186
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 20,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 4,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Don't open that box!",
+            "observedText": "Don't open that box!",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 20,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 15,
+        "peakPrivateBytes": 5909483520,
+        "peakSummedWorkingSetBytes": 5577293824,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "negation",
+      "kind": "synthetic",
+      "mode": "warm",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 8833,
+      "image": {
+        "animated": false,
+        "byteLength": 31116,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 555,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 22,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 41,
+                "width": 205,
+                "x": 378,
+                "y": 160
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Don't open",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 32,
+                "width": 165,
+                "x": 396,
+                "y": 218
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "that box!",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Don't open\nthat box!",
+          "truncated": false
+        },
+        "sha256": "1b2290398368e1283aece1c56baecbb629d44dbf52cb164c757a8f52060785ec",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 8102,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 90,
+                "width": 205,
+                "x": 378,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2"
+              ],
+              "sourceText": "Don't open that box!",
+              "textAlign": "center",
+              "translatedText": "Jangan buka kotak itu!"
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Jangan buka kotak itu!",
+          "timing": {
+            "inferenceMs": 8078,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 20,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 4,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Don't open that box!",
+            "observedText": "Don't open that box!",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 20,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 6,
+        "peakPrivateBytes": 5410836480,
+        "peakSummedWorkingSetBytes": 5319372800,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "idiom",
+      "kind": "synthetic",
+      "mode": "cold",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 25116,
+      "image": {
+        "animated": false,
+        "byteLength": 27742,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.9499999999999998,
+          "elapsedMs": 619,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 21,
+            "recoveredRegions": 1,
+            "recoveryAttempts": 1,
+            "recoveryMs": 62
+          },
+          "lines": [
+            {
+              "blockId": "r1-b1",
+              "box": {
+                "height": 41,
+                "width": 227,
+                "x": 365,
+                "y": 160
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "r1-b1p1",
+              "segmentId": "s1",
+              "text": "We got this!",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "We got this!",
+          "truncated": false
+        },
+        "sha256": "de3e9fbe2dbc4adef2a7407931a6ec8aa553b2c402b7061e84212315ae35ec61",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 24249,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 41,
+                "width": 227,
+                "x": 365,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "sourceText": "We got this!",
+              "translatedText": "Kita bisa melakukannya!"
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Kita bisa melakukannya!",
+          "timing": {
+            "inferenceMs": 7811,
+            "loadMs": 4256,
+            "verifyMs": 12157
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 12,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 3,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "We got this!",
+            "observedText": "We got this!",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 12,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 3,
+              "wer": 0
+            },
+            "detectedLines": 1,
+            "groups": [
+              "s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 0,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": null,
+          "recall": null,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 14,
+        "peakPrivateBytes": 5911752704,
+        "peakSummedWorkingSetBytes": 5640110080,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "idiom",
+      "kind": "synthetic",
+      "mode": "warm",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 7795,
+      "image": {
+        "animated": false,
+        "byteLength": 27742,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.9499999999999998,
+          "elapsedMs": 718,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 29,
+            "recoveredRegions": 1,
+            "recoveryAttempts": 1,
+            "recoveryMs": 64
+          },
+          "lines": [
+            {
+              "blockId": "r1-b1",
+              "box": {
+                "height": 41,
+                "width": 227,
+                "x": 365,
+                "y": 160
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "r1-b1p1",
+              "segmentId": "s1",
+              "text": "We got this!",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "We got this!",
+          "truncated": false
+        },
+        "sha256": "de3e9fbe2dbc4adef2a7407931a6ec8aa553b2c402b7061e84212315ae35ec61",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 6985,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 41,
+                "width": 227,
+                "x": 365,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "sourceText": "We got this!",
+              "translatedText": "Kita bisa melakukannya!"
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Kita bisa melakukannya!",
+          "timing": {
+            "inferenceMs": 6960,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 12,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 3,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "We got this!",
+            "observedText": "We got this!",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 12,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 3,
+              "wer": 0
+            },
+            "detectedLines": 1,
+            "groups": [
+              "s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 0,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": null,
+          "recall": null,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 5,
+        "peakPrivateBytes": 5435367424,
+        "peakSummedWorkingSetBytes": 5393883136,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "punctuation",
+      "kind": "synthetic",
+      "mode": "cold",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 28958,
+      "image": {
+        "animated": false,
+        "byteLength": 30058,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 571,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 23,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 33,
+                "width": 119,
+                "x": 419,
+                "y": 160
+              },
+              "confidence": 0.93,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Wait...",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 33,
+                "width": 246,
+                "x": 358,
+                "y": 217
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "Is that mine?",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Wait...\nIs that mine?",
+          "truncated": false
+        },
+        "sha256": "5c7382520f286b7da49649100c574a3843ddc6f2ab0edd8da8fa17a195eeb691",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 28305,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 90,
+                "width": 246,
+                "x": 358,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2"
+              ],
+              "sourceText": "Wait... Is that mine?",
+              "textAlign": "center",
+              "translatedText": "Tunggu... itu milikku?"
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Tunggu... itu milikku?",
+          "timing": {
+            "inferenceMs": 11817,
+            "loadMs": 4239,
+            "verifyMs": 12218
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 21,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 4,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Wait... Is that mine?",
+            "observedText": "Wait... Is that mine?",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 21,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 16,
+        "peakPrivateBytes": 5930962944,
+        "peakSummedWorkingSetBytes": 5639483392,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "punctuation",
+      "kind": "synthetic",
+      "mode": "warm",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 10770,
+      "image": {
+        "animated": false,
+        "byteLength": 30058,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 556,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 22,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 33,
+                "width": 119,
+                "x": 419,
+                "y": 160
+              },
+              "confidence": 0.93,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Wait...",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 33,
+                "width": 246,
+                "x": 358,
+                "y": 217
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "Is that mine?",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Wait...\nIs that mine?",
+          "truncated": false
+        },
+        "sha256": "5c7382520f286b7da49649100c574a3843ddc6f2ab0edd8da8fa17a195eeb691",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 10056,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 90,
+                "width": 246,
+                "x": 358,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2"
+              ],
+              "sourceText": "Wait... Is that mine?",
+              "textAlign": "center",
+              "translatedText": "Tunggu... itu milikku?"
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Tunggu... itu milikku?",
+          "timing": {
+            "inferenceMs": 10031,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 21,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 4,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Wait... Is that mine?",
+            "observedText": "Wait... Is that mine?",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 21,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 7,
+        "peakPrivateBytes": 5425446912,
+        "peakSummedWorkingSetBytes": 5364539392,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "caption-and-dialogue",
+      "kind": "synthetic",
+      "mode": "cold",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 34179,
+      "image": {
+        "animated": false,
+        "byteLength": 37261,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 568,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 2,
+            "layoutMs": 21,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 41,
+                "width": 299,
+                "x": 100,
+                "y": 105
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Later that night.",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 33,
+                "width": 171,
+                "x": 624,
+                "y": 225
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s2",
+              "text": "Where is",
+              "visualRegionId": "v6"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 41,
+                "width": 163,
+                "x": 628,
+                "y": 282
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s3",
+              "text": "the key?",
+              "visualRegionId": "v6"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Later that night.\n\nWhere is\nthe key?",
+          "truncated": false
+        },
+        "sha256": "867aa83b3727d863c5113762bb827cf560f07b654e31f8b343f5b2bab9a37419",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 33335,
+          "inferenceCalls": 2,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 41,
+                "width": 299,
+                "x": 100,
+                "y": 105
+              },
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "sourceText": "Later that night.",
+              "translatedText": "Kemudian malam itu."
+            },
+            {
+              "box": {
+                "height": 98,
+                "width": 171,
+                "x": 624,
+                "y": 225
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s2",
+              "sourceLineIds": [
+                "s2",
+                "s3"
+              ],
+              "sourceText": "Where is the key?",
+              "textAlign": "left",
+              "translatedText": "Dimana kuncinya?"
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Kemudian malam itu.\nDimana kuncinya?",
+          "timing": {
+            "inferenceMs": 16895,
+            "loadMs": 4210,
+            "verifyMs": 12202
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 35,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 7,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Later that night.",
+            "observedText": "Later that night.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 17,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 3,
+              "wer": 0
+            },
+            "detectedLines": 1,
+            "groups": [
+              "s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          },
+          {
+            "id": "r2",
+            "expectedText": "Where is the key?",
+            "observedText": "Where is the key?",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 17,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s2"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 19,
+        "peakPrivateBytes": 5917270016,
+        "peakSummedWorkingSetBytes": 5649518592,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "caption-and-dialogue",
+      "kind": "synthetic",
+      "mode": "warm",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 15765,
+      "image": {
+        "animated": false,
+        "byteLength": 37261,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 578,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 2,
+            "layoutMs": 23,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 41,
+                "width": 299,
+                "x": 100,
+                "y": 105
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Later that night.",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 33,
+                "width": 171,
+                "x": 624,
+                "y": 225
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s2",
+              "text": "Where is",
+              "visualRegionId": "v6"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 41,
+                "width": 163,
+                "x": 628,
+                "y": 282
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s3",
+              "text": "the key?",
+              "visualRegionId": "v6"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Later that night.\n\nWhere is\nthe key?",
+          "truncated": false
+        },
+        "sha256": "867aa83b3727d863c5113762bb827cf560f07b654e31f8b343f5b2bab9a37419",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 14953,
+          "inferenceCalls": 2,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 41,
+                "width": 299,
+                "x": 100,
+                "y": 105
+              },
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "sourceText": "Later that night.",
+              "translatedText": "Kemudian malam itu."
+            },
+            {
+              "box": {
+                "height": 98,
+                "width": 171,
+                "x": 624,
+                "y": 225
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s2",
+              "sourceLineIds": [
+                "s2",
+                "s3"
+              ],
+              "sourceText": "Where is the key?",
+              "textAlign": "left",
+              "translatedText": "Dimana kuncinya?"
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Kemudian malam itu.\nDimana kuncinya?",
+          "timing": {
+            "inferenceMs": 14930,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 35,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 7,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Later that night.",
+            "observedText": "Later that night.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 17,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 3,
+              "wer": 0
+            },
+            "detectedLines": 1,
+            "groups": [
+              "s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          },
+          {
+            "id": "r2",
+            "expectedText": "Where is the key?",
+            "observedText": "Where is the key?",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 17,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s2"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 9,
+        "peakPrivateBytes": 4887220224,
+        "peakSummedWorkingSetBytes": 4849336320,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "small-text",
+      "kind": "synthetic",
+      "mode": "cold",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 27668,
+      "image": {
+        "animated": false,
+        "byteLength": 30461,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 576,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 20,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 17,
+                "width": 167,
+                "x": 397,
+                "y": 165
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Please leave the",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 21,
+                "width": 210,
+                "x": 375,
+                "y": 195
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "package by the door.",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Please leave the\npackage by the door.",
+          "truncated": false
+        },
+        "sha256": "d3c98c1f727e050913621d7d9e7d9aaadbf5e7e4d1b0cb8c932dd9a6059a39a3",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 26979,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 51,
+                "width": 210,
+                "x": 375,
+                "y": 165
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2"
+              ],
+              "sourceText": "Please leave the package by the door.",
+              "textAlign": "center",
+              "translatedText": "Tolong tinggalkan paket di depan pintu."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Tolong tinggalkan paket di depan pintu.",
+          "timing": {
+            "inferenceMs": 10645,
+            "loadMs": 4125,
+            "verifyMs": 12181
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 37,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 7,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Please leave the package by the door.",
+            "observedText": "Please leave the package by the door.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 37,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 7,
+              "wer": 0
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 15,
+        "peakPrivateBytes": 5894172672,
+        "peakSummedWorkingSetBytes": 5601861632,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "small-text",
+      "kind": "synthetic",
+      "mode": "warm",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 10805,
+      "image": {
+        "animated": false,
+        "byteLength": 30461,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 566,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 23,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 17,
+                "width": 167,
+                "x": 397,
+                "y": 165
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Please leave the",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 21,
+                "width": 210,
+                "x": 375,
+                "y": 195
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "package by the door.",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Please leave the\npackage by the door.",
+          "truncated": false
+        },
+        "sha256": "d3c98c1f727e050913621d7d9e7d9aaadbf5e7e4d1b0cb8c932dd9a6059a39a3",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 10052,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 51,
+                "width": 210,
+                "x": 375,
+                "y": 165
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2"
+              ],
+              "sourceText": "Please leave the package by the door.",
+              "textAlign": "center",
+              "translatedText": "Tolong tinggalkan paket di depan pintu."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Tolong tinggalkan paket di depan pintu.",
+          "timing": {
+            "inferenceMs": 10023,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 37,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 7,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Please leave the package by the door.",
+            "observedText": "Please leave the package by the door.",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 37,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 7,
+              "wer": 0
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 7,
+        "peakPrivateBytes": 5167988736,
+        "peakSummedWorkingSetBytes": 5407334400,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "indonesian-negation",
+      "kind": "synthetic",
+      "mode": "cold",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 27284,
+      "image": {
+        "animated": false,
+        "byteLength": 32258,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 390,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 20,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 41,
+                "width": 249,
+                "x": 355,
+                "y": 160
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Jangan buka",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 32,
+                "width": 169,
+                "x": 395,
+                "y": 218
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "kotak itu!",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "ind_Latn",
+          "targetLanguage": "eng_Latn",
+          "text": "Jangan buka\nkotak itu!",
+          "truncated": false
+        },
+        "sha256": "53e05d64c56734c2c48aeb19a712918921bea0495665c2bfbe3d256c2e492083",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 26731,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 90,
+                "width": 249,
+                "x": 355,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2"
+              ],
+              "sourceText": "Jangan buka kotak itu!",
+              "textAlign": "center",
+              "translatedText": "Don't open that box!"
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "ind_Latn",
+          "targetLanguage": "eng_Latn",
+          "text": "Don't open that box!",
+          "timing": {
+            "inferenceMs": 10625,
+            "loadMs": 3950,
+            "verifyMs": 12131
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 22,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 4,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Jangan buka kotak itu!",
+            "observedText": "Jangan buka kotak itu!",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 22,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 15,
+        "peakPrivateBytes": 5941436416,
+        "peakSummedWorkingSetBytes": 5661253632,
+        "errors": []
+      }
+    },
+    {
+      "caseId": "indonesian-negation",
+      "kind": "synthetic",
+      "mode": "warm",
+      "repeat": 1,
+      "ok": true,
+      "wallMs": 10352,
+      "image": {
+        "animated": false,
+        "byteLength": 32258,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 372,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 24,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 41,
+                "width": 249,
+                "x": 355,
+                "y": 160
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Jangan buka",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 32,
+                "width": 169,
+                "x": 395,
+                "y": 218
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "kotak itu!",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "ind_Latn",
+          "targetLanguage": "eng_Latn",
+          "text": "Jangan buka\nkotak itu!",
+          "truncated": false
+        },
+        "sha256": "53e05d64c56734c2c48aeb19a712918921bea0495665c2bfbe3d256c2e492083",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 9819,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 90,
+                "width": 249,
+                "x": 355,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2"
+              ],
+              "sourceText": "Jangan buka kotak itu!",
+              "textAlign": "center",
+              "translatedText": "Don't open that box!"
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "ind_Latn",
+          "targetLanguage": "eng_Latn",
+          "text": "Don't open that box!",
+          "timing": {
+            "inferenceMs": 9794,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 960
+      },
+      "metrics": {
+        "ocr": {
+          "characterEdits": 0,
+          "referenceCharacters": 22,
+          "cer": 0,
+          "wordEdits": 0,
+          "referenceWords": 4,
+          "wer": 0
+        },
+        "regions": [
+          {
+            "id": "r1",
+            "expectedText": "Jangan buka kotak itu!",
+            "observedText": "Jangan buka kotak itu!",
+            "ocr": {
+              "characterEdits": 0,
+              "referenceCharacters": 22,
+              "cer": 0,
+              "wordEdits": 0,
+              "referenceWords": 4,
+              "wer": 0
+            },
+            "detectedLines": 2,
+            "groups": [
+              "g-s1"
+            ],
+            "split": false,
+            "untranslatedLines": 0
+          }
+        ],
+        "grouping": {
+          "truePairs": 1,
+          "mergedPairs": 0,
+          "splitPairs": 0,
+          "precision": 1,
+          "recall": 1,
+          "mergedGroups": [],
+          "splitRegions": [],
+          "missingRegions": [],
+          "unassignedLines": 0,
+          "untranslatedLines": 0,
+          "multiplyAssignedLines": 0
+        },
+        "partial": false,
+        "translationReview": "pending-human-review"
+      },
+      "memory": {
+        "status": "sampled",
+        "samples": 7,
+        "peakPrivateBytes": 5422088192,
+        "peakSummedWorkingSetBytes": 5411921920,
+        "errors": []
+      }
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "ok": true,
+  "host": {
+    "platform": "win32",
+    "release": "10.0.26300",
+    "cpu": "AMD Ryzen 5 5600H with Radeon Graphics         ",
+    "logicalCpus": 12,
+    "totalMemoryBytes": 16477155328
+  },
+  "memorySampling": {
+    "enabled": true,
+    "intervalMs": 2000,
+    "note": "Optional aggregate task-browser private bytes / summed working sets. Excludes dedicated GPU VRAM; shared resident pages may be double-counted. Sampling perturbs timing; no allocation ceiling is established."
+  },
+  "fingerprints": {
+    "scripts/benchmark.mjs": "f9404768b46965b4950e9fbc8759418f4d512b79f0c3023a8eaa9ee62d8be8e0",
+    "scripts/benchmark/metrics.mjs": "ffc274584707a78e3d87558fd3440697e45dc0a99a7463b361bfc2bc7b2eed75",
+    "benchmarks/corpus.json": "d100695cccc464743a027418a5d364dbd85a2931b08683bdbcfa574be39ec027",
+    "src/light-regions.ts": "7147a3af6824687918ee9eb28a86b424ba2094b4db4837592a3d2549af6da70d",
+    "src/ocr-result.ts": "02d51f2a570e734136466586ffd2890807f0233f1f9d9dd488f296de11c77a2f",
+    "src/translation-result.ts": "f6c33f14504b83b79a1ae3ee70de62084724c97e210757bd669f676bb359dd57",
+    "src/translation.ts": "4a9ecd589220ddcd9601343edac8a5a7b10057c30acba27903ee58cf9d6bca32",
+    "src/model-cache-core.ts": "b90556ced311b3433ab9efd2f67b087090fa34bd3fda772bf76dd1aa86c6ccbe",
+    "src/gpu.ts": "f06ef88d100c3a25837b8be2932b3098c97be79e017ba991fb7f64ad3e3cb309",
+    "dist/background.js": "5c6f8b7427efa50ea340b5834d2a97199f4e9841a733f51971a2b4d5dfcdb86d",
+    "dist/offscreen.js": "94d369c6d33971b9e9c7a3854085db5b9f59ea25f71518b5244f415bb04688b6",
+    "dist/content.js": "69b0f2c407993a426427ae47cfe7fe6939f0346d9f4f641ee83505c388395037",
+    "dist/manifest.json": "578925272034bfdb46b168edcdd2e115237caa5bcb2d8d63ff52ccf197012134"
+  },
+  "modelManifest": {
+    "modelId": "Xenova/nllb-200-distilled-600M",
+    "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+    "dtype": "q8",
+    "license": "CC-BY-NC-4.0",
+    "files": [
+      {
+        "path": "config.json",
+        "bytes": 873,
+        "sha256": "52f035acb54ac80e5ef7fe78d6967f8ddf8e8799f078d1a92a2c8168d8ff4a20"
+      },
+      {
+        "path": "generation_config.json",
+        "bytes": 189,
+        "sha256": "1ce846259ae04c572ae1863e358534bbc376ff3d3f100b1494feda6200b51de8"
+      },
+      {
+        "path": "tokenizer.json",
+        "bytes": 17331224,
+        "sha256": "8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94"
+      },
+      {
+        "path": "tokenizer_config.json",
+        "bytes": 544,
+        "sha256": "ddf411c9f790d081e72de76bb8e8b714d74e160e61bc10c9bd8f56022dcd7fd7"
+      },
+      {
+        "path": "special_tokens_map.json",
+        "bytes": 3548,
+        "sha256": "992bd4ed610d644d6823081937bcc91bb8878dd556cea4ae5327f2480361330e"
+      },
+      {
+        "path": "onnx/encoder_model_quantized.onnx",
+        "bytes": 419120483,
+        "sha256": "5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28"
+      },
+      {
+        "path": "onnx/decoder_model_merged_quantized.onnx",
+        "bytes": 475505771,
+        "sha256": "dd66608c2a4194e78f95548fa0e64f24302303698c5b09fa8e1f9e16ec00676b"
+      }
+    ]
+  },
+  "gitCommit": "db8067693b62e6b8edce443bcf7f8a7e3c6f3e23",
+  "browser": "156.0.8078.4",
+  "extensionVersion": "0.6.1",
+  "modelStatus": {
+    "ready": true,
+    "cachedBytes": 911962632,
+    "totalBytes": 911962632,
+    "missingBytes": 0,
+    "revision": "261c31d1a5732c67cdd16d80e8d6088507c7ccea",
+    "modelId": "Xenova/nllb-200-distilled-600M",
+    "dtype": "q8",
+    "cache": "aksara-nllb-261c31d1a5732c67cdd16d80e8d6088507c7ccea-q8"
+  },
+  "gpu": {
+    "serviceWorker": {
+      "available": true,
+      "computeResult": 42,
+      "adapter": {
+        "vendor": "nvidia",
+        "architecture": "turing",
+        "description": ""
+      },
+      "shaderF16": true,
+      "limits": {
+        "maxBufferSize": 2147483648,
+        "maxStorageBufferBindingSize": 2147483644
+      },
+      "storage": {
+        "quota": 38753018361,
+        "usage": 2204299769,
+        "usageDetails": {
+          "caches": 2183308032,
+          "indexedDB": 20395312,
+          "serviceWorkerRegistrations": 596425
+        }
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+    },
+    "offscreenWorker": {
+      "available": true,
+      "computeResult": 42,
+      "adapter": {
+        "vendor": "nvidia",
+        "architecture": "turing",
+        "description": ""
+      },
+      "shaderF16": true,
+      "limits": {
+        "maxBufferSize": 2147483648,
+        "maxStorageBufferBindingSize": 2147483644
+      },
+      "storage": {
+        "quota": 38752887289,
+        "usage": 2204299769,
+        "usageDetails": {
+          "caches": 2183308032,
+          "indexedDB": 20395312,
+          "serviceWorkerRegistrations": 596425
+        }
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+    }
+  },
+  "preferencesRestored": true,
+  "offlineDuringMeasurements": true,
+  "completedAt": "2026-11-07T02:33:29.578Z"
+}

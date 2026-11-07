@@ -1,0 +1,1387 @@
+{
+  "beforeRun": "2026-11-07T01-43-53-964Z",
+  "afterRun": "2026-11-07T02-25-59-502Z",
+  "beforeVersion": "0.6.0",
+  "afterVersion": "0.6.1",
+  "sameCorpus": true,
+  "sameModel": true,
+  "sameMetrics": true,
+  "sameBrowser": true,
+  "sameGpu": true,
+  "sameMemorySampling": true,
+  "note": "One cold/warm pair per case on one machine; no power/thermal controls. Compare successful matching cases, not failed OCR attempt times with newly successful inference. No general speedup, statistical quality score or single-model memory requirement is inferred.",
+  "cases": [
+    {
+      "id": "real-package",
+      "kind": "real",
+      "modes": [
+        {
+          "mode": "cold",
+          "before": {
+            "ok": true,
+            "wallMs": 31292,
+            "ocrMs": 857,
+            "calls": 1,
+            "translation": "Kami punya paket misterius ini.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 3,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 12607,
+              "loadMs": 4975,
+              "verifyMs": 12478
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 29222,
+            "ocrMs": 675,
+            "calls": 1,
+            "translation": "Kami punya paket misterius ini.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 3,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 11548,
+              "loadMs": 4442,
+              "verifyMs": 12300
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 23,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        },
+        {
+          "mode": "warm",
+          "before": {
+            "ok": true,
+            "wallMs": 10781,
+            "ocrMs": 524,
+            "calls": 1,
+            "translation": "Kami punya paket misterius ini.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 3,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 10014,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 10786,
+            "ocrMs": 527,
+            "calls": 1,
+            "translation": "Kami punya paket misterius ini.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 3,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 10094,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 20,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "real-two-bubbles",
+      "kind": "real",
+      "modes": [
+        {
+          "mode": "cold",
+          "before": {
+            "ok": true,
+            "wallMs": 40688,
+            "ocrMs": 513,
+            "calls": 2,
+            "translation": "Tidak ada apa-apa di dalam.\nIni hanya kotak kartu kosong.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 6,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 21953,
+              "loadMs": 5088,
+              "verifyMs": 12818
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 38609,
+            "ocrMs": 518,
+            "calls": 2,
+            "translation": "Tidak ada apa-apa di dalam.\nIni hanya kotak kartu kosong.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 6,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 21560,
+              "loadMs": 4122,
+              "verifyMs": 12163
+            },
+            "layout": {
+              "candidates": 2,
+              "layoutMs": 7,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        },
+        {
+          "mode": "warm",
+          "before": {
+            "ok": true,
+            "wallMs": 20296,
+            "ocrMs": 535,
+            "calls": 2,
+            "translation": "Tidak ada apa-apa di dalam.\nIni hanya kotak kartu kosong.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 6,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 19514,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 23758,
+            "ocrMs": 552,
+            "calls": 2,
+            "translation": "Tidak ada apa-apa di dalam.\nIni hanya kotak kartu kosong.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 6,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 22917,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": {
+              "candidates": 2,
+              "layoutMs": 11,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "wrapped-parcel",
+      "kind": "synthetic",
+      "modes": [
+        {
+          "mode": "cold",
+          "before": {
+            "ok": true,
+            "wallMs": 31307,
+            "ocrMs": 575,
+            "calls": 2,
+            "translation": "Kami menemukan sedikit aneh\nPaket.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 2,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "mergedGroups": [],
+              "splitRegions": [
+                "r1"
+              ],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 14128,
+              "loadMs": 4241,
+              "verifyMs": 12167
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 29365,
+            "ocrMs": 565,
+            "calls": 1,
+            "translation": "Kami menemukan paket kecil yang aneh.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 3,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 11695,
+              "loadMs": 4672,
+              "verifyMs": 12296
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 24,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        },
+        {
+          "mode": "warm",
+          "before": {
+            "ok": true,
+            "wallMs": 12887,
+            "ocrMs": 554,
+            "calls": 2,
+            "translation": "Kami menemukan sedikit aneh\nPaket.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 2,
+              "precision": 1,
+              "recall": 0.3333333333333333,
+              "mergedGroups": [],
+              "splitRegions": [
+                "r1"
+              ],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 12236,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 10796,
+            "ocrMs": 593,
+            "calls": 1,
+            "translation": "Kami menemukan paket kecil yang aneh.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 3,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 10019,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 27,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "two-speakers",
+      "kind": "synthetic",
+      "modes": [
+        {
+          "mode": "cold",
+          "before": {
+            "ok": true,
+            "wallMs": 36521,
+            "ocrMs": 561,
+            "calls": 2,
+            "translation": "Apa kau membukanya?\nTidak, masih tertutup.",
+            "cer": 0.025,
+            "wer": 0.2222222222222222,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 19346,
+              "loadMs": 4181,
+              "verifyMs": 12215
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 37160,
+            "ocrMs": 592,
+            "calls": 2,
+            "translation": "Apa kau membukanya?\nTidak, masih tertutup.",
+            "cer": 0.025,
+            "wer": 0.2222222222222222,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 19895,
+              "loadMs": 4243,
+              "verifyMs": 12204
+            },
+            "layout": {
+              "candidates": 2,
+              "layoutMs": 23,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        },
+        {
+          "mode": "warm",
+          "before": {
+            "ok": true,
+            "wallMs": 18703,
+            "ocrMs": 572,
+            "calls": 2,
+            "translation": "Apa kau membukanya?\nTidak, masih tertutup.",
+            "cer": 0.025,
+            "wer": 0.2222222222222222,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 17987,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 18286,
+            "ocrMs": 583,
+            "calls": 2,
+            "translation": "Apa kau membukanya?\nTidak, masih tertutup.",
+            "cer": 0.025,
+            "wer": 0.2222222222222222,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 17457,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": {
+              "candidates": 2,
+              "layoutMs": 24,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "negation",
+      "kind": "synthetic",
+      "modes": [
+        {
+          "mode": "cold",
+          "before": {
+            "ok": true,
+            "wallMs": 26137,
+            "ocrMs": 521,
+            "calls": 1,
+            "translation": "Jangan buka kotak itu!",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 8991,
+              "loadMs": 4224,
+              "verifyMs": 12166
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 26121,
+            "ocrMs": 549,
+            "calls": 1,
+            "translation": "Jangan buka kotak itu!",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 9031,
+              "loadMs": 4188,
+              "verifyMs": 12186
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 19,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        },
+        {
+          "mode": "warm",
+          "before": {
+            "ok": true,
+            "wallMs": 8597,
+            "ocrMs": 528,
+            "calls": 1,
+            "translation": "Jangan buka kotak itu!",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 7912,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 8833,
+            "ocrMs": 555,
+            "calls": 1,
+            "translation": "Jangan buka kotak itu!",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 8078,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 22,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "idiom",
+      "kind": "synthetic",
+      "modes": [
+        {
+          "mode": "cold",
+          "before": {
+            "ok": false,
+            "wallMs": 660,
+            "ocrMs": null,
+            "calls": null,
+            "translation": null,
+            "cer": null,
+            "wer": null,
+            "grouping": null,
+            "timing": null,
+            "layout": null,
+            "error": "NO_TEXT_FOUND: No text found. Check the image language in Aksara’s popup or try a sharper image."
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 25116,
+            "ocrMs": 619,
+            "calls": 1,
+            "translation": "Kita bisa melakukannya!",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 0,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": null,
+              "recall": null,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 7811,
+              "loadMs": 4256,
+              "verifyMs": 12157
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 21,
+              "recoveredRegions": 1,
+              "recoveryAttempts": 1,
+              "recoveryMs": 62
+            },
+            "error": null
+          }
+        },
+        {
+          "mode": "warm",
+          "before": {
+            "ok": false,
+            "wallMs": 661,
+            "ocrMs": null,
+            "calls": null,
+            "translation": null,
+            "cer": null,
+            "wer": null,
+            "grouping": null,
+            "timing": null,
+            "layout": null,
+            "error": "NO_TEXT_FOUND: No text found. Check the image language in Aksara’s popup or try a sharper image."
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 7795,
+            "ocrMs": 718,
+            "calls": 1,
+            "translation": "Kita bisa melakukannya!",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 0,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": null,
+              "recall": null,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 6960,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 29,
+              "recoveredRegions": 1,
+              "recoveryAttempts": 1,
+              "recoveryMs": 64
+            },
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "punctuation",
+      "kind": "synthetic",
+      "modes": [
+        {
+          "mode": "cold",
+          "before": {
+            "ok": true,
+            "wallMs": 28308,
+            "ocrMs": 524,
+            "calls": 1,
+            "translation": "Tunggu... itu milikku?",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 11461,
+              "loadMs": 3942,
+              "verifyMs": 12168
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 28958,
+            "ocrMs": 571,
+            "calls": 1,
+            "translation": "Tunggu... itu milikku?",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 11817,
+              "loadMs": 4239,
+              "verifyMs": 12218
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 23,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        },
+        {
+          "mode": "warm",
+          "before": {
+            "ok": true,
+            "wallMs": 11188,
+            "ocrMs": 541,
+            "calls": 1,
+            "translation": "Tunggu... itu milikku?",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 10395,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 10770,
+            "ocrMs": 556,
+            "calls": 1,
+            "translation": "Tunggu... itu milikku?",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 10031,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 22,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "caption-and-dialogue",
+      "kind": "synthetic",
+      "modes": [
+        {
+          "mode": "cold",
+          "before": {
+            "ok": true,
+            "wallMs": 33112,
+            "ocrMs": 549,
+            "calls": 2,
+            "translation": "Kemudian malam itu.\nDimana kuncinya?",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 16033,
+              "loadMs": 4072,
+              "verifyMs": 12147
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 34179,
+            "ocrMs": 568,
+            "calls": 2,
+            "translation": "Kemudian malam itu.\nDimana kuncinya?",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 16895,
+              "loadMs": 4210,
+              "verifyMs": 12202
+            },
+            "layout": {
+              "candidates": 2,
+              "layoutMs": 21,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        },
+        {
+          "mode": "warm",
+          "before": {
+            "ok": true,
+            "wallMs": 15297,
+            "ocrMs": 534,
+            "calls": 2,
+            "translation": "Kemudian malam itu.\nDimana kuncinya?",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 14581,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 15765,
+            "ocrMs": 578,
+            "calls": 2,
+            "translation": "Kemudian malam itu.\nDimana kuncinya?",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 14930,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": {
+              "candidates": 2,
+              "layoutMs": 23,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "small-text",
+      "kind": "synthetic",
+      "modes": [
+        {
+          "mode": "cold",
+          "before": {
+            "ok": true,
+            "wallMs": 27197,
+            "ocrMs": 528,
+            "calls": 1,
+            "translation": "Tolong tinggalkan paket di depan pintu.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 10268,
+              "loadMs": 3913,
+              "verifyMs": 12176
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 27668,
+            "ocrMs": 576,
+            "calls": 1,
+            "translation": "Tolong tinggalkan paket di depan pintu.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 10645,
+              "loadMs": 4125,
+              "verifyMs": 12181
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 20,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        },
+        {
+          "mode": "warm",
+          "before": {
+            "ok": true,
+            "wallMs": 10116,
+            "ocrMs": 530,
+            "calls": 1,
+            "translation": "Tolong tinggalkan paket di depan pintu.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 9513,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 10805,
+            "ocrMs": 566,
+            "calls": 1,
+            "translation": "Tolong tinggalkan paket di depan pintu.",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 10023,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 23,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "indonesian-negation",
+      "kind": "synthetic",
+      "modes": [
+        {
+          "mode": "cold",
+          "before": {
+            "ok": true,
+            "wallMs": 27231,
+            "ocrMs": 368,
+            "calls": 1,
+            "translation": "Don't open that box!",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 10470,
+              "loadMs": 3965,
+              "verifyMs": 12140
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 27284,
+            "ocrMs": 390,
+            "calls": 1,
+            "translation": "Don't open that box!",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 10625,
+              "loadMs": 3950,
+              "verifyMs": 12131
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 20,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        },
+        {
+          "mode": "warm",
+          "before": {
+            "ok": true,
+            "wallMs": 10102,
+            "ocrMs": 357,
+            "calls": 1,
+            "translation": "Don't open that box!",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 9677,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": null,
+            "error": null
+          },
+          "after": {
+            "ok": true,
+            "wallMs": 10352,
+            "ocrMs": 372,
+            "calls": 1,
+            "translation": "Don't open that box!",
+            "cer": 0,
+            "wer": 0,
+            "grouping": {
+              "truePairs": 1,
+              "mergedPairs": 0,
+              "splitPairs": 0,
+              "precision": 1,
+              "recall": 1,
+              "mergedGroups": [],
+              "splitRegions": [],
+              "missingRegions": [],
+              "unassignedLines": 0,
+              "untranslatedLines": 0,
+              "multiplyAssignedLines": 0
+            },
+            "timing": {
+              "inferenceMs": 9794,
+              "loadMs": 0,
+              "verifyMs": 0
+            },
+            "layout": {
+              "candidates": 1,
+              "layoutMs": 24,
+              "recoveredRegions": 0,
+              "recoveryAttempts": 0,
+              "recoveryMs": 0
+            },
+            "error": null
+          }
+        }
+      ]
+    }
+  ]
+}

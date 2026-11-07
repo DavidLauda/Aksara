@@ -18,6 +18,8 @@ const png = await sharp({ create: { width: 640, height: 280, channels: 4, backgr
   .composite([{ input: Buffer.from('<svg width="640" height="280"><text x="42" y="146" font-size="44">Open the door.</text></svg>') }]).png().toBuffer();
 const tinyPng = await sharp({ create: { width: 24, height: 24, channels: 4, background: '#eee' } }).png().toBuffer();
 const blankPng = await sharp({ create: { width: 640, height: 280, channels: 3, background: '#fff' } }).png().toBuffer();
+const blankBubblePng = await sharp(Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="640" height="280"><rect width="640" height="280" fill="#aac6da"/><ellipse cx="320" cy="130" rx="170" ry="60" fill="white" stroke="black" stroke-width="4"/></svg>')).png().toBuffer();
+const facePng = await sharp(Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="640" height="280"><rect width="640" height="280" fill="#aac6da"/><circle cx="320" cy="135" r="90" fill="white" stroke="black" stroke-width="4"/><circle cx="290" cy="110" r="7"/><circle cx="350" cy="110" r="7"/><path d="M280 155 Q320 195 360 155" fill="none" stroke="black" stroke-width="5"/></svg>')).png().toBuffer();
 const indPng = await sharp({ create: { width: 1200, height: 480, channels: 3, background: '#fff' } }).composite([{ input: Buffer.from('<svg width="1200" height="480"><g font-family="Arial" font-size="64" fill="black"><text x="60" y="160">Buka pintunya.</text><text x="60" y="300">Selamat pagi.</text></g></svg>') }]).png().toBuffer();
 const densePng = await sharp({ create: { width: 1600, height: 4000, channels: 3, background: '#fff' } }).composite([{ input: Buffer.from(`<svg width="1600" height="4000"><g font-family="Arial" font-size="38" fill="black">${Array.from({ length: 60 }, (_, index) => `<text x="40" y="${70 + index * 64}">Aksara reads text privately. Open the door. Line ${index + 1}.</text>`).join('')}</g></svg>`) }]).png().toBuffer();
 const oversizedHeader = Buffer.from(png);
@@ -70,7 +72,7 @@ async function startServer() {
       await new Promise(resolveGate => gates.set(url.pathname, resolveGate));
       if (response.destroyed) return;
     }
-    const body = url.pathname === '/tiny.png' ? tinyPng : url.pathname === '/blank.png' ? blankPng : url.pathname === '/ind.png' ? indPng : url.pathname === '/ocr-interrupted.png' ? densePng
+    const body = url.pathname === '/tiny.png' ? tinyPng : url.pathname === '/blank.png' ? blankPng : url.pathname === '/blank-bubble.png' ? blankBubblePng : url.pathname === '/face.png' ? facePng : url.pathname === '/ind.png' ? indPng : url.pathname === '/ocr-interrupted.png' ? densePng
       : url.pathname === '/unsupported.svg' ? svg
         : url.pathname === '/oversized-header.png' && count > 1 ? oversizedHeader : png;
     response.writeHead(200, { 'Content-Type': url.pathname.endsWith('.svg') ? 'image/svg+xml' : 'image/png', 'Content-Length': Buffer.byteLength(body) });
@@ -551,6 +553,20 @@ try {
     assert.equal(await page.locator('#aksara-root button[aria-label="Translate image"]').evaluate(button => button.getRootNode().activeElement === button), true);
     return { statuses, code: error.code, focusRestored: true };
   });
+
+  const recoveryLanguageSettings = await bridge.evaluate(() => chrome.storage.local.get('languageSettings'));
+  for (const sourceLanguage of ['eng_Latn', 'ind_Latn']) {
+    await bridge.evaluate(sourceLanguage => chrome.storage.local.set({ languageSettings: { sourceLanguage, targetLanguage: 'fra_Latn' } }), sourceLanguage);
+    for (const [source, description] of [['/blank-bubble.png', 'empty speech bubble'], ['/face.png', 'simple face artwork']]) {
+      await check(`region recovery does not fabricate words from ${description} (${sourceLanguage})`, async () => {
+        await openFixture(source); await clickTranslate();
+        const statuses = await imageStatusMatches(/No text found/i);
+        assert.equal(await recognizedText().count(), 0);
+        return { source, sourceLanguage, statuses, fabricatedText: false };
+      });
+    }
+  }
+  await bridge.evaluate(saved => chrome.storage.local.set(saved), recoveryLanguageSettings);
 
   await check('cancelling OCR initialization closes its host and allows a successful retry', async () => {
     await openFixture('/ocr-cancel.png'); await clickTranslate();

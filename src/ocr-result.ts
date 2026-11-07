@@ -1,8 +1,9 @@
 import type { LanguageSettings } from './languages';
 
 export const OCR_LIMITS = Object.freeze({ timeoutMs: 90_000, maxText: 20_000, maxLines: 500, maxLineText: 2000, lowConfidence: 0.6 });
-export type OcrLine = { segmentId: string; blockId?: string; paragraphId?: string; text: string; confidence: number; lowConfidence: boolean; box: { x: number; y: number; width: number; height: number } };
-export type OcrResult = LanguageSettings & { text: string; confidence: number; lowConfidence: boolean; truncated: boolean; lines: OcrLine[]; imageWidth: number; imageHeight: number; elapsedMs: number };
+export type OcrLine = { segmentId: string; blockId?: string; paragraphId?: string; visualRegionId?: string; text: string; confidence: number; lowConfidence: boolean; box: { x: number; y: number; width: number; height: number } };
+export type OcrResult = LanguageSettings & { text: string; confidence: number; lowConfidence: boolean; truncated: boolean; lines: OcrLine[]; imageWidth: number; imageHeight: number; elapsedMs: number;
+  layout?: { candidates: number; recoveryAttempts: number; recoveredRegions: number; layoutMs: number; recoveryMs: number } };
 const object = (value: unknown): Record<string, unknown> => value !== null && typeof value === 'object' ? value as Record<string, unknown> : {};
 const list = (value: unknown): unknown[] => Array.isArray(value) ? value : [];
 const clean = (value: unknown) => typeof value === 'string' ? value.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '').trim() : '';
@@ -33,4 +34,22 @@ export function normalizeOcr(data: unknown, width: number, height: number, langu
   }
   const score = confidence(page.confidence);
   return { ...languages, text: text.slice(0, OCR_LIMITS.maxText), confidence: score, lowConfidence: Boolean(text) && (score < OCR_LIMITS.lowConfidence || lines.some(line => line.lowConfidence)), truncated, lines, imageWidth: width, imageHeight: height, elapsedMs: Math.max(0, Math.round(elapsedMs)) };
+}
+
+/** Normalized crop results retain actual text and translate boxes back into the
+ * original image. IDs are regenerated globally; each crop keeps its own layout. */
+export function mergeRecoveredOcr(parts: Array<{ ocr: OcrResult; x: number; y: number; visualRegionId: string }>, width: number, height: number, languages: LanguageSettings, elapsedMs: number, limited = false): OcrResult {
+  const text = parts.map(part => part.ocr.text).join('\n\n'), lines: OcrLine[] = [];
+  let truncated = limited || text.length > OCR_LIMITS.maxText || parts.some(part => part.ocr.truncated);
+  for (const [index, part] of parts.entries()) for (const line of part.ocr.lines) {
+    if (lines.length >= OCR_LIMITS.maxLines) { truncated = true; break; }
+    const x = Math.max(0, Math.min(width, line.box.x + part.x)), y = Math.max(0, Math.min(height, line.box.y + part.y));
+    const right = Math.max(0, Math.min(width, line.box.x + part.x + line.box.width)), bottom = Math.max(0, Math.min(height, line.box.y + part.y + line.box.height));
+    if (![x, y, right, bottom].every(Number.isFinite) || right <= x || bottom <= y) continue;
+    lines.push({ ...line, segmentId: `s${lines.length + 1}`, blockId: `r${index + 1}-${line.blockId ?? 'b1'}`, paragraphId: `r${index + 1}-${line.paragraphId ?? 'p1'}`, visualRegionId: part.visualRegionId, box: { x, y, width: right - x, height: bottom - y } });
+  }
+  const characters = parts.reduce((sum, part) => sum + part.ocr.text.length, 0);
+  const confidence = characters ? parts.reduce((sum, part) => sum + part.ocr.confidence * part.ocr.text.length, 0) / characters : 0;
+  return { ...languages, text: text.slice(0, OCR_LIMITS.maxText), confidence, lowConfidence: parts.some(part => part.ocr.lowConfidence), truncated, lines,
+    imageWidth: width, imageHeight: height, elapsedMs: Math.round(elapsedMs) };
 }

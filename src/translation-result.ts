@@ -35,20 +35,23 @@ const finiteBox = (box: OcrLine['box']) => [box.x, box.y, box.width, box.height]
 
 function adjacent(previous: OcrLine, next: OcrLine): boolean {
   if (!finiteBox(previous.box) || !finiteBox(next.box)) return false;
-  // Explicit OCR paragraphs/blocks are boundaries. Do not concatenate separate
-  // speakers or panels just because their text happens to be nearby.
-  if (previous.paragraphId && next.paragraphId && previous.paragraphId !== next.paragraphId) return false;
-  if (previous.blockId && next.blockId && previous.blockId !== next.blockId) return false;
+  const sameVisualRegion = !!previous.visualRegionId && previous.visualRegionId === next.visualRegionId;
+  if (previous.visualRegionId && next.visualRegionId && !sameVisualRegion) return false;
+  const crossesLayout = !!(previous.paragraphId && next.paragraphId && previous.paragraphId !== next.paragraphId || previous.blockId && next.blockId && previous.blockId !== next.blockId);
+  const continuation = !/[.!?:;]["'”’)]*\s*$/.test(previous.text) && /^[\s"'“‘(]*[a-z]/.test(next.text);
+  // Pixel evidence can reconnect an unfinished sentence split by OCR layout.
+  // Complete independent paragraphs and unknown/crossing regions keep boundaries.
+  if (crossesLayout && !(sameVisualRegion && continuation)) return false;
   const sameParagraph = !!previous.paragraphId && previous.paragraphId === next.paragraphId;
   const a = previous.box, b = next.box, height = Math.max(a.height, b.height);
   const gap = b.y - a.y - a.height;
-  if (Math.max(a.height, b.height) / Math.min(a.height, b.height) > 1.7 || gap < -Math.min(a.height, b.height) * 0.2 || gap > height * (sameParagraph ? 1 : 0.6)) return false;
+  if (Math.max(a.height, b.height) / Math.min(a.height, b.height) > 1.7 || gap < -Math.min(a.height, b.height) * 0.2 || gap > height * (sameParagraph || sameVisualRegion ? 1 : 0.6)) return false;
   const overlap = Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x);
   const aligned = Math.min(Math.abs(a.x - b.x), Math.abs(a.x + a.width - b.x - b.width), Math.abs(a.x + a.width / 2 - b.x - b.width / 2)) <= height * 0.85;
   if (overlap < Math.min(a.width, b.width) * 0.5 || !aligned) return false;
   // Legacy/unstructured results may join only an unfinished line followed by
   // a lowercase continuation; known paragraph IDs do not need this guess.
-  return sameParagraph || !/[.!?:;]["'”’)]*\s*$/.test(previous.text) && /^[\s"'“‘(]*[a-z]/.test(next.text);
+  return sameParagraph || continuation;
 }
 
 /** Preserve paragraph context while bounding geometry, speakers and input size. */
@@ -58,7 +61,8 @@ export function groupTextRegions(ocr: OcrResult): TextRegion[] {
   for (const line of ocr.lines) {
     if (!line.text.trim()) continue;
     const current = groups.at(-1);
-    if (current && current.length < regionLimits.maxLines && current.reduce((sum, row) => sum + Array.from(row.text).length + 1, 0) + Array.from(line.text).length <= regionLimits.maxCharacters && adjacent(current.at(-1)!, line)) current.push(line);
+    const compatibleRegions = current?.every(row => !row.visualRegionId || !line.visualRegionId || row.visualRegionId === line.visualRegionId);
+    if (current && compatibleRegions && current.length < regionLimits.maxLines && current.reduce((sum, row) => sum + Array.from(row.text).length + 1, 0) + Array.from(line.text).length <= regionLimits.maxCharacters && adjacent(current.at(-1)!, line)) current.push(line);
     else groups.push([line]);
   }
   return groups.map(lines => {

@@ -65,6 +65,26 @@ test('geometry splits columns, large gaps, mismatched type sizes and overlapping
   }
 });
 
+test('pixel region evidence reconnects only a nearby unfinished sentence across OCR block boundaries', () => {
+  const rows = [line('We found a', 1), line('strange little', 2), line('parcel.', 3)];
+  rows.forEach((row, index) => { row.blockId = index < 2 ? 'b1' : 'b2'; row.paragraphId = index < 2 ? 'b1p1' : 'b2p1'; row.visualRegionId = 'v1'; });
+  const result = groupTextRegions(ocr(rows));
+  assert.equal(result.length, 1); assert.equal(result[0].sourceText, 'We found a strange little parcel.');
+  rows[1].text = 'strange little.';
+  assert.equal(groupTextRegions(ocr(rows)).length, 2, 'A complete paragraph remains a boundary.');
+  rows[1].text = 'strange little'; delete rows[2].visualRegionId;
+  assert.equal(groupTextRegions(ocr(rows)).length, 2, 'Unknown pixels cannot override the OCR boundary.');
+});
+
+test('different pixel regions remain separate even if OCR reuses a paragraph or an unassigned line bridges them', () => {
+  const rows = [line('We got this', 1), line('mysterious', 2), line('package.', 3)];
+  rows.forEach(row => { row.blockId = 'b1'; row.paragraphId = 'b1p1'; });
+  rows[0].visualRegionId = 'v1'; rows[1].visualRegionId = rows[2].visualRegionId = 'v2';
+  assert.equal(groupTextRegions(ocr(rows)).length, 2);
+  delete rows[1].visualRegionId;
+  assert.equal(groupTextRegions(ocr(rows)).length, 2, 'Unknown membership must not bridge two known regions.');
+});
+
 test('unstructured OCR joins only nearby lowercase continuation and preserves complete independent sentences', () => {
   const rows = bubble(['We got this', 'mysterious', 'package.']);
   for (const row of rows) { delete row.blockId; delete row.paragraphId; }

@@ -92,7 +92,7 @@ async function memoryObserver() {
   return { stop: async () => { clearInterval(timer); await pending; await sample(); return evidence; } };
 }
 try {
-  const sourceFiles = ['scripts/benchmark.mjs', 'scripts/benchmark/metrics.mjs', 'benchmarks/corpus.json', 'src/ocr-result.ts', 'src/translation-result.ts', 'src/translation.ts', 'src/model-cache-core.ts', 'src/gpu.ts', 'dist/background.js', 'dist/offscreen.js', 'dist/content.js', 'dist/manifest.json'];
+  const sourceFiles = ['scripts/benchmark.mjs', 'scripts/benchmark/metrics.mjs', 'benchmarks/corpus.json', 'src/light-regions.ts', 'src/ocr-result.ts', 'src/translation-result.ts', 'src/translation.ts', 'src/model-cache-core.ts', 'src/gpu.ts', 'dist/background.js', 'dist/offscreen.js', 'dist/content.js', 'dist/manifest.json'];
   report.fingerprints = Object.fromEntries(await Promise.all(sourceFiles.map(async path => [path, createHash('sha256').update(await readFile(path)).digest('hex')])));
   report.modelManifest = JSON.parse(await readFile('src/model-manifest.json', 'utf8'));
   report.gitCommit = (await execute('git', ['rev-parse', 'HEAD'])).stdout.trim();

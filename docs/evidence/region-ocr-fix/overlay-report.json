@@ -1,0 +1,1340 @@
+{
+  "generatedAt": "2026-11-07T02:23:07.009Z",
+  "phase": 5,
+  "browser": "156.0.8078.4",
+  "extensionVersion": "0.6.1",
+  "hardware": {
+    "platform": "win32",
+    "cpu": "AMD Ryzen 5 5600H with Radeon Graphics         ",
+    "totalMemoryBytes": 16477155328
+  },
+  "cases": [
+    {
+      "name": "wrapped sentence from the supplied comic retains context in one real NLLB request",
+      "ok": true,
+      "elapsedMs": 31437,
+      "image": {
+        "animated": false,
+        "byteLength": 228819,
+        "context": "offscreen",
+        "height": 391,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.94,
+          "elapsedMs": 626,
+          "imageHeight": 391,
+          "imageWidth": 360,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 24,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 30,
+                "width": 152,
+                "x": 185,
+                "y": 56
+              },
+              "confidence": 0.93,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "We got this",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 28,
+                "width": 138,
+                "x": 192,
+                "y": 90
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "mysterious",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 31,
+                "width": 104,
+                "x": 209,
+                "y": 122
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s3",
+              "text": "package.",
+              "visualRegionId": "v2"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "We got this\nmysterious\npackage.",
+          "truncated": false
+        },
+        "sha256": "05f2c49d6b89bdc074bb6c3c4aa2be1f6bd3ffcf598065c0c66726b831475166",
+        "translation": {
+          "cold": true,
+          "elapsedMs": 28234,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 97,
+                "width": 152,
+                "x": 185,
+                "y": 56
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2",
+                "s3"
+              ],
+              "sourceText": "We got this mysterious package.",
+              "textAlign": "center",
+              "translatedText": "Kami punya paket misterius ini."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Kami punya paket misterius ini.",
+          "timing": {
+            "inferenceMs": 11519,
+            "loadMs": 4454,
+            "verifyMs": 12246
+          }
+        },
+        "width": 360
+      },
+      "originalSourceRows": 3,
+      "translationRequests": 1,
+      "renderingFixture": false
+    },
+    {
+      "name": "two real comic speech bubbles retain separate sentences and separate overlay boxes",
+      "ok": true,
+      "elapsedMs": 20532,
+      "image": {
+        "animated": false,
+        "byteLength": 207280,
+        "context": "offscreen",
+        "height": 392,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.9,
+          "elapsedMs": 555,
+          "imageHeight": 392,
+          "imageWidth": 360,
+          "layout": {
+            "candidates": 2,
+            "layoutMs": 10,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 23,
+                "width": 56,
+                "x": 82,
+                "y": 20
+              },
+              "confidence": 0.62,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Huh?",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 30,
+                "width": 181,
+                "x": 20,
+                "y": 52
+              },
+              "confidence": 0.85,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "There's nothing",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 22,
+                "width": 82,
+                "x": 69,
+                "y": 87
+              },
+              "confidence": 0.87,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s3",
+              "text": "inside.",
+              "visualRegionId": "v2"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 30,
+                "width": 98,
+                "x": 202,
+                "y": 133
+              },
+              "confidence": 0.93,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s4",
+              "text": "It's just",
+              "visualRegionId": "v15"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 29,
+                "width": 120,
+                "x": 191,
+                "y": 166
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s5",
+              "text": "an empty",
+              "visualRegionId": "v15"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 25,
+                "width": 100,
+                "x": 201,
+                "y": 199
+              },
+              "confidence": 0.73,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s6",
+              "text": "cardbox.",
+              "visualRegionId": "v15"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Huh?\nThere's nothing\ninside.\n\nIt's just\nan empty\ncardbox.",
+          "truncated": false
+        },
+        "sha256": "4068a1d190a93c9f14a4df8448af9d47959b21edb23a5e0bcc0ec7337ec2a759",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 19629,
+          "inferenceCalls": 2,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 89,
+                "width": 181,
+                "x": 20,
+                "y": 20
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2",
+                "s3"
+              ],
+              "sourceText": "Huh? There's nothing inside.",
+              "textAlign": "center",
+              "translatedText": "Tidak ada apa-apa di dalam."
+            },
+            {
+              "box": {
+                "height": 91,
+                "width": 120,
+                "x": 191,
+                "y": 133
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s4",
+              "sourceLineIds": [
+                "s4",
+                "s5",
+                "s6"
+              ],
+              "sourceText": "It's just an empty cardbox.",
+              "textAlign": "center",
+              "translatedText": "Ini hanya kotak kartu kosong."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Tidak ada apa-apa di dalam.\nIni hanya kotak kartu kosong.",
+          "timing": {
+            "inferenceMs": 19599,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 360
+      },
+      "originalSourceRows": 6,
+      "translationRequests": 2,
+      "renderingFixture": false
+    },
+    {
+      "name": "a pixel-supported wrapped sentence crosses fragmented OCR blocks in one real model request",
+      "ok": true,
+      "elapsedMs": 12214,
+      "image": {
+        "animated": false,
+        "byteLength": 37142,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 603,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 44,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 33,
+                "width": 221,
+                "x": 369,
+                "y": 160
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "We found a",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 41,
+                "width": 234,
+                "x": 363,
+                "y": 218
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s2",
+              "text": "strange little",
+              "visualRegionId": "v1"
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 40,
+                "width": 125,
+                "x": 417,
+                "y": 275
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s3",
+              "text": "parcel.",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "We found a\nstrange little\n\nparcel.",
+          "truncated": false
+        },
+        "sha256": "1ec93fcfae885f52d6242f81251ef8ec5de541e5d08db79bf3eb21387a48e7b2",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 9793,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 155,
+                "width": 234,
+                "x": 363,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "g-s1",
+              "sourceLineIds": [
+                "s1",
+                "s2",
+                "s3"
+              ],
+              "sourceText": "We found a strange little parcel.",
+              "textAlign": "center",
+              "translatedText": "Kami menemukan paket kecil yang aneh."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Kami menemukan paket kecil yang aneh.",
+          "timing": {
+            "inferenceMs": 9780,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 960
+      },
+      "sizes": [
+        {
+          "width": 375,
+          "height": 812,
+          "axeViolations": 0
+        },
+        {
+          "width": 768,
+          "height": 900,
+          "axeViolations": 0
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "axeViolations": 0
+        }
+      ],
+      "renderingFixture": false
+    },
+    {
+      "name": "empty whole-image OCR recovers actual text from a border-masked region with natural boxes",
+      "ok": true,
+      "elapsedMs": 7997,
+      "image": {
+        "animated": false,
+        "byteLength": 27742,
+        "context": "offscreen",
+        "height": 560,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.9499999999999998,
+          "elapsedMs": 610,
+          "imageHeight": 560,
+          "imageWidth": 960,
+          "layout": {
+            "candidates": 1,
+            "layoutMs": 24,
+            "recoveredRegions": 1,
+            "recoveryAttempts": 1,
+            "recoveryMs": 65
+          },
+          "lines": [
+            {
+              "blockId": "r1-b1",
+              "box": {
+                "height": 41,
+                "width": 227,
+                "x": 365,
+                "y": 160
+              },
+              "confidence": 0.95,
+              "lowConfidence": false,
+              "paragraphId": "r1-b1p1",
+              "segmentId": "s1",
+              "text": "We got this!",
+              "visualRegionId": "v1"
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "We got this!",
+          "truncated": false
+        },
+        "sha256": "de3e9fbe2dbc4adef2a7407931a6ec8aa553b2c402b7061e84212315ae35ec61",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 6974,
+          "inferenceCalls": 1,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 41,
+                "width": 227,
+                "x": 365,
+                "y": 160
+              },
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "sourceText": "We got this!",
+              "translatedText": "Kita bisa melakukannya!"
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Kita bisa melakukannya!",
+          "timing": {
+            "inferenceMs": 6945,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 960
+      },
+      "naturalCoordinates": true,
+      "renderingFixture": false
+    },
+    {
+      "name": "real two-line OCR and NLLB translation becomes aligned text safely",
+      "ok": true,
+      "elapsedMs": 12997,
+      "image": {
+        "animated": false,
+        "byteLength": 32340,
+        "context": "offscreen",
+        "height": 440,
+        "mimeType": "image/png",
+        "ocr": {
+          "confidence": 0.95,
+          "elapsedMs": 555,
+          "imageHeight": 440,
+          "imageWidth": 900,
+          "layout": {
+            "candidates": 0,
+            "layoutMs": 11,
+            "recoveredRegions": 0,
+            "recoveryAttempts": 0,
+            "recoveryMs": 0
+          },
+          "lines": [
+            {
+              "blockId": "b1",
+              "box": {
+                "height": 57,
+                "width": 402,
+                "x": 58,
+                "y": 105
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b1p1",
+              "segmentId": "s1",
+              "text": "Open the door."
+            },
+            {
+              "blockId": "b2",
+              "box": {
+                "height": 58,
+                "width": 402,
+                "x": 58,
+                "y": 265
+              },
+              "confidence": 0.96,
+              "lowConfidence": false,
+              "paragraphId": "b2p1",
+              "segmentId": "s2",
+              "text": "Good morning."
+            }
+          ],
+          "lowConfidence": false,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Open the door.\n\nGood morning.",
+          "truncated": false
+        },
+        "sha256": "9ad523c8f30a6e2771480a2dd2da81116b235335b838b8344a27b24cb121fd96",
+        "translation": {
+          "cold": false,
+          "elapsedMs": 12276,
+          "inferenceCalls": 2,
+          "model": "Xenova/nllb-200-distilled-600M",
+          "partial": false,
+          "sameLanguage": false,
+          "segments": [
+            {
+              "box": {
+                "height": 57,
+                "width": 402,
+                "x": 58,
+                "y": 105
+              },
+              "lowConfidence": false,
+              "segmentId": "s1",
+              "sourceText": "Open the door.",
+              "translatedText": "Buka pintunya."
+            },
+            {
+              "box": {
+                "height": 58,
+                "width": 402,
+                "x": 58,
+                "y": 265
+              },
+              "lowConfidence": false,
+              "segmentId": "s2",
+              "sourceText": "Good morning.",
+              "translatedText": "Selamat pagi."
+            }
+          ],
+          "skippedSegments": 0,
+          "sourceLanguage": "eng_Latn",
+          "targetLanguage": "ind_Latn",
+          "text": "Buka pintunya.\nSelamat pagi.",
+          "timing": {
+            "inferenceMs": 12259,
+            "loadMs": 0,
+            "verifyMs": 0
+          }
+        },
+        "width": 900
+      },
+      "expected": {
+        "content": {
+          "x": 50,
+          "y": 138.5,
+          "width": 900,
+          "height": 440
+        },
+        "painted": {
+          "x": 50,
+          "y": 138.5,
+          "width": 900,
+          "height": 440
+        },
+        "boxes": [
+          {
+            "id": "s1",
+            "x": 108,
+            "y": 243.5,
+            "width": 402,
+            "height": 57
+          },
+          {
+            "id": "s2",
+            "x": 108,
+            "y": 403.5,
+            "width": 402,
+            "height": 57.99999999999999
+          }
+        ]
+      },
+      "actual": [
+        {
+          "id": "s1",
+          "x": 108,
+          "y": 243.5,
+          "width": 402,
+          "height": 57
+        },
+        {
+          "id": "s2",
+          "x": 108,
+          "y": 403.5,
+          "width": 402,
+          "height": 58
+        }
+      ],
+      "renderingFixture": false
+    },
+    {
+      "name": "original toggle preserves result and retry runs the real local engine",
+      "ok": true,
+      "elapsedMs": 12891,
+      "retryResult": {
+        "cold": false,
+        "elapsedMs": 12230,
+        "inferenceCalls": 2,
+        "model": "Xenova/nllb-200-distilled-600M",
+        "partial": false,
+        "sameLanguage": false,
+        "segments": [
+          {
+            "box": {
+              "height": 57,
+              "width": 402,
+              "x": 58,
+              "y": 105
+            },
+            "lowConfidence": false,
+            "segmentId": "s1",
+            "sourceText": "Open the door.",
+            "translatedText": "Buka pintunya."
+          },
+          {
+            "box": {
+              "height": 58,
+              "width": 402,
+              "x": 58,
+              "y": 265
+            },
+            "lowConfidence": false,
+            "segmentId": "s2",
+            "sourceText": "Good morning.",
+            "translatedText": "Selamat pagi."
+          }
+        ],
+        "skippedSegments": 0,
+        "sourceLanguage": "eng_Latn",
+        "targetLanguage": "ind_Latn",
+        "text": "Buka pintunya.\nSelamat pagi.",
+        "timing": {
+          "inferenceMs": 12204,
+          "loadMs": 0,
+          "verifyMs": 0
+        }
+      },
+      "renderingFixture": false
+    },
+    {
+      "name": "copy produces the complete known translation and details remain keyboard reachable",
+      "ok": true,
+      "elapsedMs": 101,
+      "copiedKnownFixture": true,
+      "detailsOpenedAndClosed": true
+    },
+    {
+      "name": "object-fit, noncenter object-position, borders and padding map natural OCR coordinates",
+      "ok": true,
+      "elapsedMs": 1004,
+      "matrix": [
+        {
+          "name": "fill",
+          "expected": {
+            "content": {
+              "x": 70,
+              "y": 158.5,
+              "width": 640,
+              "height": 360
+            },
+            "painted": {
+              "x": 70,
+              "y": 158.5,
+              "width": 640,
+              "height": 360
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 111.24444444444444,
+                "y": 244.4090909090909,
+                "width": 285.8666666666667,
+                "height": 46.63636363636364
+              },
+              {
+                "id": "s2",
+                "x": 111.24444444444444,
+                "y": 375.3181818181818,
+                "width": 285.8666666666667,
+                "height": 47.45454545454545
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 111.234375,
+              "y": 244.40625,
+              "width": 285.859375,
+              "height": 46.625
+            },
+            {
+              "id": "s2",
+              "x": 111.234375,
+              "y": 375.3125,
+              "width": 285.859375,
+              "height": 47.453125
+            }
+          ]
+        },
+        {
+          "name": "contain 25% 75%",
+          "expected": {
+            "content": {
+              "x": 70,
+              "y": 158.5,
+              "width": 640,
+              "height": 420
+            },
+            "painted": {
+              "x": 70,
+              "y": 238.83333333333331,
+              "width": 640,
+              "height": 312.8888888888889
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 111.24444444444444,
+                "y": 313.5,
+                "width": 285.8666666666667,
+                "height": 40.53333333333334
+              },
+              {
+                "id": "s2",
+                "x": 111.24444444444444,
+                "y": 427.27777777777777,
+                "width": 285.8666666666667,
+                "height": 41.24444444444445
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 111.234375,
+              "y": 313.484375,
+              "width": 285.859375,
+              "height": 40.53125
+            },
+            {
+              "id": "s2",
+              "x": 111.234375,
+              "y": 427.265625,
+              "width": 285.859375,
+              "height": 41.234375
+            }
+          ]
+        },
+        {
+          "name": "cover right bottom",
+          "expected": {
+            "content": {
+              "x": 50,
+              "y": 138.5,
+              "width": 640,
+              "height": 420
+            },
+            "painted": {
+              "x": -169.09090909090912,
+              "y": 138.5,
+              "width": 859.0909090909091,
+              "height": 420
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": -113.72727272727275,
+                "y": 238.72727272727275,
+                "width": 383.72727272727275,
+                "height": 54.40909090909091
+              },
+              {
+                "id": "s2",
+                "x": -113.72727272727275,
+                "y": 391.4545454545455,
+                "width": 383.72727272727275,
+                "height": 55.36363636363636
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": -113.71875,
+              "y": 238.71875,
+              "width": 383.71875,
+              "height": 54.40625
+            },
+            {
+              "id": "s2",
+              "x": -113.71875,
+              "y": 391.453125,
+              "width": 383.71875,
+              "height": 55.359375
+            }
+          ]
+        },
+        {
+          "name": "none pixels",
+          "expected": {
+            "content": {
+              "x": 50,
+              "y": 138.5,
+              "width": 760,
+              "height": 520
+            },
+            "painted": {
+              "x": 62,
+              "y": 162.5,
+              "width": 900,
+              "height": 440
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 120,
+                "y": 267.5,
+                "width": 402,
+                "height": 57
+              },
+              {
+                "id": "s2",
+                "x": 120,
+                "y": 427.5,
+                "width": 402,
+                "height": 57.99999999999999
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 120,
+              "y": 267.5,
+              "width": 402,
+              "height": 57
+            },
+            {
+              "id": "s2",
+              "x": 120,
+              "y": 427.5,
+              "width": 402,
+              "height": 58
+            }
+          ]
+        },
+        {
+          "name": "scale-down no upscale",
+          "expected": {
+            "content": {
+              "x": 50,
+              "y": 138.5,
+              "width": 960,
+              "height": 600
+            },
+            "painted": {
+              "x": 50,
+              "y": 138.5,
+              "width": 900,
+              "height": 440
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 108,
+                "y": 243.5,
+                "width": 402,
+                "height": 57
+              },
+              {
+                "id": "s2",
+                "x": 108,
+                "y": 403.5,
+                "width": 402,
+                "height": 57.99999999999999
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 108,
+              "y": 243.5,
+              "width": 402,
+              "height": 57
+            },
+            {
+              "id": "s2",
+              "x": 108,
+              "y": 403.5,
+              "width": 402,
+              "height": 58
+            }
+          ]
+        },
+        {
+          "name": "scale-down shrinking",
+          "expected": {
+            "content": {
+              "x": 50,
+              "y": 138.5,
+              "width": 640,
+              "height": 380
+            },
+            "painted": {
+              "x": 50,
+              "y": 172.05555555555554,
+              "width": 640,
+              "height": 312.8888888888889
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 91.24444444444444,
+                "y": 246.72222222222223,
+                "width": 285.8666666666667,
+                "height": 40.53333333333334
+              },
+              {
+                "id": "s2",
+                "x": 91.24444444444444,
+                "y": 360.5,
+                "width": 285.8666666666667,
+                "height": 41.24444444444445
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 91.234375,
+              "y": 246.703125,
+              "width": 285.859375,
+              "height": 40.53125
+            },
+            {
+              "id": "s2",
+              "x": 91.234375,
+              "y": 360.484375,
+              "width": 285.859375,
+              "height": 41.234375
+            }
+          ]
+        },
+        {
+          "name": "none edge-offset calculation",
+          "expected": {
+            "content": {
+              "x": 50,
+              "y": 138.5,
+              "width": 960,
+              "height": 560
+            },
+            "painted": {
+              "x": 100,
+              "y": 238.5,
+              "width": 900,
+              "height": 440
+            },
+            "boxes": [
+              {
+                "id": "s1",
+                "x": 158,
+                "y": 343.5,
+                "width": 402,
+                "height": 57
+              },
+              {
+                "id": "s2",
+                "x": 158,
+                "y": 503.5,
+                "width": 402,
+                "height": 57.99999999999999
+              }
+            ]
+          },
+          "actual": [
+            {
+              "id": "s1",
+              "x": 158,
+              "y": 343.5,
+              "width": 402,
+              "height": 57
+            },
+            {
+              "id": "s2",
+              "x": 158,
+              "y": 503.5,
+              "width": 402,
+              "height": 58
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "scroll, DOM movement, resize and positive CSS scaling keep overlays aligned",
+      "ok": true,
+      "elapsedMs": 446,
+      "scaled": [
+        {
+          "id": "s1",
+          "x": 95.78125,
+          "y": 250.59375,
+          "width": 228.6875,
+          "height": 51.296875
+        },
+        {
+          "id": "s2",
+          "x": 95.78125,
+          "y": 394.59375,
+          "width": 228.6875,
+          "height": 52.1875
+        }
+      ],
+      "scrolled": [
+        {
+          "id": "s1",
+          "x": 95.78125,
+          "y": 140.59375,
+          "width": 228.6875,
+          "height": 51.296875
+        },
+        {
+          "id": "s2",
+          "x": 95.78125,
+          "y": 284.59375,
+          "width": 228.6875,
+          "height": 52.1875
+        }
+      ],
+      "moved": [
+        {
+          "id": "s1",
+          "x": 95.78125,
+          "y": 252.59375,
+          "width": 228.6875,
+          "height": 51.296875
+        },
+        {
+          "id": "s2",
+          "x": 95.78125,
+          "y": 396.59375,
+          "width": 228.6875,
+          "height": 52.1875
+        }
+      ],
+      "resized": [
+        {
+          "id": "s1",
+          "x": 91.65625,
+          "y": 236.84375,
+          "width": 200.09375,
+          "height": 42.75
+        },
+        {
+          "id": "s2",
+          "x": 91.65625,
+          "y": 356.84375,
+          "width": 200.09375,
+          "height": 43.5
+        }
+      ],
+      "ancestorScale": [
+        {
+          "id": "s1",
+          "x": 87.109375,
+          "y": 215.8125,
+          "width": 257.265625,
+          "height": 41.96875
+        },
+        {
+          "id": "s2",
+          "x": 87.109375,
+          "y": 333.625,
+          "width": 257.265625,
+          "height": 42.703125
+        }
+      ],
+      "independentScale": [
+        {
+          "id": "s1",
+          "x": 82.984375,
+          "y": 233,
+          "width": 228.6875,
+          "height": 51.296875
+        },
+        {
+          "id": "s2",
+          "x": 82.984375,
+          "y": 377,
+          "width": 228.6875,
+          "height": 52.1875
+        }
+      ]
+    },
+    {
+      "name": "clipped ancestors hide translated pixels outside the displayed image area",
+      "ok": true,
+      "elapsedMs": 171,
+      "clipping": {
+        "clip": {
+          "x": 50,
+          "y": 138.5,
+          "width": 430,
+          "height": 230
+        },
+        "layer": {
+          "x": 57,
+          "y": 145.5,
+          "width": 416,
+          "height": 216
+        },
+        "overflow": "hidden",
+        "clipPath": "none"
+      }
+    },
+    {
+      "name": "visual-viewport zoom preserves mapped boxes and keeps controls reachable",
+      "ok": true,
+      "elapsedMs": 188,
+      "pageScaleFactor": 1.5,
+      "originalImageUnmodified": true
+    },
+    {
+      "name": "unsupported rotation falls back to selectable translated text",
+      "ok": true,
+      "elapsedMs": 302,
+      "originalResultRetained": true
+    },
+    {
+      "name": "invisible images hide their controls and restored pixels recover the saved overlay",
+      "ok": true,
+      "elapsedMs": 129,
+      "retainedResult": true,
+      "noNewInference": true
+    },
+    {
+      "name": "high contrast persists, and page and popup fit three widths with no axe violations",
+      "ok": true,
+      "elapsedMs": 2581,
+      "sizes": [
+        {
+          "width": 375,
+          "height": 812,
+          "axeViolations": 0
+        },
+        {
+          "width": 768,
+          "height": 900,
+          "axeViolations": 0
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "axeViolations": 0
+        }
+      ],
+      "popupAxeViolations": 0,
+      "highContrastSaved": true,
+      "visualRegression": "INCONCLUSIVE: no approved matching baseline"
+    },
+    {
+      "name": "per-site disable removes controls and survives popup reload without affecting other origins",
+      "ok": true,
+      "elapsedMs": 300,
+      "disabledOrigin": "http://page.aksara-fixture.net",
+      "persisted": true,
+      "noAutomaticInference": true
+    },
+    {
+      "name": "disabling a site during a real job cancels its worker and requires manual activation",
+      "ok": true,
+      "elapsedMs": 1563,
+      "realWorkCancelled": true,
+      "offscreenHostClosed": true,
+      "manualActivationRequired": true
+    },
+    {
+      "name": "hostile and long translated strings remain literal bounded rendering fixtures",
+      "ok": true,
+      "elapsedMs": 264,
+      "renderingFixture": true,
+      "noInferenceClaim": true,
+      "literalHtml": true,
+      "textLength": 1859
+    },
+    {
+      "name": "Dismiss clears overlays and restores focus; source replacement invalidates completed text",
+      "ok": true,
+      "elapsedMs": 64,
+      "focusRestored": true,
+      "renderingFixtureReplayForInvalidation": true
+    },
+    {
+      "name": "same-document navigation clears completed translations without starting another job",
+      "ok": true,
+      "elapsedMs": 78,
+      "renderingFixtureReplayForNavigation": true,
+      "sourceUnchanged": true,
+      "noAutomaticInference": true
+    },
+    {
+      "name": "two image results have independent original toggles and Dismiss actions",
+      "ok": true,
+      "elapsedMs": 226,
+      "renderingFixtureReplayForIndependence": true,
+      "separateImageIds": [
+        "d1e70ead9dcd287819874d1d5f9c02c1",
+        "cca8363b93dfcfcf56492b3a78d6f3c8"
+      ]
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "screenshots": [
+    "context-comic-original.png",
+    "context-comic-translated.png",
+    "context-comic-375.png",
+    "context-comic-768.png",
+    "context-comic-1440.png",
+    "context-two-bubbles.png",
+    "region-parcel-375.png",
+    "region-parcel-768.png",
+    "region-parcel-1440.png",
+    "region-idiom-translated.png",
+    "overlay-loading.png",
+    "overlay-success.png",
+    "overlay-object-fit.png",
+    "overlay-ancestor-clip.png",
+    "overlay-zoom.png",
+    "overlay-unsupported.png",
+    "overlay-high-contrast.png",
+    "overlay-375.png",
+    "overlay-768.png",
+    "overlay-1440.png",
+    "overlay-popup.png",
+    "overlay-site-disabled.png",
+    "overlay-literal-long-text.png"
+  ],
+  "ok": true,
+  "note": "Primary and retry journeys use real packaged Tesseract and cached NLLB/WebGPU. Geometry reuses those actual results. Only explicitly labeled hostile/long-text rendering cases substitute UI fixture data; they are not inference claims. The existing model cache is preserved.",
+  "fixturePerformance": {
+    "lcpMs": 48,
+    "cumulativeLayoutShift": 2.0073568899681233,
+    "maxEventTimingMs": 24,
+    "note": "Controlled local fixture including intentional layout mutations. Event Timing is not field INP; null means no qualifying event."
+  }
+}
