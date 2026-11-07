@@ -71,12 +71,14 @@ export function mountModelUi() {
       : job?.state === 'done' ? completed : readiness);
     if (status) status.textContent = message;
     if (storage) storage.textContent = saved;
-    if (summary) summary.textContent = failure ? 'Model status unavailable. Open setup to retry.'
+    if (summary) summary.textContent = failure ? 'Model status unavailable'
       : running ? progressText(job!)
-      : job?.state === 'error' ? 'Model setup needs attention. Open setup to retry.'
-      : model?.ready ? 'Translation model ready · works offline.'
-      : partial ? `${mb(model!.cachedBytes)} downloaded · resume in setup.`
-      : model ? `Translation needs a one-time ${mb(model.totalBytes)} download.` : 'Checking translation model…';
+      : job?.state === 'error' ? 'Setup needs attention'
+      : model?.ready ? 'Ready offline'
+      : partial ? 'Download incomplete'
+      : model ? `Download model · ${mb(model.totalBytes)}` : 'Checking model…';
+    const openSetup = document.querySelector<HTMLElement>('#open-options');
+    if (openSetup) openSetup.textContent = failure || job?.state === 'error' || model && !model.ready ? 'Set up' : 'Settings';
     if (progress) {
       progress.hidden = !busy;
       const fraction = running ? job!.progress.fraction : null;

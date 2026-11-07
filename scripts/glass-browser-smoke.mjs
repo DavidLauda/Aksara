@@ -83,6 +83,8 @@ try {
     assert.equal(await root().getByText('Text details', { exact: true }).count(), 0); assert.equal(await controls('quality').count(), 0);
     assert.deepEqual(await controls('actionbar').locator('button:visible').evaluateAll(nodes => nodes.map(node => node.getAttribute('aria-label'))), ['Show original', 'Copy translation', 'More options', 'Dismiss translation']);
     const box = await controls('actionbar').boundingBox(); assert.ok(box.height <= 46 && box.width < 270);
+    const textSurface = await controls('translated-segment').first().evaluate(node => { const css = getComputedStyle(node); return { radius: css.borderTopLeftRadius, background: css.backgroundColor, blur: css.backdropFilter, paddingInline: css.paddingLeft, overflow: node.dataset.overflow }; });
+    assert.equal(textSurface.radius,'16px'); assert.equal(textSurface.background,'rgb(248, 252, 249)'); assert.equal(textSurface.blur,'none'); assert.equal(textSurface.paddingInline,'8px'); assert.equal(textSurface.overflow,'false');
     await capture('success'); await page.locator('#sample').screenshot({ path: 'test-results/glass-preview.png' }); return { toolbar: box, defaultPanelVisible: false };
   });
   await check('options support keyboard, Escape, outside click and stable anchoring', async () => {

@@ -304,7 +304,7 @@ import { ImageControls, CONTROL_CSS } from './image-controls';
     const image = request.state.image, kind = /^(data:|blob:)/.test(request.src) ? 'inline' : 'url';
     return { imageId, kind, ...(kind === 'url' ? { url: request.src } : {}), width: image.naturalWidth, height: image.naturalHeight };
   };
-  const ping = (message: { type?: string }, sender: chrome.runtime.MessageSender, reply: (value: unknown) => void) => { if (sender.id === chrome.runtime.id && message?.type === 'AKSARA_PING') reply({ ok: true, imageCount: document.images.length, eligibleCount: allowed() ? [...states.values()].filter(state => eligible(state.image)).length : 0 }); };
+  const ping = (message: { type?: string }, sender: chrome.runtime.MessageSender, reply: (value: unknown) => void) => { if (sender.id === chrome.runtime.id && message?.type === 'AKSARA_PING') reply({ ok: true, controlsEnabled: allowed(), imageCount: document.images.length, eligibleCount: allowed() ? [...states.values()].filter(state => eligible(state.image)).length : 0 }); };
   chrome.runtime.onMessage.addListener(ping);
   const onPageHide = () => { for (const request of [...pending.values()]) cancel(request, 'The page changed.'); disconnect(); for (const state of states.values()) { clearResult(state); state.status = ''; render(state); } };
   const applyPreferences = (saved: Record<string, unknown>, initial = false) => {

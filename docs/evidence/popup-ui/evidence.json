@@ -1,0 +1,33 @@
+{
+  "contract": "docs/POPUP_UI.md: a 360px native popup, compact languages/site/activation/settings hierarchy, visible recovery paths, shared rounded text surfaces and lightweight glass appearance.",
+  "targetViewports": ["375x812", "768x900", "1440x900"],
+  "accessibility": {
+    "status": "pass",
+    "evidence": "Actual native popup keyboard input saves languages, toggles site access, restores focus after saving and activates the content script. Settings and access recovery remain reachable. Axe has zero A/AA violations for the native first-use view and three extension-document widths, including forced colors. Native labels/focus and enlarged text are checked. This is limited automated evidence; manual screen-reader and Chrome permission-dialog coverage remain open."
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "Chrome's actual first-use action view measures 360x448 with matching scroll dimensions, replacing the reproduced 146px column. The same extension document fits 375x812, 768x900 and 1440x900 viewports. Long hostnames stay bounded; a text-size fixture at 125% fits. A longer access request can scroll vertically inside Chrome's height cap without horizontal overflow."
+  },
+  "contentStates": {
+    "loading": { "status": "pass", "evidence": "popup-fixture-loading.png holds preference/model reads: disabled language controls and concise Checking model feedback. It is a labeled rendering fixture, released by reopening the popup." },
+    "empty": { "status": "pass", "evidence": "popup-native-empty.png reads actual missing-model metadata: a one-line 912MB model setup row and Set up action. The model is not downloaded automatically." },
+    "error": { "status": "pass", "evidence": "popup-native-save-error.png shows a deliberate storage-write fault as visible retry/reopen feedback. popup-fixture-error.png separately exercises unavailable model status and Set up." },
+    "partial": { "status": "pass", "evidence": "popup-fixture-partial.png explicitly replays incomplete model metadata: Download incomplete and Set up retain the resume path. No actual partial model download is claimed." },
+    "success": { "status": "pass", "evidence": "popup-native-enabled.png follows actual trusted activation and content-script injection. Reopening recognizes active controls; disable/allow still requires explicit reactivation. popup-fixture-ready.png separately illustrates ready-model metadata." },
+    "permission": { "status": "pass", "evidence": "The actual site switch gates activation and cancellation. A seeded pending-host record renders the real native access UI and keyboard-reachable grant action in popup-native-permission.png. Unsupported Chrome pages disable activation with website guidance. Chrome's native grant dialog remains manual and is not marked tested." }
+  },
+  "renderedEvidence": [
+    { "viewport": "375x812", "artifact": "popup-375.png", "observation": "The intrinsic 360px document fits the narrow viewport with side-by-side selects and a visible primary action." },
+    { "viewport": "768x900", "artifact": "popup-768.png", "observation": "A wider extension-tab viewport preserves the popup's compact intrinsic width instead of stretching controls." },
+    { "viewport": "1440x900", "artifact": "popup-1440.png", "observation": "Desktop extension-document render retains the same hierarchy and width; this is separate from the actual native-window measurement." },
+    { "viewport": "360x448", "artifact": "popup-native-empty.png", "observation": "Actual Chrome action view, with matching document/view dimensions and no overflow. Missing-model status comes from the real backend." },
+    { "viewport": "360x448", "artifact": "popup-native-enabled.png", "observation": "Actual native view after keyboard activation; concise enabled state and image-hover guidance replace repeated explanatory paragraphs." },
+    { "viewport": "360x600", "artifact": "popup-fixture-partial.png", "observation": "Labeled rendering fixture of an incomplete model; resume remains available through Set up." },
+    { "viewport": "360x600", "artifact": "popup-fixture-loading.png", "observation": "Held-read rendering fixture retains the form structure and concise model loading feedback." },
+    { "viewport": "375x812", "artifact": "popup-text-125.png", "observation": "125% text-size fixture keeps controls and labels usable; this does not claim native browser-zoom coverage." },
+    { "viewport": "520x565", "artifact": "rounded-translation.png", "observation": "UI replay shows the shared 16px rounded backing, opaque readable text and existing compact toolbar. Real inference regression is reported separately." }
+  ],
+  "visualRegression": "INCONCLUSIVE: no approved matching pixel baseline.",
+  "limits": ["Native grant dialogs and manual screen-reader use remain untested.", "Model/loading variants are explicit UI fixtures, separate from actual native activation and actual inference checks.", "CSS tint/highlights cannot sample the webpage behind the separate Chrome popup window."]
+}

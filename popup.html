@@ -1,3 +1,42 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Aksara</title></head>
-<body><main class="popup"><p class="eyebrow">ON YOUR DEVICE</p><h1>Aksara</h1><p>Translate text in images, privately.</p><fieldset id="language-settings" disabled><legend>Languages</legend><label for="source-language">Text in image</label><select id="source-language" aria-describedby="source-help"></select><p id="source-help" class="field-help">English and Indonesian text recognition.</p><label for="target-language">Translate to</label><select id="target-language" aria-describedby="target-help"></select><p id="target-help" class="field-help">Applies to the next image you translate.</p></fieldset><p id="language-status" role="status" class="field-help">Loading language choices…</p><div class="site-choice"><label for="site-enabled"><input id="site-enabled" type="checkbox" aria-describedby="site-help site-status" disabled>Allow image controls on this site</label><p id="site-help" class="field-help">Checking the active site…</p><p id="site-status" role="status" class="field-help"></p></div><button id="enable-tab" disabled>Enable image controls</button><div class="model-summary"><p id="model-summary" role="status">Checking translation model…</p><button id="open-options" class="secondary">Translation setup & diagnostics</button></div><section id="image-permission" hidden><p id="image-host"></p><button id="allow-image-host">Allow image host</button></section><p id="popup-status" role="status">Research preview · 0.7.0</p><footer><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy &amp; local data</a></footer></main><script type="module" src="/src/popup.ts"></script></body></html>
+<html lang="en" class="popup-page">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Aksara</title></head>
+<body>
+  <main class="popup">
+    <header class="popup-header">
+      <div><h1>Aksara</h1><p class="subtitle">Image translation</p></div>
+      <span class="local-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 4-8 9-8 9s-8-5-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></svg>Local</span>
+    </header>
+    <fieldset id="language-settings" disabled>
+      <legend class="sr-only">Translation languages</legend>
+      <div class="language-row">
+        <div><label for="source-language">From</label><select id="source-language" aria-describedby="source-help"></select></div>
+        <svg class="language-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>
+        <div><label for="target-language">To</label><select id="target-language" aria-describedby="target-help"></select></div>
+      </div>
+      <p id="source-help" class="sr-only">Choose English or Indonesian text recognition.</p>
+      <p id="target-help" class="sr-only">Applies to the next image you translate.</p>
+    </fieldset>
+    <p id="language-status" role="status" class="quiet-status">Loading language choices…</p>
+    <div class="site-choice">
+      <label class="site-toggle" for="site-enabled">
+        <span class="site-copy"><span class="site-label">Allow on this site</span><span id="site-help" class="site-origin">Checking website…</span></span>
+        <input id="site-enabled" type="checkbox" role="switch" aria-describedby="site-help site-status" disabled>
+      </label>
+      <p id="site-status" role="status" class="quiet-status"></p>
+    </div>
+    <button id="enable-tab" class="primary" aria-describedby="activation-help" disabled>Enable translation</button>
+    <p id="activation-help" class="activation-help">Then hover over an image and choose Translate.</p>
+    <p id="popup-status" role="status" class="activation-feedback"></p>
+    <section id="image-permission" aria-label="Image access" hidden>
+      <p id="image-host"></p><button id="allow-image-host">Allow image host</button>
+    </section>
+    <div class="model-row">
+      <p id="model-summary" role="status">Checking model…</p>
+      <button id="open-options" class="settings-button">Settings</button>
+    </div>
+    <footer><a href="privacy.html" target="_blank" rel="noopener noreferrer" aria-label="Privacy &amp; local data">Privacy</a><span>Preview · 0.7.1</span></footer>
+  </main>
+  <script type="module" src="/src/popup.ts"></script>
+</body>
+</html>

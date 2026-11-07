@@ -1,11 +1,12 @@
 import { createImageMapping, mapOverlayBox, type ImageMapping, type MappingResult, type OverlayInsets, type OverlayRect } from './overlay-geometry';
 import type { OcrResult } from './ocr-result';
 import type { ImageTranslation } from './translation-result';
+import tokens from '../design-tokens.json';
 
 export const OVERLAY_CSS = `
   .image-overlay{position:absolute;overflow:hidden;pointer-events:none;z-index:0;isolation:isolate}
-  .translated-segment{position:absolute;pointer-events:auto;user-select:text;cursor:text;padding:2px 4px;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;background:#fffef9;color:#182b20;box-shadow:0 0 0 1px #526b5e55;border-radius:2px;font:500 16px/1.12 system-ui,sans-serif;text-align:left}
-  .translated-segment:focus-visible{outline:3px solid #9b6b0c;outline-offset:-3px}
+  .translated-segment{position:absolute;pointer-events:auto;user-select:text;cursor:text;padding:2px 8px;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--aks-surface,${tokens.color.surface});color:var(--aks-ink,${tokens.color.ink});box-shadow:inset 0 1px 0 #fff,0 0 0 1px var(--aks-line,${tokens.color.line});border-radius:${tokens.radius.panel}px;font:500 16px/1.12 system-ui,sans-serif;text-align:left}
+  .translated-segment:focus-visible{outline:3px solid var(--aks-focus,${tokens.color.focus});outline-offset:-3px}
   .image-overlay.high-contrast .translated-segment{background:#fff;color:#000;box-shadow:inset 0 0 0 2px #000;font-weight:600}
   .translated-segment[data-overflow=true]{box-shadow:inset 0 -2px 0 #9b6b0c}
   @media(forced-colors:active){.translated-segment{background:Canvas;color:CanvasText;border:1px solid CanvasText;forced-color-adjust:auto}}
@@ -56,7 +57,7 @@ export function measureImage(image: HTMLImageElement, ocr: OcrResult): { mapping
   const css = getComputedStyle(image), box = boxDimensions(image, css);
   if (css.getPropertyValue('object-view-box') && css.getPropertyValue('object-view-box') !== 'none') unsupported = true;
   if (css.imageOrientation !== 'from-image' && css.imageOrientation !== '0deg') unsupported = true;
-  if (unsupported) return { mapping: { supported: false, reason: 'unsupported-transform' }, hidden, reason: 'This image uses a rotated, rounded or masked layout. Read the translation in Text details.' };
+  if (unsupported) return { mapping: { supported: false, reason: 'unsupported-transform' }, hidden, reason: 'This image uses a rotated, rounded or masked layout. Read the translation in the text reader.' };
   return { mapping: createImageMapping({ borderBox: rectOf(image.getBoundingClientRect()), layoutWidth: box.width, layoutHeight: box.height, border: box.border, padding: box.padding,
     naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight, sourceWidth: ocr.imageWidth, sourceHeight: ocr.imageHeight,
     objectFit: css.objectFit, objectPosition: css.objectPosition, clips, transforms }), hidden };
