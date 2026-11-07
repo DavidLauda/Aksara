@@ -146,6 +146,7 @@ async function setImage(source) {
 async function startImage(keyboard = false) {
   await clearCaptured();
   await page.locator('#sample').hover({ position: { x: 8, y: 8 } });
+  if (!await button().isVisible()) await page.locator('#aksara-root .dismiss').click();
   if (keyboard) { await button().focus(); await button().press('Enter'); } else await button().click();
 }
 async function imageResult() {
@@ -368,8 +369,8 @@ try {
       const image = await imageResult();
       const result = assertTranslation(image, 'eng_Latn', 'ind_Latn', /buka|pintu/i);
       assert.equal(result.cold, true); assert.equal(result.sameLanguage, false);
-      await page.locator('#aksara-root .details-toggle').click();
-      assert.match(await translatedText().inputValue(), /buka|pintu/i);
+      assert.equal(await page.locator('#aksara-root .card').isVisible(), false);
+      assert.match((await page.locator('#aksara-root .translated-segment').allTextContents()).join(' '), /buka|pintu/i);
       await capture('translation-success');
       return { result, ocr: image.ocr };
     });
@@ -432,8 +433,10 @@ try {
     });
     }
     await check('translation preview fits three widths and has no automated accessibility violations', async () => {
-      const details = page.locator('#aksara-root .details-toggle');
-      if (await details.getAttribute('aria-expanded') !== 'true') await details.click();
+      // Exercise the supported selectable fallback, rather than restoring the
+      // removed always-visible Text details control just for this harness.
+      await page.locator('#sample').evaluate(image => { image.style.transform = 'rotate(2deg)'; });
+      await translatedText().waitFor();
       const viewports = [];
       await page.emulateMedia({ reducedMotion: 'reduce' });
       for (const [width, height] of [[375, 812], [768, 900], [1440, 900]]) {

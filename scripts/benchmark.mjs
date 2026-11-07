@@ -132,10 +132,11 @@ try {
       if (mode === 'cold') await diagnostic('UNLOAD_MODEL');
       await bridge.evaluate(item => chrome.storage.local.set({ languageSettings: { sourceLanguage: item.sourceLanguage, targetLanguage: item.targetLanguage } }), item);
       await page.locator('#sample').evaluate(async (image, source) => { image.src = source; await image.decode(); }, images.get(item.id));
-      const button = page.locator('#aksara-root button[aria-label="Translate image"]'); await button.waitFor();
+      const button = page.locator('#aksara-root button[aria-label="Translate image"]');
       await inPage('clear'); await page.locator('#sample').hover({ position: { x: 8, y: 8 } });
       const dismiss = page.locator('#aksara-root .dismiss:visible');
       if (await dismiss.count()) await dismiss.click();
+      await button.waitFor();
       const observer = await memoryObserver(), started = performance.now();
       const run = { caseId: item.id, kind: item.kind, mode, repeat, ok: false };
       console.log(`START ${item.id} ${mode} ${repeat}/${repeats}`);

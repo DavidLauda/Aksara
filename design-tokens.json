@@ -1,0 +1,11 @@
+{
+  "scope": "Aksara image-overlay controls",
+  "color": { "ink": "#193d30", "muted": "#486052", "accent": "#25563f", "surface": "#f8fcf9", "glass": "rgba(248,252,249,0.90)", "line": "rgba(46,76,58,0.22)", "focus": "#956405", "error": "#793d24" },
+  "spacing": [4, 6, 8, 12, 16],
+  "controlHeight": 36,
+  "toolbarHeight": 44,
+  "panelWidth": 280,
+  "radius": { "toolbar": 22, "button": 16, "panel": 16 },
+  "glass": { "blurPx": 10, "saturation": 1.1, "maxActiveSurfaces": 1 },
+  "font": "system-ui, sans-serif"
+}

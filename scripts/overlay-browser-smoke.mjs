@@ -315,26 +315,30 @@ try {
   await check('original toggle preserves result and retry runs the real local engine', async () => {
     await control('toggle-original').press('Enter');
     await until(async () => !await overlay().isVisible(), 'original image revealed');
-    assert.match(await control('toggle-original').textContent(), /Show translation/i);
+    assert.equal(await control('toggle-original').getAttribute('aria-label'), 'Show translation');
     await control('toggle-original').press('Enter');
     await until(async () => await overlay().isVisible(), 'translation restored');
+    await control('more').press('Enter');
     await startImage(control('retry-translation'), true); realImage = await imageResult();
     await assertAligned(await measureExpected());
     return { retryResult: realImage.translation, renderingFixture: false };
   });
-  await check('copy produces the complete known translation and details remain keyboard reachable', async () => {
+  await check('copy produces the complete known translation and fallback reading remains keyboard reachable', async () => {
     await control('copy-translation').press('Enter');
     await until(async () => /copied/i.test((await status().allTextContents()).join(' ')), 'copy success is confirmed before reading the clipboard');
     await page.locator('#clipboard-test').evaluate(node => { node.hidden = false; });
     await page.locator('#clipboard-target').focus(); await page.locator('#clipboard-target').press('Control+V');
     assert.equal(await page.locator('#clipboard-target').inputValue(), realImage.translation.text);
     await page.locator('#clipboard-test').evaluate(node => { node.hidden = true; });
-    await control('details-toggle').press('Enter');
-    assert.equal(await control('details-toggle').getAttribute('aria-expanded'), 'true');
+    assert.equal(await control('card').isVisible(), false);
+    await restyle('width:640px;height:auto;max-width:none;transform:rotate(3deg)');
+    await control('read-translation').waitFor();
     await page.locator('#aksara-root textarea[aria-label="Translated text"]').focus();
     assert.equal(await page.locator('#aksara-root textarea[aria-label="Translated text"]').inputValue(), realImage.translation.text);
-    await control('details-toggle').press('Enter');
-    return { copiedKnownFixture: true, detailsOpenedAndClosed: true };
+    await page.locator('#aksara-root textarea[aria-label="Translated text"]').press('Escape');
+    assert.equal(await control('read-translation').getAttribute('aria-expanded'), 'false');
+    await restyle();
+    return { copiedKnownFixture: true, fallbackOpenedAndClosed: true };
   });
   await check('object-fit, noncenter object-position, borders and padding map natural OCR coordinates', async () => {
     const matrix = [
@@ -387,11 +391,13 @@ try {
     try {
       await session.send('Emulation.setPageScaleFactor', { pageScaleFactor: 1.5 });
       await assertAligned(await measureExpected());
+      await control('more').click();
       await until(async () => page.locator('#aksara-root .card').evaluate(node => {
         const r = node.getBoundingClientRect(), v = visualViewport;
         return r.left >= v.offsetLeft && r.top >= v.offsetTop && r.right <= v.offsetLeft + v.width + 1 && r.bottom <= v.offsetTop + v.height + 1;
       }), 'controls fit the scaled visual viewport');
       await capture('overlay-zoom');
+      await control('retry-translation').press('Escape');
     } finally { await session.send('Emulation.setPageScaleFactor', { pageScaleFactor: 1 }); await session.detach(); }
     return { pageScaleFactor: 1.5, originalImageUnmodified: true };
   });
@@ -413,17 +419,18 @@ try {
     return { retainedResult: true, noNewInference: true };
   });
   await check('high contrast persists, and page and popup fit three widths with no axe violations', async () => {
+    await control('more').press('Enter');
     await control('overlay-contrast').press('Enter');
     assert.equal(await control('overlay-contrast').getAttribute('aria-pressed'), 'true');
     const saved = await bridge.evaluate(() => chrome.storage.local.get('overlaySettings'));
     assert.equal(saved.overlaySettings.highContrast, true);
     await capture('overlay-high-contrast');
-    await control('overlay-contrast').press('Enter');
+    await control('more').press('Enter'); await control('overlay-contrast').press('Enter');
     await page.emulateMedia({ reducedMotion: 'reduce' });
     const sizes = [];
     for (const [width, height] of [[375, 812], [768, 900], [1440, 900]]) {
       await page.setViewportSize({ width, height }); await assertAligned(await measureExpected());
-      await until(async () => page.locator('#aksara-root .card').evaluate(node => { const r = node.getBoundingClientRect(); return r.left >= 0 && r.top >= 0 && r.right <= innerWidth && r.bottom <= innerHeight; }), 'controls remain within the viewport');
+      await until(async () => page.locator('#aksara-root .actionbar').evaluate(node => { const r = node.getBoundingClientRect(); return r.left >= 0 && r.top >= 0 && r.right <= innerWidth && r.bottom <= innerHeight; }), 'controls remain within the viewport');
       const axe = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
       assert.deepEqual(axe.violations.map(item => ({ id: item.id, nodes: item.nodes.map(node => node.target) })), []);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
@@ -480,7 +487,7 @@ try {
     assert.equal(await page.locator('#aksara-root img, #aksara-root script').count(), 0);
     assert.equal(await page.evaluate(() => Boolean(globalThis.__aksaraInjected)), false);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-    await control('details-toggle').click();
+    await control('read-translation').click();
     assert.equal(await page.locator('#aksara-root textarea[aria-label="Translated text"]').inputValue(), fixture.translation.text);
     await capture('overlay-literal-long-text');
     return { renderingFixture: true, noInferenceClaim: true, literalHtml: true, textLength: fixture.translation.text.length };

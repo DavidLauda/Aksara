@@ -173,6 +173,13 @@ async function handleUi(message: Record<string, unknown>, sendResponse: (respons
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (!isEnvelope(message, 'background') || sender.id !== chrome.runtime.id) return;
   if (message.type === 'PING') { sendResponse({ schemaVersion: 1, ok: true, version: chrome.runtime.getManifest().version, instanceId: images.instanceId }); return; }
+  if (message.type === 'OPEN_SETUP') {
+    const pageControl = sender.tab?.id !== undefined && sender.frameId === 0 && /^https?:\/\//.test(sender.url ?? '');
+    const extensionUi = sender.url === chrome.runtime.getURL('popup.html') || sender.url === chrome.runtime.getURL('options.html');
+    if (!pageControl && !extensionUi) { sendResponse({ ok: false, error: 'UNAUTHORIZED_CONTEXT' }); return; }
+    void chrome.runtime.openOptionsPage().then(() => sendResponse({ ok: true })).catch(() => sendResponse({ ok: false, error: 'SETUP_UNAVAILABLE' }));
+    return true;
+  }
   if (message.type === 'OFFSCREEN_PROGRESS') {
     const job = active;
     if (sender.url === chrome.runtime.getURL('offscreen.html')) {

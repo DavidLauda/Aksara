@@ -2,10 +2,11 @@ import type { OcrResult } from './ocr-result';
 import type { ImageTranslation, TranslationProblem } from './translation-result';
 import { ImageOverlay, measureImage, OVERLAY_CSS } from './image-overlay';
 import { SITE_SETTINGS_KEY, OVERLAY_SETTINGS_KEY, siteSettings, siteAllowed, overlaySettings } from './site-settings';
+import { ImageControls, CONTROL_CSS } from './image-controls';
 // The dedicated IIFE build embeds these helpers in a classic content script.
 (() => {
   type Pending = { id: string; src: string; pageUrl: string; state: State; jobId?: string; transferId?: string; workerInstanceId?: string; checkTimer?: ReturnType<typeof setInterval>; deadline?: ReturnType<typeof setTimeout>; stopped: boolean };
-  type State = { id: string; image: HTMLImageElement; src: string; visible: boolean; control?: HTMLElement; status: string; outcome: string; pending?: Pending; ocr?: OcrResult; translation?: ImageTranslation; translationError?: TranslationProblem; overlay?: ImageOverlay; original?: boolean; details?: boolean; fallback?: boolean; overlayNotice?: string; actionNotice?: string };
+  type State = { id: string; image: HTMLImageElement; src: string; visible: boolean; control?: HTMLElement; ui?: ImageControls; status: string; outcome: string; pending?: Pending; ocr?: OcrResult; translation?: ImageTranslation; translationError?: TranslationProblem; overlay?: ImageOverlay; original?: boolean; details?: boolean; fallback?: boolean; overlayNotice?: string; actionNotice?: string };
   type Scope = typeof globalThis & { __aksaraDispose?: () => void; __aksaraImageSnapshot?: (request: string, image: string) => unknown };
   const scope = globalThis as Scope;
   // randomUUID is not exposed on ordinary HTTP documents; getRandomValues is.
@@ -29,16 +30,9 @@ import { SITE_SETTINGS_KEY, OVERLAY_SETTINGS_KEY, siteSettings, siteAllowed, ove
   const host = document.createElement('div'); host.id = 'aksara-root'; host.dataset.aksaraExtension = chrome.runtime.id;
   const shadow = host.attachShadow({ mode: 'open' }), style = document.createElement('style');
   style.textContent = `
-    :host{all:initial!important;position:fixed!important;inset:0!important;z-index:2147483647!important;pointer-events:none!important;font:13px/1.45 system-ui,sans-serif!important;color:#233d31!important}
-    *{box-sizing:border-box}[hidden]{display:none!important}.control{position:absolute;z-index:1;pointer-events:none;width:min(280px,calc(100vw - 16px));text-align:right}
-    button{pointer-events:auto;min-height:32px;font:600 12px/1.4 system-ui,sans-serif;border:1px solid #b4cdbd;border-radius:7px;padding:7px 11px;background:#fffef9;color:#234d38;cursor:pointer;box-shadow:0 2px 7px #0002}
-    button:focus-visible,textarea:focus-visible{outline:3px solid #9b6b0c;outline-offset:3px}.translate{opacity:.85;transition:opacity .12s}
-    .control.hover .translate,.control:focus-within .translate,.control.busy .translate,.control.has-status .translate{opacity:1}button:hover{background:#e9f1e7}button:disabled{cursor:wait}
-    .card{pointer-events:auto;margin-top:5px;padding:10px 12px;background:#fffef9;border:1px solid #c6d7c8;border-radius:8px;box-shadow:0 3px 13px #0002;text-align:left;overflow-wrap:anywhere;max-height:calc(100vh - 72px);overflow:auto}.card[hidden],[hidden]{display:none}.card.error{border-color:#d9bda3;color:#713c24}.card p{margin:0;font:12px/1.5 system-ui,sans-serif}.card button{margin-top:8px;box-shadow:none;padding:4px 8px}.recognized-text{display:block;width:100%;height:100px;resize:vertical;max-height:180px;margin:9px 0 0;padding:8px;border:1px solid #bdcdbd;border-radius:4px;background:#f4f5ef;color:#233d31;font:13px/1.5 system-ui,sans-serif}.card .quality{margin-top:6px;color:#713c24}
-    .recognized-text[hidden],.translated-text[hidden]{display:none}.translated-text{display:block;width:100%;height:100px;resize:vertical;max-height:180px;margin:9px 0 0;padding:8px;border:1px solid #8da996;border-radius:4px;background:#eaf1e7;color:#233d31;font:14px/1.5 system-ui,sans-serif}.field-label{display:block;margin-top:8px;font:600 11px/1.4 system-ui,sans-serif}.field-label[hidden]{display:none}
-    .toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.card .toolbar button{margin:0;min-height:32px;box-shadow:none}.card .dismiss{min-height:32px}.details-toggle{width:100%;text-align:left}.card .layout-note,.card .action-note{margin-top:7px;font-size:11px;color:#526458}.card .action-note{color:#234d38}.toolbar button[aria-pressed=true]{background:#234d38;color:#fff;border-color:#234d38}
+    :host{all:initial!important;position:fixed!important;inset:0!important;z-index:2147483647!important;pointer-events:none!important;font:13px/1.45 system-ui,sans-serif!important;color:#193d30!important}
+    ${CONTROL_CSS}
     ${OVERLAY_CSS}
-    @media(prefers-reduced-motion:reduce){.translate{transition:none}}
   `;
   shadow.append(style); document.documentElement.append(host);
   const source = (image: HTMLImageElement) => image.currentSrc || image.src;
@@ -57,81 +51,54 @@ import { SITE_SETTINGS_KEY, OVERLAY_SETTINGS_KEY, siteSettings, siteAllowed, ove
     }
     port.postMessage({ schemaVersion: 1, target: 'background', ...fields });
   }
-  function setText(node: HTMLElement, value: string) { if (node.textContent !== value) node.textContent = value; }
+  let activeControlId = '';
+  function activate(state: State) {
+    if (activeControlId === state.id) return;
+    activeControlId = state.id;
+    for (const current of states.values()) current.control?.classList.toggle('glass-active', current.id === state.id);
+  }
   function render(state: State, queue = true) {
-    const control = state.control; if (!control) return;
-    const focused = shadow.activeElement as HTMLElement | null;
-    control.classList.toggle('busy', Boolean(state.pending)); control.classList.toggle('has-status', Boolean(state.status));
-    control.querySelector<HTMLButtonElement>('.translate')!.disabled = Boolean(state.pending);
-    const card = control.querySelector<HTMLElement>('.card')!;
-    card.hidden = !state.status; card.classList.toggle('error', state.outcome === 'error'); setText(card.querySelector('p')!, state.status);
-    const action = card.querySelector<HTMLButtonElement>('.dismiss')!;
-    setText(action, state.pending ? 'Cancel' : 'Dismiss'); action.setAttribute('aria-label', state.pending ? 'Cancel image preparation' : 'Dismiss image status');
-    const text = card.querySelector<HTMLTextAreaElement>('.recognized-text')!; text.hidden = !state.ocr; if (text.value !== (state.ocr?.text ?? '')) text.value = state.ocr?.text ?? '';
-    const translated = card.querySelector<HTMLTextAreaElement>('.translated-text')!; translated.hidden = !state.translation; if (translated.value !== (state.translation?.text ?? '')) translated.value = state.translation?.text ?? '';
-    card.querySelector<HTMLElement>('.original-label')!.hidden = !state.ocr;
-    card.querySelector<HTMLElement>('.translated-label')!.hidden = !state.translation;
-    const expanded = state.details ?? !!state.fallback;
-    card.querySelector<HTMLElement>('.text-details')!.hidden = !!state.translation && !expanded;
-    const details = card.querySelector<HTMLButtonElement>('.details-toggle')!; details.hidden = !state.translation;
-    details.setAttribute('aria-expanded', String(expanded));
-    const toolbar = card.querySelector<HTMLElement>('.toolbar')!; toolbar.hidden = !!state.pending;
-    const toggle = card.querySelector<HTMLButtonElement>('.toggle-original')!;
-    toggle.hidden = !state.translation || state.fallback === true; setText(toggle, state.original ? 'Show translation' : 'Show original');
-    toggle.setAttribute('aria-pressed', String(!!state.original));
-    card.querySelector<HTMLButtonElement>('.copy-translation')!.hidden = !state.translation;
-    const contrast = card.querySelector<HTMLButtonElement>('.overlay-contrast')!; contrast.hidden = !state.translation || state.fallback === true;
-    contrast.setAttribute('aria-pressed', String(highContrast));
-    const layoutNote = card.querySelector<HTMLElement>('.layout-note')!; setText(layoutNote, state.overlayNotice ?? ''); layoutNote.hidden = !state.overlayNotice;
-    const actionNote = card.querySelector<HTMLElement>('.action-note')!; setText(actionNote, state.actionNotice ?? ''); actionNote.hidden = !state.actionNotice;
-    const quality = card.querySelector<HTMLElement>('.quality')!;
-    const notices = [state.translationError?.userMessage, state.translation?.partial ? `Partial translation: ${state.translation.skippedSegments} text sections skipped or the OCR limit was reached. Try a smaller crop for the rest.` : '', state.ocr?.lowConfidence ? 'Some text may be inaccurate. Check the image language or try a clearer image.' : '', state.ocr?.truncated ? 'This preview reached the text limit. Read a smaller image for the remaining text.' : ''];
-    setText(quality, notices.filter(Boolean).join(' ')); quality.hidden = !quality.textContent;
-    if (focused && control.contains(focused) && focused.closest('[hidden]')) (state.translation ? details : action).focus({ preventScroll: true });
+    if (!state.ui) return;
+    const code = state.translationError?.code;
+    const setup = ['MODEL_NOT_READY', 'MODEL_INTEGRITY_FAILED', 'WEBGPU_UNAVAILABLE'].includes(code ?? '');
+    const problem = code === 'MODEL_NOT_READY' ? 'Download the model to translate this text.'
+      : code === 'MODEL_INTEGRITY_FAILED' ? 'Repair the translation model in Setup.'
+      : code === 'WEBGPU_UNAVAILABLE' ? 'Your browser needs WebGPU for translation.'
+      : code === 'MODEL_MEMORY_ERROR' ? 'Close heavy tabs, then try again.'
+      : state.translationError ? 'Translation could not finish. Try again.' : '';
+    const notice = state.pending || state.translation ? '' : state.actionNotice?.includes('popup') ? state.actionNotice : problem || (!state.ocr ? state.status : '');
+    state.ui.render({ status: state.status, pending: !!state.pending, original: !!state.original, highContrast,
+      fallback: !!state.fallback, needsReader: !!state.overlayNotice || !!state.translation?.partial || !!state.ocr?.truncated,
+      readerOpen: state.details ?? !!state.fallback, partial: !!state.translation?.partial || !!state.ocr?.truncated, sourceText: state.ocr?.text, translatedText: state.translation?.text,
+      notice, setup, actionNotice: state.actionNotice ?? '' });
     if (queue) schedule();
   }
   function createControl(state: State) {
-    const control = document.createElement('div'); control.className = 'control'; control.dataset.imageId = state.id;
-    const button = document.createElement('button'); button.type = 'button'; button.className = 'translate'; button.textContent = 'Translate'; button.setAttribute('aria-label', 'Translate image');
-    button.addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); if (event.isTrusted) start(state); });
-    const card = document.createElement('div'); card.className = 'card'; card.hidden = true;
-    const status = document.createElement('p'); status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite');
-    const text = document.createElement('textarea'); text.className = 'recognized-text'; text.readOnly = true; text.hidden = true; text.setAttribute('aria-label', 'Recognized text'); text.spellcheck = false;
-    const translated = document.createElement('textarea'); translated.className = 'translated-text'; translated.readOnly = true; translated.hidden = true; translated.setAttribute('aria-label', 'Translated text'); translated.spellcheck = false;
-    text.id = `original-${state.id}`; translated.id = `translated-${state.id}`;
-    const originalLabel = document.createElement('label'); originalLabel.htmlFor = text.id; originalLabel.className = 'field-label original-label'; originalLabel.textContent = 'Recognized text'; originalLabel.hidden = true;
-    const translatedLabel = document.createElement('label'); translatedLabel.htmlFor = translated.id; translatedLabel.className = 'field-label translated-label'; translatedLabel.textContent = 'Translation'; translatedLabel.hidden = true;
-    const quality = document.createElement('p'); quality.className = 'quality'; quality.hidden = true;
-    const textDetails = document.createElement('div'); textDetails.className = 'text-details'; textDetails.id = `details-${state.id}`;
-    textDetails.append(translatedLabel, translated, originalLabel, text);
-    const toolbar = document.createElement('div'); toolbar.className = 'toolbar';
-    const makeAction = (className: string, label: string, run: () => void) => {
-      const node = document.createElement('button'); node.type = 'button'; node.className = className; node.textContent = label;
-      node.addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); if (event.isTrusted) run(); });
-      toolbar.append(node); return node;
-    };
-    makeAction('toggle-original', 'Show original', () => { state.original = !state.original; render(state); }).setAttribute('aria-controls', `overlay-${state.id}`);
-    makeAction('copy-translation', 'Copy translation', () => { void copyTranslation(state); });
-    makeAction('retry-translation', 'Retry translation', () => { start(state); });
-    makeAction('overlay-contrast', 'High contrast', () => {
-      highContrast = !highContrast; for (const current of states.values()) render(current);
-      void chrome.storage.local.set({ [OVERLAY_SETTINGS_KEY]: { highContrast } }).catch(() => { state.actionNotice = 'Contrast changed for this page. Could not save the preference.'; render(state); });
+    const ui = new ImageControls(state.id, {
+      activate: () => activate(state),
+      menuOpened: () => { for (const current of states.values()) if (current !== state) current.ui?.closeMenu(); schedule(); },
+      translate: () => start(state),
+      dismiss: () => {
+        if (state.pending) cancel(state.pending, 'Translation cancelled.');
+        else { state.status = ''; clearResult(state); render(state); state.ui?.entry.focus({ preventScroll: true }); }
+      },
+      original: () => { state.original = !state.original; render(state); },
+      copy: () => { void copyTranslation(state); },
+      read: open => { state.details = open; render(state); },
+      contrast: () => {
+        highContrast = !highContrast; for (const current of states.values()) render(current);
+        void chrome.storage.local.set({ [OVERLAY_SETTINGS_KEY]: { highContrast } }).catch(() => { state.actionNotice = 'Contrast changed for this page.'; render(state); });
+      },
+      setup: () => { void Promise.resolve().then(() => chrome.runtime.sendMessage({ schemaVersion: 1, target: 'background', type: 'OPEN_SETUP' })).then(response => { if (!response?.ok) throw new Error('Setup unavailable'); }).catch(() => { state.actionNotice = 'Open Aksara’s popup and choose Setup.'; render(state); }); },
     });
-    const details = document.createElement('button'); details.type = 'button'; details.className = 'details-toggle'; details.textContent = 'Text details';
-    details.setAttribute('aria-controls', textDetails.id);
-    details.addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); if (event.isTrusted) { state.details = !(state.details ?? !!state.fallback); render(state); } });
-    const layoutNote = document.createElement('p'); layoutNote.className = 'layout-note'; layoutNote.hidden = true;
-    const actionNote = document.createElement('p'); actionNote.className = 'action-note'; actionNote.setAttribute('role', 'status'); actionNote.hidden = true;
-    const action = document.createElement('button'); action.type = 'button'; action.className = 'dismiss';
-    action.addEventListener('click', event => {
-      event.preventDefault(); event.stopPropagation(); if (!event.isTrusted) return;
-      if (state.pending) cancel(state.pending, 'Image translation cancelled.'); else { state.status = ''; clearResult(state); render(state); button.focus(); }
-    });
-    card.append(status, toolbar, details, textDetails, quality, layoutNote, actionNote, action); control.append(button, card);
-    control.addEventListener('pointerenter', () => control.classList.add('hover')); control.addEventListener('pointerleave', () => control.classList.remove('hover'));
-    shadow.append(control); state.control = control; resize.observe(control); render(state);
+    const control = ui.element;
+    control.addEventListener('pointerenter', () => activate(state));
+    control.classList.toggle('glass-active', state.id === activeControlId);
+    shadow.append(control); state.ui = ui; state.control = control; resize.observe(control); render(state);
   }
-  function removeControl(state: State) { if (state.control) { resize.unobserve(state.control); state.control.remove(); state.control = undefined; } }
+  function removeControl(state: State) {
+    if (state.control) { resize.unobserve(state.control); state.ui?.dispose(); state.control = undefined; state.ui = undefined; }
+  }
   function invalidateNavigation() {
     if (location.href !== pageUrl) {
       pageUrl = location.href;
@@ -167,23 +134,24 @@ import { SITE_SETTINGS_KEY, OVERLAY_SETTINGS_KEY, siteSettings, siteAllowed, ove
         state.control!.hidden = false;
         if (measured.mapping.supported) {
           const result = state.overlay.update(measured.mapping, !!state.original, highContrast);
-          state.overlayNotice = result.overflow ? 'Some text does not fit at this size. Open Text details for the full translation.'
-            : result.missing || result.cropped ? 'Some text is cropped or has no image position. Text details contains the full translation.' : '';
+          state.overlayNotice = result.overflow || result.missing || result.cropped ? 'Full text available' : '';
         } else {
-          state.overlay.hide(); state.overlayNotice = measured.reason || 'Text positions cannot be mapped reliably for this layout. Read the translation in Text details.';
+          state.overlay.hide(); state.overlayNotice = 'Read as text';
         }
         render(state, false);
       }
       const rect = state.image.getBoundingClientRect();
       const viewport = window.visualViewport;
       const viewX = viewport?.offsetLeft ?? 0, viewY = viewport?.offsetTop ?? 0, viewWidth = viewport?.width ?? innerWidth, viewHeight = viewport?.height ?? innerHeight;
-      state.control!.style.maxWidth = `${Math.max(0, viewWidth - 16)}px`;
-      state.control!.querySelector<HTMLElement>('.card')!.style.maxHeight = `${Math.max(32, viewHeight - 72)}px`;
-      const width = state.control!.offsetWidth;
-      state.control!.style.left = `${Math.max(viewX + 8, Math.min(viewX + viewWidth - width - 8, rect.right - width - 8))}px`;
-      const height = state.control!.offsetHeight;
-      const top = state.translation && !state.details && !state.fallback && rect.bottom + height + 16 <= viewY + viewHeight ? rect.bottom + 8 : rect.top + 8;
-      state.control!.style.top = `${Math.max(viewY + 8, Math.min(top, viewY + viewHeight - height - 8))}px`;
+      const control = state.control!;
+      control.style.maxWidth = `${Math.max(0, viewWidth - 16)}px`;
+      control.classList.toggle('compact', viewWidth < 320 || rect.width < 260);
+      state.ui!.panels.style.maxWidth = `${Math.max(0, viewWidth - 16)}px`;
+      const width = control.offsetWidth, height = control.offsetHeight;
+      control.style.left = `${Math.max(viewX + 8, Math.min(viewX + viewWidth - width - 8, rect.right - width - 8))}px`;
+      const preferred = rect.top + 8;
+      control.style.top = `${Math.max(viewY + 8, Math.min(preferred, viewY + viewHeight - height - 8))}px`;
+      state.ui!.positionPanel(viewX, viewY, viewWidth, viewHeight);
     }
     // Events handle scrolling immediately; this bounded, visible-result tracker
     // also catches CSS animations, font reflow and layout movement without DOM mutations.
@@ -213,8 +181,10 @@ import { SITE_SETTINGS_KEY, OVERLAY_SETTINGS_KEY, siteSettings, siteAllowed, ove
   });
   mutations.observe(document.documentElement, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['src', 'srcset', 'sizes', 'style', 'class', 'hidden', 'open'] }); scan(document.documentElement);
   const onLoad = (event: Event) => { if (event.target instanceof HTMLImageElement) { discover(event.target); schedule(); } };
-  const onPointer = (event: PointerEvent) => { if (event.target instanceof HTMLImageElement) byImage.get(event.target)?.control?.classList.add('hover'); };
+  const onPointer = (event: PointerEvent) => { if (event.target instanceof HTMLImageElement) { const state = byImage.get(event.target); if (state) activate(state); } };
   const onPointerOut = (event: PointerEvent) => { if (event.target instanceof HTMLImageElement) byImage.get(event.target)?.control?.classList.remove('hover'); };
+  const closeOutsideMenus = (event: Event) => { const path = event.composedPath(); for (const state of states.values()) if (state.ui?.isMenuOpen && !path.includes(state.control!)) state.ui.closeMenu(); };
+  document.addEventListener('pointerdown', closeOutsideMenus, true); document.addEventListener('focusin', closeOutsideMenus, true);
   document.addEventListener('load', onLoad, true); document.addEventListener('pointerover', onPointer, true); document.addEventListener('pointerout', onPointerOut, true);
   addEventListener('scroll', schedule, true); addEventListener('resize', schedule);
   addEventListener('popstate', schedule); addEventListener('hashchange', schedule);
@@ -222,8 +192,8 @@ import { SITE_SETTINGS_KEY, OVERLAY_SETTINGS_KEY, siteSettings, siteAllowed, ove
   window.visualViewport?.addEventListener('resize', schedule); window.visualViewport?.addEventListener('scroll', schedule);
   function clearResult(state: State) { state.ocr = undefined; state.translation = undefined; state.translationError = undefined; state.overlay?.dispose(); state.overlay = undefined; state.original = false; state.details = undefined; state.fallback = false; state.overlayNotice = ''; state.actionNotice = ''; }
   async function copyTranslation(state: State) {
-    if (!state.translation) return;
-    const text = state.translation.text;
+    const text = state.translation?.text ?? state.ocr?.text;
+    if (!text) return;
     try {
       if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text);
       else {
@@ -233,14 +203,15 @@ import { SITE_SETTINGS_KEY, OVERLAY_SETTINGS_KEY, siteSettings, siteAllowed, ove
         try { field.focus({ preventScroll: true }); field.select(); if (!document.execCommand('copy')) throw new Error('Copy unavailable'); }
         finally { field.remove(); focused?.focus({ preventScroll: true }); }
       }
-      if (state.translation?.text === text) { state.actionNotice = 'Translation copied.'; render(state); }
+      if ((state.translation?.text ?? state.ocr?.text) === text) { state.actionNotice = state.translation ? 'Translation copied.' : 'Text copied.'; state.ui?.flashCopied(); render(state); }
     } catch {
-      state.details = true; state.actionNotice = 'Copy was blocked. Select the translation in Text details and copy it manually.'; render(state);
-      const field = state.control?.querySelector<HTMLTextAreaElement>('.translated-text'); field?.focus(); field?.select();
+      state.details = true; state.actionNotice = 'Copy was blocked. Select the text to copy it manually.'; render(state);
+      const field = state.control?.querySelector<HTMLTextAreaElement>(state.translation ? '.translated-text' : '.recognized-text'); field?.focus(); field?.select();
     }
   }
   function start(state: State) {
     if (state.pending || !allowed()) return;
+    activate(state);
     invalidateNavigation();
     const request: Pending = { id: identifier(), src: source(state.image), pageUrl, state, stopped: false };
     state.pending = request; clearResult(state); state.status = 'Reading image…'; state.outcome = ''; pending.set(request.id, request); render(state);
@@ -324,7 +295,7 @@ import { SITE_SETTINGS_KEY, OVERLAY_SETTINGS_KEY, siteSettings, siteAllowed, ove
       request.state.translationError = image.translationError;
       const language = image.ocr.sourceLanguage === 'ind_Latn' ? 'Indonesian' : 'English';
       const target = image.ocr.targetLanguage === 'ind_Latn' ? 'Indonesian' : image.ocr.targetLanguage === 'fra_Latn' ? 'French' : 'English';
-      end(request, image.translation ? image.translation.sameLanguage ? `Already in ${target}` : `${image.translation.partial ? 'Partly translated' : 'Translated'} · ${language} → ${target}` : `Text recognized · ${language} · ${image.ocr.lines.length} ${image.ocr.lines.length === 1 ? 'line' : 'lines'} · ${Math.round(image.ocr.confidence * 100)}% confidence`, 'ready');
+      end(request, image.translation ? image.translation.sameLanguage ? `Already in ${target}` : `${image.translation.partial ? 'Partly translated' : 'Translated'} · ${language} → ${target}` : `Text recognized · ${language}`, 'ready');
     }
   }
   scope.__aksaraImageSnapshot = (requestId, imageId) => {
@@ -368,6 +339,7 @@ import { SITE_SETTINGS_KEY, OVERLAY_SETTINGS_KEY, siteSettings, siteAllowed, ove
   addEventListener('pagehide', onPageHide);
   const dispose = () => {
     if (disposed) return;
+    document.removeEventListener('pointerdown', closeOutsideMenus, true); document.removeEventListener('focusin', closeOutsideMenus, true);
     disposed = true; onPageHide(); clearTimeout(tracking); cancelAnimationFrame(frame); mutations.disconnect(); intersection.disconnect(); resize.disconnect(); host.remove();
     host.removeEventListener('aksara-dispose', dispose);
     document.removeEventListener('load', onLoad, true); document.removeEventListener('pointerover', onPointer, true); document.removeEventListener('pointerout', onPointerOut, true);

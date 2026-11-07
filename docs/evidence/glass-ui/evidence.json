@@ -1,0 +1,33 @@
+{
+  "contract": "docs/OVERLAY_UI.md in this repository: a 44px image toolbar, four normal success actions, contextual full-text fallback, one active CSS blur, keyboard disclosures and opaque accessibility fallbacks.",
+  "targetViewports": ["375x812", "768x900", "1440x900"],
+  "accessibility": {
+    "status": "pass",
+    "evidence": "test:glass checks native accessible names, disclosure state, keyboard opening/arrows/Escape, outside dismissal, clipboard fallback and focus restoration. Axe reports zero violations at three widths and in the partial reader and high-contrast selected state. Reduced motion, transparency and forced colors are exercised. These automated observations do not certify accessibility; screen-reader use and native Chrome permission dialogs remain manual."
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "Rendered and inspected the actual extension at 375x812, 768x900 and 1440x900 over light, dark and busy pages. Toolbar bounds stay inside the viewport, opening More preserves its anchor, and a 150% visual viewport keeps the menu reachable. Actual pipeline overlay checks also cover crop, scaling, scroll, resize and image invalidation."
+  },
+  "contentStates": {
+    "loading": { "status": "pass", "evidence": "glass-loading.png shows a short progress row and cancel; the result panel stays hidden. Reduced motion disables the spinner. Actual image/translation suites exercise cancellation and retry." },
+    "empty": { "status": "pass", "evidence": "glass-empty.png shows actionable no-text feedback with Try again and Close. The real OCR suite also verifies blank speech bubbles and artwork do not fabricate words." },
+    "error": { "status": "pass", "evidence": "glass-setup.png shows the missing-model recovery state. OCR text remains available through Read text; Open setup opens the actual fixed extension options page without a download. Blocked copy opens a selectable reader. Actual pipeline suites cover missing models and worker interruption." },
+    "partial": { "status": "pass", "evidence": "glass-partial.png is an explicitly labeled UI replay: a Partial action opens Available translation with complete available text and a specific skipped-text explanation. Normal success has no generic quality warning." },
+    "success": { "status": "pass", "evidence": "glass-success.png shows Original, Copy, More and Close in one small row with no open result card. Original reveals the image; copy pastes the exact known fixture translation and briefly shows a checkmark. Real OCR/NLLB results are retained in overlay-report.json and context-comic-translated.png." },
+    "permission": { "status": "pass", "evidence": "glass-permission.png replays concise image-host access feedback pointing to the popup. test:images verifies actual denied/granted host behavior and untrusted page restrictions. The native Chrome permission-grant dialog itself remains untested manually; no browser dialog is represented by this capture." }
+  },
+  "renderedEvidence": [
+    { "viewport": "375x812", "artifact": "glass-375.png", "observation": "Light page, compact result row and readable opaque translated text. No persistent panel or generic warning." },
+    { "viewport": "768x900", "artifact": "glass-768.png", "observation": "Dark host page; the pale tool surface retains dark readable controls and leaves the artwork exposed." },
+    { "viewport": "1440x900", "artifact": "glass-1440.png", "observation": "Busy host background; a single small glass toolbar is sufficient to distinguish the actions without filtering the image." },
+    { "viewport": "1440x900", "artifact": "glass-options.png", "observation": "More exposes only Translate again and High contrast. Keyboard focus is visible; the toolbar anchor stays fixed." },
+    { "viewport": "1440x900", "artifact": "glass-partial.png", "observation": "Available translation opens only after a contextual Partial action. The specific skipped-text note is confined to this reader." },
+    { "viewport": "1440x900", "artifact": "glass-loading.png", "observation": "Loading uses the same compact control row, with a cancel icon." },
+    { "viewport": "1440x900", "artifact": "glass-empty.png", "observation": "No-text feedback has a visible retry path instead of silent failure." },
+    { "viewport": "1440x900", "artifact": "glass-setup.png", "observation": "Missing model has an explicit setup action; recognized source text remains recoverable." },
+    { "viewport": "1440x900", "artifact": "glass-permission.png", "observation": "A fixture of the access boundary explains the popup recovery path; native grant UI is outside this capture." }
+  ],
+  "visualRegression": "INCONCLUSIVE: no approved matching baseline for this redesign.",
+  "limits": ["Rendering replay does not grade translation quality.", "Local fixture timing is not field INP or a cross-device performance guarantee.", "Manual screen-reader and native permission-dialog checks remain outstanding."]
+}

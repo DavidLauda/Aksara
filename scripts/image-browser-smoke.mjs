@@ -108,6 +108,11 @@ async function latestResult() {
 
 async function imageStatusMatches(expression) {
   await until(async () => (await imageStatuses().allTextContents()).some(text => expression.test(text)), `image status matching ${expression}`);
+  if (/Text recognized/i.test((await imageStatuses().allTextContents()).join(' ')) && !await recognizedText().count()) {
+    // OCR-only results are compact until the user asks to read the source.
+    await page.locator('#aksara-root .read-translation:visible').click();
+    await recognizedText().waitFor();
+  }
   return imageStatuses().allTextContents();
 }
 
@@ -147,10 +152,13 @@ async function openFixture(image, options = {}) {
 }
 
 async function clickTranslate(index = 0) {
-  const button = translateButtons().nth(index);
+  const primary = page.locator('#aksara-root .control').nth(index);
   // Move over the underlying image before clicking an intentionally subtle hover control.
   await page.locator(index ? '#late' : '#sample').hover({ position: { x: 8, y: 8 } });
-  await button.click();
+  const entry = primary.locator('.translate');
+  if (await entry.isVisible()) await entry.click();
+  else if (await primary.locator('.retry-primary').isVisible()) await primary.locator('.retry-primary').click();
+  else { await primary.locator('.more').click(); await primary.locator('.retry-translation').click(); }
 }
 
 async function assertEmptyStaging() {
@@ -375,9 +383,9 @@ try {
       let lowConfidence;
       if (kind === 'blob') {
         lowConfidence = (await latestResult()).ocr.lowConfidence;
-        assert.equal(lowConfidence, true, 'Noise should remain clearly labeled as uncertain.');
-        await page.locator('#aksara-root .quality:visible').waitFor();
-        assert.match(await page.locator('#aksara-root .quality').innerText(), /may be inaccurate/);
+        assert.equal(lowConfidence, true, 'Confidence remains in OCR metadata.');
+        assert.equal(await page.locator('#aksara-root .quality').count(), 0);
+        assert.equal(await page.locator('#aksara-root').getByText(/Some text may be inaccurate/).count(), 0);
         await page.screenshot({ path: 'test-results/ocr-low-confidence.png', fullPage: true });
       }
       return { statuses, inlineBytes, imageHostRequests: 0, offline: kind === 'data', lowConfidence };
@@ -549,7 +557,7 @@ try {
     }, page.url());
     assert.equal(error.code, 'NO_TEXT_FOUND');
     await page.screenshot({ path: 'test-results/ocr-empty.png', fullPage: true });
-    await page.locator('#aksara-root button[aria-label="Dismiss image status"]').press('Enter');
+    await page.locator('#aksara-root button[aria-label="Dismiss translation"]').press('Enter');
     assert.equal(await page.locator('#aksara-root button[aria-label="Translate image"]').evaluate(button => button.getRootNode().activeElement === button), true);
     return { statuses, code: error.code, focusRestored: true };
   });
