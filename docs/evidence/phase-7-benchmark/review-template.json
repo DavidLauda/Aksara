@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-11-07T01-43-53-964Z",
+  "reviews": [
+    {
+      "caseId": "real-package",
+      "mode": "cold",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "package",
+          "source": "We got this mysterious package.",
+          "candidateReference": "Kami mendapat paket misterius ini."
+        }
+      ],
+      "observedTranslation": "Kami punya paket misterius ini."
+    },
+    {
+      "caseId": "real-package",
+      "mode": "warm",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "package",
+          "source": "We got this mysterious package.",
+          "candidateReference": "Kami mendapat paket misterius ini."
+        }
+      ],
+      "observedTranslation": "Kami punya paket misterius ini."
+    },
+    {
+      "caseId": "real-two-bubbles",
+      "mode": "cold",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "empty",
+          "source": "Huh? There's nothing inside.",
+          "candidateReference": "Hah? Tidak ada apa-apa di dalamnya."
+        },
+        {
+          "regionId": "box",
+          "source": "It's just an empty cardbox.",
+          "candidateReference": "Ini hanya kotak kardus kosong."
+        }
+      ],
+      "observedTranslation": "Tidak ada apa-apa di dalam.\nIni hanya kotak kartu kosong."
+    },
+    {
+      "caseId": "real-two-bubbles",
+      "mode": "warm",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "empty",
+          "source": "Huh? There's nothing inside.",
+          "candidateReference": "Hah? Tidak ada apa-apa di dalamnya."
+        },
+        {
+          "regionId": "box",
+          "source": "It's just an empty cardbox.",
+          "candidateReference": "Ini hanya kotak kardus kosong."
+        }
+      ],
+      "observedTranslation": "Tidak ada apa-apa di dalam.\nIni hanya kotak kartu kosong."
+    },
+    {
+      "caseId": "wrapped-parcel",
+      "mode": "cold",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "We found a strange little parcel.",
+          "candidateReference": "Kami menemukan sebuah paket kecil yang aneh."
+        }
+      ],
+      "observedTranslation": "Kami menemukan sedikit aneh\nPaket."
+    },
+    {
+      "caseId": "wrapped-parcel",
+      "mode": "warm",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "We found a strange little parcel.",
+          "candidateReference": "Kami menemukan sebuah paket kecil yang aneh."
+        }
+      ],
+      "observedTranslation": "Kami menemukan sedikit aneh\nPaket."
+    },
+    {
+      "caseId": "two-speakers",
+      "mode": "cold",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Did you open it?",
+          "candidateReference": "Apakah kamu sudah membukanya?"
+        },
+        {
+          "regionId": "r2",
+          "source": "No, it is still sealed.",
+          "candidateReference": "Belum, benda itu masih tersegel."
+        }
+      ],
+      "observedTranslation": "Apa kau membukanya?\nTidak, masih tertutup."
+    },
+    {
+      "caseId": "two-speakers",
+      "mode": "warm",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Did you open it?",
+          "candidateReference": "Apakah kamu sudah membukanya?"
+        },
+        {
+          "regionId": "r2",
+          "source": "No, it is still sealed.",
+          "candidateReference": "Belum, benda itu masih tersegel."
+        }
+      ],
+      "observedTranslation": "Apa kau membukanya?\nTidak, masih tertutup."
+    },
+    {
+      "caseId": "negation",
+      "mode": "cold",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Don't open that box!",
+          "candidateReference": "Jangan buka kotak itu!"
+        }
+      ],
+      "observedTranslation": "Jangan buka kotak itu!"
+    },
+    {
+      "caseId": "negation",
+      "mode": "warm",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Don't open that box!",
+          "candidateReference": "Jangan buka kotak itu!"
+        }
+      ],
+      "observedTranslation": "Jangan buka kotak itu!"
+    },
+    {
+      "caseId": "idiom",
+      "mode": "cold",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "We got this!",
+          "candidateReference": "Kita pasti bisa!"
+        }
+      ],
+      "observedTranslation": null
+    },
+    {
+      "caseId": "idiom",
+      "mode": "warm",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "We got this!",
+          "candidateReference": "Kita pasti bisa!"
+        }
+      ],
+      "observedTranslation": null
+    },
+    {
+      "caseId": "punctuation",
+      "mode": "cold",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Wait... Is that mine?",
+          "candidateReference": "Tunggu... Apakah itu milikku?"
+        }
+      ],
+      "observedTranslation": "Tunggu... itu milikku?"
+    },
+    {
+      "caseId": "punctuation",
+      "mode": "warm",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Wait... Is that mine?",
+          "candidateReference": "Tunggu... Apakah itu milikku?"
+        }
+      ],
+      "observedTranslation": "Tunggu... itu milikku?"
+    },
+    {
+      "caseId": "caption-and-dialogue",
+      "mode": "cold",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Later that night.",
+          "candidateReference": "Malam harinya."
+        },
+        {
+          "regionId": "r2",
+          "source": "Where is the key?",
+          "candidateReference": "Di mana kuncinya?"
+        }
+      ],
+      "observedTranslation": "Kemudian malam itu.\nDimana kuncinya?"
+    },
+    {
+      "caseId": "caption-and-dialogue",
+      "mode": "warm",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Later that night.",
+          "candidateReference": "Malam harinya."
+        },
+        {
+          "regionId": "r2",
+          "source": "Where is the key?",
+          "candidateReference": "Di mana kuncinya?"
+        }
+      ],
+      "observedTranslation": "Kemudian malam itu.\nDimana kuncinya?"
+    },
+    {
+      "caseId": "small-text",
+      "mode": "cold",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Please leave the package by the door.",
+          "candidateReference": "Tolong letakkan paketnya di dekat pintu."
+        }
+      ],
+      "observedTranslation": "Tolong tinggalkan paket di depan pintu."
+    },
+    {
+      "caseId": "small-text",
+      "mode": "warm",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Please leave the package by the door.",
+          "candidateReference": "Tolong letakkan paketnya di dekat pintu."
+        }
+      ],
+      "observedTranslation": "Tolong tinggalkan paket di depan pintu."
+    },
+    {
+      "caseId": "indonesian-negation",
+      "mode": "cold",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Jangan buka kotak itu!",
+          "candidateReference": "Do not open that box!"
+        }
+      ],
+      "observedTranslation": "Don't open that box!"
+    },
+    {
+      "caseId": "indonesian-negation",
+      "mode": "warm",
+      "repeat": 1,
+      "reviewer": null,
+      "reviewedAt": null,
+      "adequacy0to4": null,
+      "fluency0to4": null,
+      "context0to4": null,
+      "notes": "",
+      "meaningGuide": [
+        {
+          "regionId": "r1",
+          "source": "Jangan buka kotak itu!",
+          "candidateReference": "Do not open that box!"
+        }
+      ],
+      "observedTranslation": "Don't open that box!"
+    }
+  ]
+}

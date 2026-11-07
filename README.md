@@ -69,6 +69,8 @@ Reports and screenshots are written to `test-results/`. Image and translation pa
 
 The manifest's minimum version is Chrome 124; validation here uses Chromium 156 on one Windows/AMD machine. Older Chrome versions and other GPU vendors still need device coverage. Download size is not runtime memory usage.
 
+`npm run benchmark` runs the [local speed/quality starter benchmark](benchmarks/README.md): two actual comic panels and eight controlled text layouts, each cold and warm. It records OCR/grouping errors and stage timing with a translation-review worksheet; it does not automatically grade meaning or establish representative comic accuracy. Use `-- --memory` for optional Windows process-memory sampling. Results remain under ignored `test-results/benchmark/`; no fixture or benchmark code ships in the extension.
+
 ## Model licensing
 
 NLLB weights use CC-BY-NC-4.0. Meta describes the model as intended for research. Resolve model rights and intended use before commercial distribution. The extension does not change that license by converting, caching, or quantizing the model. Dependency notices are packaged under `dist/licenses`; review distribution notices again before release.

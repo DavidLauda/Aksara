@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "id": "aksara-starter-v1",
+  "description": "Two real panels and eight controlled layout cases. Not a representative real-comic evaluation set.",
+  "cases": [
+    {
+      "id": "real-package",
+      "file": "../tests/fixtures/comic-context.png",
+      "kind": "real",
+      "tags": [
+        "wrapped-sentence",
+        "literal-context"
+      ],
+      "regions": [
+        {
+          "id": "package",
+          "text": "We got this mysterious package.",
+          "box": {
+            "x": 170,
+            "y": 45,
+            "width": 185,
+            "height": 115
+          },
+          "referenceTranslation": "Kami mendapat paket misterius ini."
+        }
+      ],
+      "reviewNotes": "Got refers to receiving a package, not encouragement. Kami/kita depends on the audience; both can be valid.",
+      "sourceLanguage": "eng_Latn",
+      "targetLanguage": "ind_Latn",
+      "width": 360,
+      "height": 391,
+      "provenance": "User-supplied War and Peas screenshot; development-only crop. No redistribution rights inferred.",
+      "sha256": "5158ef5d10971afc76694a03efe21e3458c215812d6316535edb06b336a89c4e"
+    },
+    {
+      "id": "real-two-bubbles",
+      "file": "../tests/fixtures/comic-two-bubbles.png",
+      "kind": "real",
+      "tags": [
+        "two-speakers",
+        "interjection",
+        "nonstandard-word"
+      ],
+      "regions": [
+        {
+          "id": "empty",
+          "text": "Huh? There's nothing inside.",
+          "box": {
+            "x": 10,
+            "y": 8,
+            "width": 205,
+            "height": 105
+          },
+          "referenceTranslation": "Hah? Tidak ada apa-apa di dalamnya."
+        },
+        {
+          "id": "box",
+          "text": "It's just an empty cardbox.",
+          "box": {
+            "x": 180,
+            "y": 120,
+            "width": 150,
+            "height": 115
+          },
+          "referenceTranslation": "Ini hanya kotak kardus kosong."
+        }
+      ],
+      "reviewNotes": "Preserve the interjection and negation. Cardbox is the original nonstandard spelling; the Indonesian reference is an interpretation, not an authoritative exact answer.",
+      "sourceLanguage": "eng_Latn",
+      "targetLanguage": "ind_Latn",
+      "width": 360,
+      "height": 392,
+      "provenance": "User-supplied War and Peas screenshot; development-only crop. No redistribution rights inferred.",
+      "sha256": "a7feffb23bf8e3604d08963e938ecccb4ccb2f7b640b5a88dc0cfc3c6a0b1b36"
+    },
+    {
+      "id": "wrapped-parcel",
+      "kind": "synthetic",
+      "file": "fixtures/wrapped-parcel.png",
+      "tags": [
+        "wrapped-sentence"
+      ],
+      "sourceLanguage": "eng_Latn",
+      "targetLanguage": "ind_Latn",
+      "width": 960,
+      "height": 560,
+      "sha256": "10194394eabff4999f9e8742137ecaf9080d20e0fc703c5ca5e1ee692c825374",
+      "regions": [
+        {
+          "id": "r1",
+          "text": "We found a strange little parcel.",
+          "box": {
+            "x": 232,
+            "y": 142,
+            "width": 496,
+            "height": 217.6
+          },
+          "referenceTranslation": "Kami menemukan sebuah paket kecil yang aneh."
+        }
+      ],
+      "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+      "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+    },
+    {
+      "id": "two-speakers",
+      "kind": "synthetic",
+      "file": "fixtures/two-speakers.png",
+      "tags": [
+        "two-speakers",
+        "negation"
+      ],
+      "sourceLanguage": "eng_Latn",
+      "targetLanguage": "ind_Latn",
+      "width": 960,
+      "height": 560,
+      "sha256": "be20df59fe412ac8fe9710200a970b045c9b9153165cd85198d3bab4a94a243f",
+      "regions": [
+        {
+          "id": "r1",
+          "text": "Did you open it?",
+          "box": {
+            "x": 52,
+            "y": 87,
+            "width": 396,
+            "height": 106
+          },
+          "referenceTranslation": "Apakah kamu sudah membukanya?"
+        },
+        {
+          "id": "r2",
+          "text": "No, it is still sealed.",
+          "box": {
+            "x": 512,
+            "y": 207,
+            "width": 396,
+            "height": 160.4
+          },
+          "referenceTranslation": "Belum, benda itu masih tersegel."
+        }
+      ],
+      "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+      "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+    },
+    {
+      "id": "negation",
+      "kind": "synthetic",
+      "file": "fixtures/negation.png",
+      "tags": [
+        "negation",
+        "imperative"
+      ],
+      "sourceLanguage": "eng_Latn",
+      "targetLanguage": "ind_Latn",
+      "width": 960,
+      "height": 560,
+      "sha256": "7563f15baab72565a5c035ee95f211b4c086375cca5a12f8120691e0cc8d44b3",
+      "regions": [
+        {
+          "id": "r1",
+          "text": "Don't open that box!",
+          "box": {
+            "x": 232,
+            "y": 142,
+            "width": 496,
+            "height": 160.4
+          },
+          "referenceTranslation": "Jangan buka kotak itu!"
+        }
+      ],
+      "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+      "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+    },
+    {
+      "id": "idiom",
+      "kind": "synthetic",
+      "file": "fixtures/idiom.png",
+      "tags": [
+        "idiom",
+        "context-contrast"
+      ],
+      "sourceLanguage": "eng_Latn",
+      "targetLanguage": "ind_Latn",
+      "width": 960,
+      "height": 560,
+      "sha256": "9aa20b597215a6cbd8319af129eb5816ee1b98d8aa723875b52ef651bdfdd9ab",
+      "regions": [
+        {
+          "id": "r1",
+          "text": "We got this!",
+          "box": {
+            "x": 232,
+            "y": 142,
+            "width": 496,
+            "height": 106
+          },
+          "referenceTranslation": "Kita pasti bisa!"
+        }
+      ],
+      "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+      "reviewNotes": "Here the isolated exclamation is encouragement. Contrast with receiving a package in real-package."
+    },
+    {
+      "id": "punctuation",
+      "kind": "synthetic",
+      "file": "fixtures/punctuation.png",
+      "tags": [
+        "punctuation",
+        "question"
+      ],
+      "sourceLanguage": "eng_Latn",
+      "targetLanguage": "ind_Latn",
+      "width": 960,
+      "height": 560,
+      "sha256": "2b47675ba31a226bf278a07c162d64b391b557954d67a59e4bd9d42de4e79985",
+      "regions": [
+        {
+          "id": "r1",
+          "text": "Wait... Is that mine?",
+          "box": {
+            "x": 232,
+            "y": 142,
+            "width": 496,
+            "height": 160.4
+          },
+          "referenceTranslation": "Tunggu... Apakah itu milikku?"
+        }
+      ],
+      "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+      "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+    },
+    {
+      "id": "caption-and-dialogue",
+      "kind": "synthetic",
+      "file": "fixtures/caption-and-dialogue.png",
+      "tags": [
+        "caption",
+        "separate-regions"
+      ],
+      "sourceLanguage": "eng_Latn",
+      "targetLanguage": "ind_Latn",
+      "width": 960,
+      "height": 560,
+      "sha256": "1ce04949dc89f798282bfc27e81b285ef2caa85763a1bb0019b35acf6277c579",
+      "regions": [
+        {
+          "id": "r1",
+          "text": "Later that night.",
+          "box": {
+            "x": 52,
+            "y": 87,
+            "width": 396,
+            "height": 106
+          },
+          "referenceTranslation": "Malam harinya."
+        },
+        {
+          "id": "r2",
+          "text": "Where is the key?",
+          "box": {
+            "x": 512,
+            "y": 207,
+            "width": 396,
+            "height": 160.4
+          },
+          "referenceTranslation": "Di mana kuncinya?"
+        }
+      ],
+      "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+      "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+    },
+    {
+      "id": "small-text",
+      "kind": "synthetic",
+      "file": "fixtures/small-text.png",
+      "tags": [
+        "small-text",
+        "wrapped-sentence"
+      ],
+      "sourceLanguage": "eng_Latn",
+      "targetLanguage": "ind_Latn",
+      "width": 960,
+      "height": 560,
+      "sha256": "95a8ab0840fefe16ec531411f4094fe1329b6f0a3075eef55a0314420e6eb798",
+      "regions": [
+        {
+          "id": "r1",
+          "text": "Please leave the package by the door.",
+          "box": {
+            "x": 232,
+            "y": 142,
+            "width": 496,
+            "height": 106
+          },
+          "referenceTranslation": "Tolong letakkan paketnya di dekat pintu."
+        }
+      ],
+      "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+      "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+    },
+    {
+      "id": "indonesian-negation",
+      "kind": "synthetic",
+      "file": "fixtures/indonesian-negation.png",
+      "tags": [
+        "indonesian",
+        "negation"
+      ],
+      "sourceLanguage": "ind_Latn",
+      "targetLanguage": "eng_Latn",
+      "width": 960,
+      "height": 560,
+      "sha256": "17d26fd8bfba6ccd96bf8e71be8a9b6819037a898fdf3000c377353145ad38da",
+      "regions": [
+        {
+          "id": "r1",
+          "text": "Jangan buka kotak itu!",
+          "box": {
+            "x": 232,
+            "y": 142,
+            "width": 496,
+            "height": 160.4
+          },
+          "referenceTranslation": "Do not open that box!"
+        }
+      ],
+      "provenance": "Aksara-authored controlled SVG text/bubble layout, rasterized with Sharp and local Arial. No real comic artwork.",
+      "reviewNotes": "Reference is an authored meaning guide; equivalent translations are valid."
+    }
+  ]
+}

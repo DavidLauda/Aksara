@@ -1,0 +1,23 @@
+import { writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
+
+const cell = value => String(value ?? '—').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('|', '\\|').replace(/\s+/g, ' ');
+const seconds = ms => Number.isFinite(ms) ? (ms / 1000).toFixed(2) : '—';
+const percent = value => Number.isFinite(value) ? `${(value * 100).toFixed(1)}%` : 'n/a';
+export async function saveReport(report, directory, { final = false } = {}) {
+  const rows = report.runs.map(run => `| ${cell(run.caseId)} | ${run.kind} | ${run.mode}/${run.repeat} | ${run.ok ? 'completed' : 'error'} | ${seconds(run.wallMs)} | ${seconds(run.image?.ocr?.elapsedMs)} | ${seconds(run.image?.translation?.timing?.verifyMs)} | ${seconds(run.image?.translation?.timing?.loadMs)} | ${seconds(run.image?.translation?.timing?.inferenceMs)} | ${run.image?.translation?.inferenceCalls ?? '—'} | ${percent(run.metrics?.ocr.cer)} | ${percent(run.metrics?.ocr.wer)} |`);
+  const review = report.runs.map(run => ({ caseId: run.caseId, mode: run.mode, repeat: run.repeat, reviewer: null, reviewedAt: null,
+    adequacy0to4: null, fluency0to4: null, context0to4: null, notes: '',
+    meaningGuide: report.corpus.cases.find(item => item.id === run.caseId)?.regions.map(region => ({ regionId: region.id, source: region.text, candidateReference: region.referenceTranslation })),
+    observedTranslation: run.image?.translation?.text ?? null }));
+  const sections = report.runs.map(run => {
+    const annotation = report.corpus.cases.find(item => item.id === run.caseId);
+    return `### ${cell(run.caseId)} · ${run.mode} · repeat ${run.repeat}\n\n- Expected source: ${cell(annotation.regions.map(region => region.text).join(' / '))}\n- OCR: ${cell(run.image?.ocr?.text)}\n- Actual translation: ${cell(run.image?.translation?.text)}\n- Meaning guide (equivalent wording is valid): ${cell(annotation.regions.map(region => region.referenceTranslation).join(' / '))}\n- Review notes: ${cell(annotation.reviewNotes)}\n- Grouping: ${cell(JSON.stringify(run.metrics?.grouping))}\n- Partial result: ${run.metrics?.partial ?? 'n/a'}; semantic review: pending.\n${run.error ? `- Error: ${cell(run.error)}\n` : ''}`;
+  });
+  const markdown = `# Aksara local benchmark\n\nRun: ${report.id}. Extension ${report.extensionVersion ?? 'unknown'}; Chromium ${report.browser ?? 'unknown'}.\n\nThis starter corpus has **${report.corpus.cases.filter(item => item.kind === 'real').length} real panels** and **${report.corpus.cases.filter(item => item.kind === 'synthetic').length} controlled synthetic cases**. Results must remain separate. They do not establish representative real-comic accuracy.\n\nExecution completed: ${report.ok}; finished requests: ${report.runs.length}; runtime failures: ${report.runs.filter(run => !run.ok).length}. This is an execution status, not a quality pass.\n\nCold means the dedicated inference worker was terminated before the request; model files and browser/OS disk caches remain. Warm immediately repeats the same pixels without release. Stage timings come from actual OCR/NLLB; wall time also includes acquisition/message/UI polling overhead. Memory sampling: ${report.memorySampling.enabled ? 'enabled, with observer overhead' : 'disabled'}. No power/thermal controls; one cold/warm sample is not a statistical latency guarantee.\n\n| Case | Source kind | Mode/repeat | Execution | Wall s | OCR s | Verify s | Load s | Inference s | Calls | CER | WER |\n| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |\n${rows.join('\n')}\n\nCER includes normalized punctuation/spaces; WER uses Unicode word tokens. Both normalize NFKC, case, smart apostrophes and whitespace. Global OCR scores include reading-order errors. Per-region OCR and pairwise grouping measurements are in report.json. Empty denominators are null, not a perfect score. Translation meaning is **not automatically graded**. Use review-template.json: adequacy 0=unusable to 4=meaning preserved, fluency 0=unreadable to 4=natural, context 0=wrong sense/speaker to 4=preserved. Leave uncertain ratings null and record reviewer/notes.\n\n${sections.join('\n')}\n`;
+  await writeFile(join(directory, 'report.json'), JSON.stringify(report, null, 2) + '\n');
+  await writeFile(join(directory, 'report.md'), markdown);
+  // Keep editable review work separate so an incremental report write never
+  // overwrites a review someone has already started.
+  if (final) await writeFile(join(directory, 'review-template.json'), JSON.stringify({ schemaVersion: 1, runId: report.id, reviews: review }, null, 2) + '\n', { flag: 'wx' }).catch(error => { if (error.code !== 'EEXIST') throw error; });
+}

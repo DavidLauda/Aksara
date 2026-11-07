@@ -13,7 +13,9 @@
     "test:images": "node scripts/image-browser-smoke.mjs",
     "test:translation": "node scripts/translation-browser-smoke.mjs",
     "test:overlays": "node scripts/overlay-browser-smoke.mjs",
-    "test:hardening": "node scripts/hardening-browser-smoke.mjs"
+    "test:hardening": "node scripts/hardening-browser-smoke.mjs",
+    "benchmark:fixtures": "node scripts/create-benchmark-corpus.mjs",
+    "benchmark": "node scripts/benchmark.mjs"
   },
   "dependencies": {
     "@huggingface/transformers": "4.3.1",
