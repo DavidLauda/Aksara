@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-11-07T16:34:27.945Z",
+  "cases": [
+    {
+      "name": "toolbar opens a page-layer rounded menu with transparent corners and no native popup",
+      "ok": true,
+      "nativePopups": 0,
+      "cornerRgb": [
+        23,
+        55,
+        43
+      ],
+      "noImageJob": true,
+      "axeViolations": 0,
+      "elapsedMs": 1173
+    },
+    {
+      "name": "synthetic page events cannot enable, save preferences, open settings or dismiss the menu",
+      "ok": true,
+      "untrustedEventsRejected": true,
+      "elapsedMs": 146
+    },
+    {
+      "name": "keyboard choices and site access persist; only explicit activation installs image controls",
+      "ok": true,
+      "actualActivation": true,
+      "manualReactivationPreserved": true,
+      "elapsedMs": 310
+    },
+    {
+      "name": "Close Escape outside click and the toolbar toggle dismiss without intercepting the page",
+      "ok": true,
+      "dismissalMethods": 4,
+      "elapsedMs": 142
+    },
+    {
+      "name": "page-origin messages cannot manage models or diagnostics and subframes cannot activate the menu",
+      "ok": true,
+      "privilegedRequestsRejected": 5,
+      "subframeRequestsRejected": 1,
+      "elapsedMs": 38
+    },
+    {
+      "name": "loading partial ready and unavailable state fixtures retain readable recovery controls",
+      "ok": true,
+      "renderingFixtures": true,
+      "states": [
+        "ready",
+        "partial",
+        "running",
+        "error",
+        "loading"
+      ],
+      "elapsedMs": 568
+    },
+    {
+      "name": "three widths zoom and opaque accessibility fallbacks keep the panel within the viewport",
+      "ok": true,
+      "sizes": [
+        {
+          "width": 375,
+          "height": 812,
+          "axeViolations": 0
+        },
+        {
+          "width": 768,
+          "height": 900,
+          "axeViolations": 0
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "axeViolations": 0
+        }
+      ],
+      "zoom": 1.5,
+      "opaqueFallback": true,
+      "elapsedMs": 2236
+    },
+    {
+      "name": "Settings and Privacy open only extension-owned pages; host consent is reviewed in Settings",
+      "ok": true,
+      "fixedDestinations": true,
+      "grantDialog": "Manual; the test does not automatically grant host access.",
+      "elapsedMs": 281
+    },
+    {
+      "name": "navigation removes the menu and restricted browser pages open Settings",
+      "ok": true,
+      "routeInvalidation": true,
+      "restrictedFallback": true,
+      "elapsedMs": 257
+    },
+    {
+      "name": "strict CSP and Trusted Types do not block the floating menu or image controls",
+      "ok": true,
+      "strictCsp": true,
+      "trustedTypesRequired": true,
+      "elapsedMs": 306
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "ok": true,
+  "note": "Real toolbar action opens the packaged page menu. Model-state variants are explicitly marked rendering fixtures. Opening/activation tests do not run OCR; real OCR/NLLB remains covered by test:overlays.",
+  "browser": "156.0.8078.4",
+  "version": "0.8.0"
+}

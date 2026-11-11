@@ -1,0 +1,158 @@
+{
+  "generatedAt": "2026-11-07T05:20:58.085Z",
+  "cases": [
+    {
+      "name": "actual Chrome action popup has intrinsic width and a compact first-use layout",
+      "ok": true,
+      "native": [
+        {
+          "width": 360,
+          "height": 430
+        }
+      ],
+      "dimensions": {
+        "width": 360,
+        "height": 430,
+        "clientWidth": 360,
+        "scrollWidth": 360,
+        "scrollHeight": 430,
+        "bodyHeight": 430
+      },
+      "actualBackend": true,
+      "elapsedMs": 773
+    },
+    {
+      "name": "keyboard language choices persist and the site switch gates actual activation",
+      "ok": true,
+      "actualContentInjection": true,
+      "syntheticOcr": false,
+      "elapsedMs": 189
+    },
+    {
+      "name": "reopening detects enabled controls without bypassing manual reactivation after a site disable",
+      "ok": true,
+      "explicitReactivationPreserved": true,
+      "elapsedMs": 1279
+    },
+    {
+      "name": "ready partial running error and loading rendering fixtures fit the popup width",
+      "ok": true,
+      "renderingFixtures": true,
+      "fixtureViewport": "360x600 extension tab; first-use/activation/reopen/Setup are tested in actual native popup windows",
+      "sizes": [
+        {
+          "state": "ready",
+          "width": 360,
+          "height": 600,
+          "clientWidth": 360,
+          "scrollWidth": 360,
+          "scrollHeight": 600,
+          "bodyHeight": 430
+        },
+        {
+          "state": "partial",
+          "width": 360,
+          "height": 600,
+          "clientWidth": 360,
+          "scrollWidth": 360,
+          "scrollHeight": 600,
+          "bodyHeight": 430
+        },
+        {
+          "state": "running",
+          "width": 360,
+          "height": 600,
+          "clientWidth": 360,
+          "scrollWidth": 360,
+          "scrollHeight": 600,
+          "bodyHeight": 430
+        },
+        {
+          "state": "error",
+          "width": 360,
+          "height": 600,
+          "clientWidth": 360,
+          "scrollWidth": 360,
+          "scrollHeight": 600,
+          "bodyHeight": 430
+        },
+        {
+          "state": "loading",
+          "width": 360,
+          "height": 600,
+          "clientWidth": 360,
+          "scrollWidth": 360,
+          "scrollHeight": 600,
+          "bodyHeight": 430
+        }
+      ],
+      "elapsedMs": 5251
+    },
+    {
+      "name": "save failure is visible and a long hostname stays bounded",
+      "ok": true,
+      "nativePopup": true,
+      "errorFixture": true,
+      "longHostFixture": true,
+      "elapsedMs": 389
+    },
+    {
+      "name": "image-host access remains explicit and keyboard reachable",
+      "ok": true,
+      "nativePopup": true,
+      "dimensions": {
+        "width": 375,
+        "height": 510,
+        "clientWidth": 375,
+        "scrollWidth": 375,
+        "scrollHeight": 550,
+        "bodyHeight": 550
+      },
+      "grantDialog": "Manual; no permission grant is fabricated or automatically accepted.",
+      "elapsedMs": 626
+    },
+    {
+      "name": "native settings opens the actual Setup page without a download",
+      "ok": true,
+      "fixedSetupDestination": "chrome-extension://ohdjkkpjchlolehpjemjnemlochncejm/options.html",
+      "cachedBytes": 0,
+      "elapsedMs": 632
+    },
+    {
+      "name": "standalone popup fits three widths and opaque accessibility fallbacks",
+      "ok": true,
+      "sizes": [
+        {
+          "width": 375,
+          "height": 812,
+          "axeViolations": 0
+        },
+        {
+          "width": 768,
+          "height": 900,
+          "axeViolations": 0
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "axeViolations": 0
+        }
+      ],
+      "textSizing": "125% fixture; not a native browser-zoom claim",
+      "fallbacks": true,
+      "elapsedMs": 3099
+    },
+    {
+      "name": "unsupported browser pages explain the next action",
+      "ok": true,
+      "actualUnsupportedPage": true,
+      "elapsedMs": 381
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "ok": true,
+  "note": "Actual Chrome action popups opened by Extensions.triggerAction (and chrome.action.openPopup for the unsupported-page case), inspected through CDP. Model metadata/error/loading variants explicitly use UI fixtures; no weights are downloaded and no inference quality is graded.",
+  "browser": "156.0.8078.4",
+  "version": "0.7.2"
+}

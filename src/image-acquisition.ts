@@ -149,8 +149,8 @@ export class ImageAcquisition {
     const url = validateImageUrl(job.snapshot.url ?? '');
     const pattern = originPattern(url);
     if (url.origin !== job.owner.pageOrigin && !(await chrome.permissions.contains({ origins: [pattern] }))) {
-      await chrome.storage.session.set({ pendingImagePermission: { origin: url.origin, pattern, host: url.hostname, createdAt: Date.now() } });
-      throw new ImageAcquisitionError('PERMISSION_REQUIRED', `Allow image access to ${url.hostname} in the Aksara popup, then click Translate again.`);
+      await chrome.storage.session.set({ pendingImagePermission: { origin: url.origin, pattern, host: url.hostname, createdAt: Date.now(), tabId: job.owner.tabId, documentId: job.owner.documentId } });
+      throw new ImageAcquisitionError('PERMISSION_REQUIRED', `Allow image access to ${url.hostname} in Aksara Settings, then click Translate again.`);
     }
     this.assertActive(job);
     let response: Response;

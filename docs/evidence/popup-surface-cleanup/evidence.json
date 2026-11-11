@@ -1,0 +1,21 @@
+{
+  "contract": "docs/POPUP_UI.md, Surface cleanup 0.7.2: remove the outer padding/background/frame and Local badge while preserving the usable popup and native window sizing.",
+  "targetViewports": ["375x812", "768x900", "1440x900"],
+  "accessibility": { "status": "pass", "evidence": "The existing popup suite passes native keyboard saving, focus restoration, site access, activation and recovery checks. Axe passes at the native first-use view and three document widths, with forced-color/opaque fallbacks. Manual screen-reader and native permission-dialog checks remain outside this automated evidence." },
+  "responsive": { "status": "pass", "evidence": "The actual native view is 360x430 with matching scroll dimensions. Inspected document renders at the three target widths; controls fit and the outer plate is absent. Long-host and enlarged-text cases pass." },
+  "contentStates": {
+    "loading": { "status": "pass", "evidence": "The held preference/model-read fixture retains its structure and disables activation until preferences load; popup-fixture-loading.png." },
+    "empty": { "status": "pass", "evidence": "Actual missing-model metadata appears in popup-native-empty.png with the existing explicit Set up action." },
+    "error": { "status": "pass", "evidence": "Deliberate save-error and model-status fixtures pass with visible recovery messages; popup-native-save-error.png and the browser report." },
+    "partial": { "status": "pass", "evidence": "The labeled incomplete-model fixture retains Download incomplete and Set up; popup-fixture-partial.png." },
+    "success": { "status": "pass", "evidence": "Actual trusted activation injects content controls and reopening detects the page state. The native popup browser cases pass." },
+    "permission": { "status": "pass", "evidence": "Actual site toggling, explicit reactivation and unsupported-page feedback pass. The native access UI retains a keyboard-reachable grant button; the grant dialog itself is manual and untested." }
+  },
+  "renderedEvidence": [
+    { "viewport": "375x812", "artifact": "popup-375.png", "observation": "No Local badge or outer plate; the intrinsic popup and main controls fit the narrow document viewport." },
+    { "viewport": "768x900", "artifact": "popup-768.png", "observation": "The same single popup surface retains its fixed width without an inset outer background." },
+    { "viewport": "1440x900", "artifact": "popup-1440.png", "observation": "Desktop document render preserves the compact layout; the former badge is absent." },
+    { "viewport": "360x430", "artifact": "popup-native-empty.png", "observation": "Actual Chrome action view fills its document with a single rounded surface; Chrome's native window frame is not controlled by this CSS." }
+  ],
+  "visualRegression": "INCONCLUSIVE: no approved matching pixel baseline."
+}

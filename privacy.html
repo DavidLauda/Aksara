@@ -10,7 +10,7 @@
   <header><p class="eyebrow">ON YOUR DEVICE</p><h1>Privacy & local data</h1><p class="lead">Your images and text are processed locally.</p><p>Research preview · Updated 6 November 2026</p></header>
   <section aria-labelledby="processing-heading"><h2 id="processing-heading">What Aksara reads</h2>
     <p>After you enable image controls on a page and choose Translate, Aksara reads the selected image, recognizes its text and translates it in your browser. It does not automatically translate images, create an account, send telemetry or use a remote translation service.</p>
-    <p>The result appears in that webpage. Scripts on the website may read text placed in its DOM, including translated and recognized text. Local processing does not hide the result from the website.</p>
+    <p>The floating menu and translation result appear in that webpage. Scripts on the website may inspect this injected DOM, including visible menu state, language selections, and translated or recognized text. Local processing does not hide this visible information from the website.</p>
   </section>
   <section aria-labelledby="connections-heading"><h2 id="connections-heading">When connections are made</h2>
     <p>For an HTTP or HTTPS image, Aksara may fetch the selected image from its host. That host receives the image URL and ordinary network information such as your IP address. Aksara omits cookies, other request credentials and the page referrer. An HTTP image connection is not encrypted. Readable inline images can be processed without this fetch.</p>
@@ -21,10 +21,10 @@
     <p>Language choices, high contrast and exact origins where you disabled controls are stored locally. There is no saved translation history. Recognized text and translations remain in the activated page's memory until cleared or its document is discarded.</p>
     <p>Temporary image bytes use extension-local IndexedDB during a job. Aksara deletes them when work finishes or is cancelled and clears leftover staging when the background worker starts after an interruption.</p>
     <p>Model files and completed download chunks remain in the extension's cache until removed. Aksara requests storage capacity for this large cache; the download size does not describe its RAM or GPU memory requirements.</p>
-    <p>Chrome session storage holds job IDs, progress, operational errors and a pending image-host permission origin. It does not hold page images, recognized text or translations. Diagnostics use built-in sample text and may report GPU/browser details. Save report creates a file on your device only when you choose it; Aksara does not upload that report.</p>
+    <p>Chrome session storage holds job IDs, progress, operational errors and a pending image-host permission origin with its owning tab/document identifiers. It does not hold page images, recognized text or translations. Diagnostics use built-in sample text and may report GPU/browser details. Save report creates a file on your device only when you choose it; Aksara does not upload that report.</p>
   </section>
   <section aria-labelledby="controls-heading"><h2 id="controls-heading">Your controls</h2>
-    <p>Cancel stops the current page job. Dismiss clears its visible result. Disable image controls for a site in the popup to cancel work and clear results on that origin's activated pages.</p>
+    <p>Cancel stops the current page job. Dismiss clears its visible result. Disable image controls for a site in the floating menu to cancel work and clear results on that origin's activated pages.</p>
     <p>Use Remove downloaded model in Setup to delete the selected model's cached files and partial chunks. Chrome's extension settings let you review or revoke image-host access. Uninstalling Aksara removes its extension storage; reports you saved separately remain until you delete them.</p>
     <p>Image-host access is requested for a named origin when needed. Opening this page grants no permissions. You can review this preview's source and privacy behavior in the local project documentation.</p>
   </section>

@@ -1,8 +1,10 @@
 import './style.css';
 import { backgroundMessage, isEnvelope, type Job, type Operation } from './protocol';
 import { mountModelUi } from './model-ui';
+import { mountImageAccess } from './image-access-ui';
 
 mountModelUi();
+mountImageAccess();
 
 const status = document.querySelector<HTMLElement>('#status')!;
 const progress = document.querySelector<HTMLProgressElement>('#progress')!;

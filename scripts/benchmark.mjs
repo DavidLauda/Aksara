@@ -1,3 +1,4 @@
+import { dismissActionMenu } from './action-fixture.mjs';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { createHash } from 'node:crypto';
@@ -125,6 +126,7 @@ try {
     const targets = (await browserSession.send('Target.getTargets', { filter: [{ type: 'tab', exclude: false }] })).targetInfos;
     const target = targets.find(target => target.url === page.url()); assert.ok(target);
     await browserSession.send('Extensions.triggerAction', { id: extensionId, targetId: target.targetId });
+    await dismissActionMenu(page);
     await inPage('install');
     await bridge.evaluate(async url => { const tab = (await chrome.tabs.query({})).find(tab => tab.url === url); await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['content.js'] }); }, page.url());
     await context.setOffline(true); report.offlineDuringMeasurements = true;

@@ -1,3 +1,4 @@
+import { dismissActionMenu } from './action-fixture.mjs';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { mkdir, readFile, writeFile, rm } from 'node:fs/promises';
@@ -34,6 +35,7 @@ async function openFixture(image = real) {
   await page.bringToFront();
   const targets = (await browserSession.send('Target.getTargets', { filter: [{ type: 'tab', exclude: false }] })).targetInfos;
   await browserSession.send('Extensions.triggerAction', { id: extensionId, targetId: targets.find(target => target.url === page.url()).targetId });
+  await dismissActionMenu(page);
   await bridge.evaluate(async ({ url, image }) => {
     const tab = (await chrome.tabs.query({})).find(tab => tab.url === url);
     await chrome.scripting.executeScript({ target: { tabId: tab.id }, func: image => {

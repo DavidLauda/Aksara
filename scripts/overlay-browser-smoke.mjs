@@ -1,3 +1,4 @@
+import { dismissActionMenu } from './action-fixture.mjs';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -107,6 +108,7 @@ async function activate() {
   const tabs = (await browserSession.send('Target.getTargets', { filter: [{ type: 'tab', exclude: false }] })).targetInfos;
   const target = tabs.find(target => target.url === page.url()); assert.ok(target);
   await browserSession.send('Extensions.triggerAction', { id: extensionId, targetId: target.targetId });
+  await dismissActionMenu(page);
   await inject();
 }
 async function inject() {

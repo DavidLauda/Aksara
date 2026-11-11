@@ -6,6 +6,7 @@ import { ImageAcquisitionError } from './image-policy';
 import { ModelManager } from './model-manager';
 import { translationProblem } from './translation-result';
 import type { OcrResult } from './ocr-result';
+import { handlePageMenu } from './page-menu-broker';
 
 let active: Job | null = null;
 let latest: Job | null = null;
@@ -173,6 +174,10 @@ async function handleUi(message: Record<string, unknown>, sendResponse: (respons
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (!isEnvelope(message, 'background') || sender.id !== chrome.runtime.id) return;
   if (message.type === 'PING') { sendResponse({ schemaVersion: 1, ok: true, version: chrome.runtime.getManifest().version, instanceId: images.instanceId }); return; }
+  if (['GET_PAGE_MENU_STATE', 'ENABLE_PAGE_IMAGES', 'OPEN_PRIVACY'].includes(String(message.type))) {
+    void handlePageMenu(message, sender, () => modelManager.handle({ type: 'GET_MODEL_STATUS' })).then(sendResponse).catch(() => sendResponse({ ok: false, error: 'MENU_UNAVAILABLE' }));
+    return true;
+  }
   if (message.type === 'OPEN_SETUP') {
     const pageControl = sender.tab?.id !== undefined && sender.frameId === 0 && /^https?:\/\//.test(sender.url ?? '');
     const extensionUi = sender.url === chrome.runtime.getURL('popup.html') || sender.url === chrome.runtime.getURL('options.html');
@@ -192,4 +197,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (!sender.url?.startsWith(chrome.runtime.getURL('')) || (sender.url !== chrome.runtime.getURL('options.html') && sender.url !== chrome.runtime.getURL('popup.html'))) { sendResponse({ ok: false, error: 'UNAUTHORIZED_CONTEXT' }); return; }
   void handleUi(message, sendResponse).catch(error => { sendResponse({ ok: false, error: errorMessage(error) }); });
   return true;
+});
+
+chrome.action.onClicked.addListener(tab => {
+  if (tab.id === undefined || !/^https?:\/\//.test(tab.url ?? '')) { void chrome.runtime.openOptionsPage(); return; }
+  void chrome.scripting.executeScript({ target: { tabId: tab.id, frameIds: [0] }, files: ['page-menu.js'] }).catch(() => chrome.runtime.openOptionsPage());
 });

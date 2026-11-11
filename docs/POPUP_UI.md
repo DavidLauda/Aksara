@@ -26,3 +26,17 @@ Version 0.7.1 gives the normal native popup a measured 360×448 px footprint. Th
 The existing `AKSARA_PING` reply now includes `controlsEnabled`, a boolean from the content script's actual site/activation state. The popup uses it to display Enabled on this page after reopening. A remaining content-script listener alone does not count as activation: disabling and allowing a site still requires the user's explicit Enable translation action. The ping contains no pixels or recognized text and starts no inference.
 
 The [QA record](evidence/popup-ui/QA.md) separates actual native-window checks, UI-state fixtures and real OCR/NLLB overlay checks. Reload the unpacked extension and refresh existing webpages to pick up the new popup and text styling.
+
+## Surface cleanup — 0.7.2
+
+The next screenshot identifies the rectangular outer plate around the rounded popup. Remove the document/body background, 8 px outside padding and exterior shadow, letting the rounded surface meet the popup bounds. Keep its inner content padding and the existing accessible controls. Remove the Local badge and its unused styles. Chrome owns the native window/compositor, so document transparency must not be described as guaranteed transparency through to the webpage. Verify the actual action view, its recovery states, and the existing responsive/accessibility checks.
+
+Implemented and verified in the actual Chrome action view: normal footprint 360×430 px, with no horizontal or vertical overflow. Production build, 100 unit tests and all nine popup browser cases pass. See [the cleanup evidence](evidence/popup-surface-cleanup/QA.md).
+
+## Floating menu — 0.8.0 contract
+
+The user clarified that the webpage must show through outside the rounded card, and selected an in-page floating panel. The toolbar action now opens a top-right menu inside the active HTTP(S) document. Use a Shadow DOM and the Popover API's top layer with a transparent backdrop, a single 22 px rounded surface, and no surrounding rectangular paint. Retain the language/site/activation/settings flow and the removed Local badge. Add a labeled Close button; Escape, outside click and another toolbar click dismiss the menu. Preserve image translations when reopening. Ordinary page activation still requires the explicit Enable action, and no pixels are acquired when opening the menu.
+
+Use the shared popup markup/style rather than a second independently styled form. Clamp width to 360 px and the visual viewport, allow vertical scrolling on short pages, keep native fields/keyboard focus and opaque/forced-color fallbacks. Test at 375×812, 768×900 and 1440×900, including click-through outside the curved corners. A browser-created native popup must not open on normal websites. On restricted browser pages, the toolbar opens extension Settings instead.
+
+The page menu gets only a compact read-only readiness summary and document-bound image-control activation from the background. Source URLs/tab IDs come from Chrome's sender metadata, and the current document/site preference is rechecked. Existing diagnostics, downloads, verification and deletion stay restricted to extension-owned pages. Image-host consent moves to a visible section in Settings where chrome.permissions.request runs directly in a trusted click. No new manifest permissions, web-accessible resources, page pixel collection or inference start are needed for menu opening. Test synthetic page events and privileged-message rejection.

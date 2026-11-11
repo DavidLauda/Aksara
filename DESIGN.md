@@ -43,3 +43,9 @@ The next user screenshots exposed two gaps: text backings still looked square, a
 | Polish and recovery | 4 → 8 | Enabled-page detection, accurate reactivation after a site disable, visible save errors, missing/partial model and host-access recovery (`src/popup.ts`, `src/model-ui.ts`). |
 
 See `docs/POPUP_UI.md` for the contract and `docs/evidence/popup-ui` for native captures, labeled rendering fixtures and limitations.
+
+## Floating menu — 0.8.0
+
+The user clarified that the page should be visible outside the rounded card and selected an in-page menu. The toolbar now injects a Shadow DOM popover in the page's top layer. A transparent backdrop and a single 22 px surface provide the requested shape without a native popup canvas. The Local badge stays removed; a labeled 36 px Close button, Escape, outside click and toolbar toggling dismiss the panel. Shared markup/CSS/tokens preserve the visual hierarchy rather than adding a second form design.
+
+Viewport positioning and a stacked language layout below 300 px keep the card reachable when zoomed. Model/loading variants remain explicit; image acquisition starts only after a later image Translate action. Model management and image-host consent stay in extension-owned Settings, with a compact document-bound broker for the page menu. This change adds no package or manifest permission. The design contract is `docs/POPUP_UI.md`; actual captures and verification are in `docs/evidence/floating-menu`. Accessibility checks are scoped to extension-owned UI, and injected DOM remains observable to the host site as described in Privacy.

@@ -20,8 +20,10 @@ test('MV3 entries resolve locally and content script parses as a classic script'
   assert.equal(manifest.manifest_version, 3);
   assert.equal(manifest.background.type, 'module');
   assert.ok(manifest.content_security_policy.extension_pages.includes("script-src 'self' 'wasm-unsafe-eval'"));
-  for (const path of [manifest.background.service_worker, manifest.action.default_popup, manifest.options_page, 'offscreen.html']) await access(`dist/${path}`);
+  assert.equal(manifest.action.default_popup, undefined, 'The toolbar opens a page menu rather than a native rectangular popup.');
+  for (const path of [manifest.background.service_worker, manifest.options_page, 'page-menu.js', 'offscreen.html']) await access(`dist/${path}`);
   new Script(await readFile('dist/content.js', 'utf8'));
+  new Script(await readFile('dist/page-menu.js', 'utf8'));
   const offscreen = await readFile('dist/offscreen.js', 'utf8');
   assert.doesNotMatch(offscreen, /translation\.worker\.ts/);
 });

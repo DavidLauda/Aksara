@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-11-07T15:57:35.720Z",
+  "note": "UI rendering replay of a saved actual OCR/NLLB result. These cases do not run or grade inference. Real pipeline regression runs separately.",
+  "cases": [
+    {
+      "name": "compact result replaces the card and exposes only primary actions",
+      "ok": true,
+      "toolbar": {
+        "x": 521,
+        "y": 132.078125,
+        "width": 211.421875,
+        "height": 44
+      },
+      "defaultPanelVisible": false,
+      "elapsedMs": 649
+    },
+    {
+      "name": "options support keyboard, Escape, outside click and stable anchoring",
+      "ok": true,
+      "stableAnchor": true,
+      "elapsedMs": 225
+    },
+    {
+      "name": "Original and Copy work with unobtrusive feedback",
+      "ok": true,
+      "copiedFixtureOnly": true,
+      "elapsedMs": 105
+    },
+    {
+      "name": "light dark and busy pages fit three widths with one bounded blur surface",
+      "ok": true,
+      "sizes": [
+        {
+          "width": 375,
+          "height": 812,
+          "theme": "light",
+          "axeViolations": 0,
+          "blurSurfaces": [
+            {
+              "width": 211.421875,
+              "height": 44
+            }
+          ]
+        },
+        {
+          "width": 768,
+          "height": 900,
+          "theme": "dark",
+          "axeViolations": 0,
+          "blurSurfaces": [
+            {
+              "width": 211.421875,
+              "height": 44
+            }
+          ]
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "theme": "busy",
+          "axeViolations": 0,
+          "blurSurfaces": [
+            {
+              "width": 211.421875,
+              "height": 44
+            }
+          ]
+        }
+      ],
+      "elapsedMs": 3983
+    },
+    {
+      "name": "contrast and forced colors provide opaque controls",
+      "ok": true,
+      "opaqueFallback": true,
+      "elapsedMs": 1082
+    },
+    {
+      "name": "reduced transparency removes blur and zoom keeps the menu reachable",
+      "ok": true,
+      "reducedTransparency": true,
+      "zoom": 1.5,
+      "elapsedMs": 353
+    },
+    {
+      "name": "unsupported mapping offers a focused reader without the old details UI",
+      "ok": true,
+      "fallbackReadable": true,
+      "elapsedMs": 237
+    },
+    {
+      "name": "blocked copy opens selectable full text and Close restores Translate",
+      "ok": true,
+      "clipboardFallback": true,
+      "elapsedMs": 57
+    },
+    {
+      "name": "loading and empty errors remain compact and recoverable",
+      "ok": true,
+      "cancelAndRetry": true,
+      "elapsedMs": 569
+    },
+    {
+      "name": "partial output exposes available text without a generic quality warning",
+      "ok": true,
+      "partialIsContextual": true,
+      "axeViolations": 0,
+      "elapsedMs": 723
+    },
+    {
+      "name": "image-host access feedback points back to the popup",
+      "ok": true,
+      "note": "UI state replay. Actual acquisition permission boundaries are covered by test:images; native Chrome grant dialog remains manual.",
+      "elapsedMs": 330
+    },
+    {
+      "name": "multiple images share one active blur and remain responsive while scrolling",
+      "ok": true,
+      "activeBlurSurfaces": 1,
+      "scrollFrameP95Ms": 5.800000011920929,
+      "fixtureVitals": {
+        "lcpMs": 52,
+        "cumulativeLayoutShift": 0.000012256462191358026,
+        "maxEventTimingMs": 16,
+        "longTasks": []
+      },
+      "note": "Local rendering fixture only. Event Timing is a proxy, not field INP, and this is not a GPU or inference benchmark.",
+      "elapsedMs": 563
+    },
+    {
+      "name": "missing model preserves source reading and opens actual Setup",
+      "ok": true,
+      "fixedSetupDestination": true,
+      "elapsedMs": 377
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "ok": true,
+  "browser": "156.0.8078.4",
+  "version": "0.8.0"
+}

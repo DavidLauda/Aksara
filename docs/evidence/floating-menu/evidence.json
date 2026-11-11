@@ -1,0 +1,25 @@
+{
+  "contract": "docs/POPUP_UI.md, Floating menu 0.8.0: the user selected a rounded in-page panel with visible webpage outside its corners; no native popup, no Local badge, explicit image activation and extension-owned privileged actions.",
+  "targetViewports": ["375x812", "768x900", "1440x900"],
+  "accessibility": { "status": "pass", "evidence": "Scoped axe checks have zero A/AA violations in the extension-owned UI at three widths and forced colors. Real keyboard selection, site access, activation, Close/Escape/outside dismissal and viewport fit pass. The scope excludes obscured host text behind the nonmodal card. Manual screen-reader and native permission-dialog checks remain outside this evidence." },
+  "responsive": { "status": "pass", "evidence": "Inspected actual page-menu renders at all three targets. The card fits the visual viewport, stacks fields when narrow and passes 150% visual-viewport zoom, forced colors and reduced transparency. Transparent curved-corner pixels show the host page and hit testing reaches it; native popup view count is zero." },
+  "contentStates": {
+    "loading": { "status": "pass", "evidence": "menu-fixture-loading.png deliberately holds preference/readiness reads. The structure remains, preferences and activation are disabled, and Close/Escape remain available." },
+    "empty": { "status": "pass", "evidence": "The actual missing-model first-use state in menu-rounded-page.png offers Set up without downloading. The empty-page case also leaves visible no-images guidance after activation." },
+    "error": { "status": "pass", "evidence": "menu-fixture-error.png replays a failed compact-status request and exposes Model status unavailable with Set up. No raw error/URL or automatic repair action is injected." },
+    "partial": { "status": "pass", "evidence": "menu-fixture-partial.png is a labeled metadata replay showing Download incomplete and Set up for the existing resume flow." },
+    "success": { "status": "pass", "evidence": "Actual trusted activation creates image controls and closes the menu. Reopening detects the same enabled document; disable/allow retains explicit reactivation. Actual OCR/NLLB overlay regression passes separately." },
+    "permission": { "status": "pass", "evidence": "The real site switch gates activation. A document-scoped pending-host record opens the actual extension Settings access section; the Chrome grant dialog itself is manual. Privileged page requests and subframe activation are rejected; restricted pages fall back to Settings." }
+  },
+  "renderedEvidence": [
+    { "viewport": "375x812", "artifact": "menu-375.png", "observation": "The real in-page card fits the narrow viewport and preserves its rounded outline without a native canvas." },
+    { "viewport": "768x900", "artifact": "menu-768.png", "observation": "The card stays anchored near the top right; page content is visible around its rounded edges." },
+    { "viewport": "1440x900", "artifact": "menu-1440.png", "observation": "A wide page retains the compact 360px menu width and clear primary action." },
+    { "viewport": "1000x700", "artifact": "menu-rounded-page.png", "observation": "Actual toolbar-opened first-use menu. The page is visible outside all curves, and no native popup view exists." },
+    { "viewport": "384x454", "artifact": "menu-rounded-detail.png", "observation": "A direct clipped browser screenshot retains the surrounding page color to demonstrate the transparent outer corners." },
+    { "viewport": "1000x700", "artifact": "menu-fixture-loading.png", "observation": "Read-only held-loading fixture retains the card and disabled preference/activation controls." },
+    { "viewport": "1000x700", "artifact": "menu-fixture-partial.png", "observation": "Labeled incomplete-model metadata fixture retains the explicit Set up path." }
+  ],
+  "visualRegression": "INCONCLUSIVE: no approved matching pixel baseline.",
+  "limits": ["Injected visible DOM can be observed by the host page; privileged management stays in extension-owned pages.", "Model-state fixtures do not grade inference; actual OCR/NLLB coverage is separate.", "Native permission dialogs, manual screen-reader use and broader device coverage remain untested."]
+}

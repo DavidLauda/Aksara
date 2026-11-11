@@ -1,3 +1,4 @@
+import { dismissActionMenu } from './action-fixture.mjs';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
@@ -116,6 +117,7 @@ async function launch(profile) {
   // This invokes the real extension action and grants activeTab; no fixture host
   // permissions are added to the production manifest or cache-preserving profile.
   await browserSession.send('Extensions.triggerAction', { id: extensionId, targetId: targetInfo.targetId });
+  await dismissActionMenu(page);
   await inject();
 }
 async function inject() {

@@ -1,6 +1,6 @@
 {
   "name": "aksara",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "private": true,
   "type": "module",
   "description": "Private, on-device image translation for Chrome.",
@@ -16,6 +16,7 @@
     "test:hardening": "node scripts/hardening-browser-smoke.mjs",
     "test:glass": "node scripts/glass-browser-smoke.mjs",
     "test:popup": "node scripts/popup-browser-smoke.mjs",
+    "test:menu": "node scripts/page-menu-browser-smoke.mjs",
     "benchmark:fixtures": "node scripts/create-benchmark-corpus.mjs",
     "benchmark": "node scripts/benchmark.mjs"
   },

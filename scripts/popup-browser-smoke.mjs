@@ -76,6 +76,8 @@ try {
   await context.addInitScript(installFixture);
   browserSession = await context.browser().newBrowserCDPSession(); ({ id: extensionId } = await browserSession.send('Extensions.loadUnpacked', { path: extensionPath }));
   bridge = await context.newPage(); await bridge.goto(`chrome-extension://${extensionId}/options.html`);
+  // Legacy native-view regression only. Production uses the in-page menu.
+  await bridge.evaluate(() => chrome.action.setPopup({popup:'popup.html'}));
   report.version = await bridge.evaluate(() => chrome.runtime.getManifest().version);
   page = await context.newPage(); await page.goto(origin); await page.locator('img').evaluate(image => image.decode());
   await check('actual Chrome action popup has intrinsic width and a compact first-use layout', async () => {
