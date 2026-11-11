@@ -15,7 +15,7 @@ import { SITE_SETTINGS_KEY, setSiteAllowed, siteAllowed, siteSettings } from './
   style.textContent = `${css}
     :host{all:initial!important;position:fixed!important;inset:0!important;pointer-events:none!important;z-index:2147483647!important;font:13px/18px system-ui,sans-serif!important;color:#193d30!important;color-scheme:light}
     .menu-popover{position:fixed;inset:auto;top:16px;right:16px;margin:0;padding:0;border:0;width:360px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px);overflow:auto;overscroll-behavior:contain;background:transparent;color:inherit;border-radius:22px;box-shadow:0 8px 30px #10201833;pointer-events:auto}
-    .menu-popover::backdrop{background:transparent}.popup{width:100%;border-radius:22px;background:linear-gradient(145deg,#ffffffc9,#ffffff38),var(--aks-surface,#f8fcf9)}.popup-header{margin-bottom:20px}.menu-close{width:36px;height:36px;min-height:36px;padding:0;line-height:1}.menu-popover[data-model-state=ready] .model-row p:before{background:#267047}.menu-popover[data-model-state=partial] .model-row p:before,.menu-popover[data-model-state=error] .model-row p:before{background:#956405}
+    .menu-popover::backdrop{background:transparent}.popup{width:100%;border-radius:22px;background:linear-gradient(145deg,#ffffffc9,#ffffff38),var(--aks-surface,#f8fcf9)}.popup-header{margin-bottom:20px}.menu-close{display:grid;place-items:center;flex:none;width:36px;height:36px;min-height:36px;padding:0;line-height:1}.menu-close svg{display:block}.menu-popover[data-model-state=ready] .model-row p:before{background:#267047}.menu-popover[data-model-state=partial] .model-row p:before,.menu-popover[data-model-state=error] .model-row p:before{background:#956405}
     .menu-popover.narrow .language-row{grid-template-columns:1fr}.menu-popover.narrow .language-arrow{display:none}
     @media(prefers-reduced-transparency:reduce){.popup{background:var(--aks-surface,#f8fcf9)}}
     @media(forced-colors:active){.menu-popover{box-shadow:none}.popup{background:Canvas}}
@@ -26,7 +26,9 @@ import { SITE_SETTINGS_KEY, setSiteAllowed, siteAllowed, siteSettings } from './
   // This template is bundled repository HTML, never page/OCR/model output.
   const template = document.createElement('template'); template.innerHTML = markup.match(/<main class="popup">[\s\S]*?<\/main>/)![0]; popover.append(template.content.cloneNode(true));
   const find = <T extends HTMLElement>(id: string) => popover.querySelector<T>(`#${id}`)!;
-  const close = document.createElement('button'); close.type = 'button'; close.className = 'menu-close'; close.setAttribute('aria-label','Close Aksara'); close.title = 'Close Aksara'; close.textContent = '×'; close.style.fontSize = '22px'; popover.querySelector('.popup-header')!.append(close);
+  const close = document.createElement('button'); close.type = 'button'; close.className = 'menu-close'; close.setAttribute('aria-label','Close Aksara'); close.title = 'Close Aksara';
+  const closeIcon = document.createElementNS('http://www.w3.org/2000/svg','svg'); closeIcon.setAttribute('viewBox','0 0 24 24'); closeIcon.setAttribute('aria-hidden','true'); closeIcon.setAttribute('focusable','false');
+  const closePath = document.createElementNS(closeIcon.namespaceURI,'path'); closePath.setAttribute('d','M6 6 18 18M18 6 6 18'); closeIcon.append(closePath); close.append(closeIcon); popover.querySelector('.popup-header')!.append(close);
   const source = find<HTMLSelectElement>('source-language'), target = find<HTMLSelectElement>('target-language'), site = find<HTMLInputElement>('site-enabled'), enable = find<HTMLButtonElement>('enable-tab');
   const languageStatus = find('language-status'), siteStatus = find('site-status'), status = find('popup-status'), modelSummary = find('model-summary'), settings = find<HTMLButtonElement>('open-options');
   const origin = location.origin, pageUrl = location.href, previousFocus = document.activeElement as HTMLElement | null;
